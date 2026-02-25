@@ -6,142 +6,147 @@
   <title>ASD Auto Care — Admin</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --black: #0a0a0a; --white: #f5f5f0; --gray-mid: #b0b0a8; --gray-dark: #3a3a38;
-      --accent: #c8b98a; --green: #4caf7d; --red: #e05555; --yellow: #e0b455; --blue: #5588e0;
-      --font-display: 'Cormorant Garamond', serif; --font-body: 'DM Sans', sans-serif;
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --black:#0a0a0a;--white:#f5f5f0;--gray-mid:#b0b0a8;--gray-dark:#3a3a38;
+      --accent:#c8b98a;--green:#4caf7d;--red:#e05555;--yellow:#e0b455;--blue:#5588e0;
+      --font-display:'Cormorant Garamond',serif;--font-body:'DM Sans',sans-serif;
     }
-    body { background: #0a0a0a; color: var(--white); font-family: var(--font-body); font-weight: 300; min-height: 100vh; }
+    body{background:#0a0a0a;color:var(--white);font-family:var(--font-body);font-weight:300;min-height:100vh;}
 
     /* LOGIN */
-    #loginScreen { position: fixed; inset: 0; background: #0a0a0a; display: flex; align-items: center; justify-content: center; z-index: 9999; }
-    .login-box { border: 1px solid rgba(255,255,255,0.08); padding: 3rem 2.5rem; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 1.2rem; background: #0d0d0d; }
-    .login-title { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; text-align: center; }
-    .login-title span { color: var(--accent); }
-    .login-sub { font-size: 0.72rem; color: var(--gray-dark); text-align: center; letter-spacing: 0.12em; text-transform: uppercase; }
-    .login-box input { background: #111; border: 1px solid rgba(255,255,255,0.1); color: var(--white); padding: 0.9rem 1rem; font-family: var(--font-body); font-size: 0.9rem; outline: none; width: 100%; transition: border-color 0.3s; }
-    .login-box input:focus { border-color: var(--accent); }
-    .login-btn { background: var(--white); color: var(--black); border: none; padding: 0.9rem; font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
-    .login-btn:hover { background: var(--accent); }
-    .login-error { font-size: 0.78rem; color: var(--red); text-align: center; display: none; }
+    #loginScreen{position:fixed;inset:0;background:#0a0a0a;display:flex;align-items:center;justify-content:center;z-index:9999;}
+    .login-box{border:1px solid rgba(255,255,255,0.08);padding:3rem 2.5rem;width:100%;max-width:360px;display:flex;flex-direction:column;gap:1.2rem;background:#0d0d0d;}
+    .login-title{font-family:var(--font-display);font-size:1.8rem;font-weight:300;text-align:center;}
+    .login-title span{color:var(--accent);}
+    .login-sub{font-size:0.72rem;color:var(--gray-dark);text-align:center;letter-spacing:0.12em;text-transform:uppercase;}
+    .login-box input{background:#111;border:1px solid rgba(255,255,255,0.1);color:var(--white);padding:0.9rem 1rem;font-family:var(--font-body);font-size:0.9rem;outline:none;width:100%;transition:border-color 0.3s;}
+    .login-box input:focus{border-color:var(--accent);}
+    .login-btn{background:var(--white);color:var(--black);border:none;padding:0.9rem;font-family:var(--font-body);font-size:0.8rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:background 0.3s;}
+    .login-btn:hover{background:var(--accent);}
+    .login-error{font-size:0.78rem;color:var(--red);text-align:center;display:none;}
 
     /* ADMIN */
-    #adminUI { display: none; }
-    header { background: rgba(10,10,10,0.95); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
-    .admin-logo { font-family: var(--font-display); font-size: 1rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
-    .admin-logo span { color: var(--accent); }
-    .header-right { display: flex; align-items: center; gap: 1rem; }
-    .session-timer { font-size: 0.68rem; color: var(--gray-dark); letter-spacing: 0.1em; }
-    .session-timer.warning { color: var(--red); }
-    .logout-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--gray-mid); padding: 0.45rem 1rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: var(--font-body); transition: all 0.3s; }
-    .logout-btn:hover { border-color: var(--red); color: var(--red); }
-    .export-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--gray-mid); padding: 0.45rem 1rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: var(--font-body); transition: all 0.3s; }
-    .export-btn:hover { border-color: var(--accent); color: var(--accent); }
+    #adminUI{display:none;}
+    header{background:rgba(10,10,10,0.95);border-bottom:1px solid rgba(255,255,255,0.06);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
+    .admin-logo{font-family:var(--font-display);font-size:1rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;}
+    .admin-logo span{color:var(--accent);}
+    .live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;display:inline-block;margin-left:8px;animation:pulse 2s infinite;}
+    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+    .header-right{display:flex;align-items:center;gap:0.8rem;}
+    .session-timer{font-size:0.68rem;color:var(--gray-dark);}
+    .session-timer.warning{color:var(--red);}
+    .hdr-btn{background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--gray-mid);padding:0.45rem 1rem;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;font-family:var(--font-body);transition:all 0.3s;}
+    .hdr-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .hdr-btn.danger:hover{border-color:var(--red);color:var(--red);}
 
-    main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    main{max-width:1200px;margin:0 auto;padding:2rem;}
 
-    /* STATS */
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); margin-bottom: 2rem; }
-    .stat-box { background: #0d0d0d; padding: 1.2rem 1rem; text-align: center; }
-    .stat-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 300; line-height: 1; }
-    .stat-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray-dark); margin-top: 0.3rem; }
-    .s-yellow .stat-num { color: var(--yellow); }
-    .s-green .stat-num { color: var(--green); }
-    .s-accent .stat-num { color: var(--accent); }
-    .s-red .stat-num { color: var(--red); }
-    .s-blue .stat-num { color: var(--blue); }
+    /* METRICS */
+    .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);margin-bottom:2rem;}
+    .metric-box{background:#0d0d0d;padding:1.4rem 1.2rem;text-align:center;}
+    .metric-val{font-family:var(--font-display);font-size:2.2rem;font-weight:300;line-height:1;}
+    .metric-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray-dark);margin-top:0.35rem;}
+    .metric-sub{font-size:0.72rem;color:var(--gray-mid);margin-top:0.2rem;}
+    .m-green .metric-val{color:var(--green);}
+    .m-accent .metric-val{color:var(--accent);}
+    .m-yellow .metric-val{color:var(--yellow);}
+    .m-red .metric-val{color:var(--red);}
+    .m-blue .metric-val{color:var(--blue);}
 
     /* TABS */
-    .tabs { display: flex; gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); margin-bottom: 2rem; overflow-x: auto; }
-    .tab-btn { background: #0d0d0d; border: none; color: var(--gray-mid); padding: 0.85rem 1.2rem; font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; white-space: nowrap; flex: 1; }
-    .tab-btn.active { background: var(--white); color: var(--black); font-weight: 500; }
+    .tabs{display:flex;gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);margin-bottom:2rem;overflow-x:auto;}
+    .tab-btn{background:#0d0d0d;border:none;color:var(--gray-mid);padding:0.85rem 1.2rem;font-family:var(--font-body);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;white-space:nowrap;flex:1;}
+    .tab-btn.active{background:var(--white);color:var(--black);font-weight:500;}
 
-    /* FILTERS */
-    .filter-bar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; }
-    .filter-btn { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.08); color: var(--gray-mid); padding: 0.45rem 1rem; font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
-    .filter-btn.active, .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .filter-date { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.08); color: var(--white); padding: 0.45rem 0.8rem; font-family: var(--font-body); font-size: 0.78rem; outline: none; }
+    /* FILTER */
+    .filter-bar{display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap;align-items:center;}
+    .filter-btn{background:#0d0d0d;border:1px solid rgba(255,255,255,0.08);color:var(--gray-mid);padding:0.45rem 1rem;font-family:var(--font-body);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+    .filter-btn.active,.filter-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .filter-date{background:#0d0d0d;border:1px solid rgba(255,255,255,0.08);color:var(--white);padding:0.45rem 0.8rem;font-family:var(--font-body);font-size:0.78rem;outline:none;}
 
     /* CALENDAR */
-    .calendar-day { border: 1px solid rgba(255,255,255,0.06); background: #0d0d0d; margin-bottom: 1.5rem; }
-    .calendar-date-header { padding: 0.8rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; }
-    .calendar-date-label { font-family: var(--font-display); font-size: 1.1rem; }
-    .calendar-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.04); }
-    .cal-slot { background: #0a0a0a; padding: 1rem; min-height: 80px; }
-    .cal-slot-time { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-dark); margin-bottom: 0.5rem; }
-    .cal-slot-free { font-size: 0.75rem; color: var(--gray-dark); font-style: italic; }
-    .cal-slot-name { font-size: 0.85rem; color: var(--white); font-weight: 400; margin-bottom: 0.2rem; }
-    .cal-slot-vehicle { font-size: 0.72rem; color: var(--gray-mid); }
-    .urgent-tag { display: inline-block; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(224,85,85,0.15); color: var(--red); border: 1px solid rgba(224,85,85,0.3); padding: 0.15rem 0.4rem; margin-top: 0.3rem; }
+    .calendar-day{border:1px solid rgba(255,255,255,0.06);background:#0d0d0d;margin-bottom:1.5rem;}
+    .cal-header{padding:0.8rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;}
+    .cal-date{font-family:var(--font-display);font-size:1.1rem;}
+    .cal-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.04);}
+    .cal-slot{background:#0a0a0a;padding:1rem;min-height:80px;}
+    .cal-slot-time{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-dark);margin-bottom:0.5rem;}
+    .cal-slot-free{font-size:0.75rem;color:var(--gray-dark);font-style:italic;}
+    .cal-slot-name{font-size:0.85rem;color:var(--white);font-weight:400;margin-bottom:0.2rem;}
+    .cal-slot-vehicle{font-size:0.72rem;color:var(--gray-mid);}
+    .urgent-pill{display:inline-block;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(224,85,85,0.15);color:var(--red);border:1px solid rgba(224,85,85,0.3);padding:0.12rem 0.4rem;margin-top:0.3rem;}
 
-    /* CARDS */
-    .section-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 300; margin-bottom: 1.2rem; }
-    .reservations-list { display: flex; flex-direction: column; gap: 1px; }
-    .reservation-card { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.05); padding: 1.2rem 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 1rem; align-items: start; transition: background 0.2s; }
-    .reservation-card:hover { background: #111; }
-    .reservation-card.urgent { border-left: 2px solid var(--red); }
-    .res-name { font-size: 0.95rem; font-weight: 400; color: var(--white); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
-    .res-details { font-size: 0.75rem; color: var(--gray-mid); line-height: 1.7; }
-    .res-date { font-family: var(--font-display); font-size: 1.05rem; color: var(--white); }
-    .res-hora { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-top: 0.2rem; }
-    .pay-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-dark); margin-bottom: 0.4rem; }
-    .pay-select { background: #111; border: 1px solid rgba(255,255,255,0.08); color: var(--white); padding: 0.4rem 0.6rem; font-family: var(--font-body); font-size: 0.78rem; outline: none; cursor: pointer; width: 100%; }
-    .res-actions { display: flex; flex-direction: column; gap: 0.4rem; }
-    .action-btn { border: none; padding: 0.42rem 0.9rem; font-family: var(--font-body); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; white-space: nowrap; display: flex; align-items: center; gap: 0.3rem; justify-content: center; text-decoration: none; }
-    .action-btn:hover { opacity: 0.8; }
-    .btn-confirm   { background: var(--green); color: #fff; }
-    .btn-complete  { background: var(--accent); color: var(--black); }
-    .btn-reschedule { background: var(--blue); color: #fff; }
-    .btn-wa        { background: #25D366; color: #fff; }
-    .btn-cancel    { background: transparent; border: 1px solid var(--red) !important; color: var(--red); }
+    /* SECTION TITLE */
+    .sec-title{font-family:var(--font-display);font-size:1.3rem;font-weight:300;margin-bottom:1rem;}
 
-    .status-badge { display: inline-flex; align-items: center; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.5rem; }
-    .badge-pendiente   { background: rgba(224,180,85,0.12); color: var(--yellow); border: 1px solid rgba(224,180,85,0.3); }
-    .badge-confirmada  { background: rgba(76,175,125,0.12); color: var(--green); border: 1px solid rgba(76,175,125,0.3); }
-    .badge-completada  { background: rgba(200,185,138,0.12); color: var(--accent); border: 1px solid rgba(200,185,138,0.3); }
-    .badge-cancelada   { background: rgba(224,85,85,0.12); color: var(--red); border: 1px solid rgba(224,85,85,0.3); }
-    .badge-paid   { background: rgba(76,175,125,0.12); color: var(--green); border: 1px solid rgba(76,175,125,0.3); font-size: 0.58rem; }
-    .badge-unpaid { background: rgba(224,180,85,0.12); color: var(--yellow); border: 1px solid rgba(224,180,85,0.3); font-size: 0.58rem; }
+    /* RESERVATION CARD */
+    .res-list{display:flex;flex-direction:column;gap:1px;}
+    .res-card{background:#0d0d0d;border:1px solid rgba(255,255,255,0.05);padding:1.2rem 1.5rem;display:grid;grid-template-columns:1fr 140px 120px auto;gap:1rem;align-items:start;transition:background 0.2s;}
+    .res-card:hover{background:#111;}
+    .res-card.urgent{border-left:2px solid var(--red);}
+    .res-name-row{font-size:0.9rem;font-weight:400;color:var(--white);display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.4rem;}
+    .res-details{font-size:0.73rem;color:var(--gray-mid);line-height:1.75;}
+    .res-date-col{display:flex;flex-direction:column;gap:0.2rem;}
+    .res-date{font-family:var(--font-display);font-size:1rem;color:var(--white);}
+    .res-hora{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);}
+    .res-created{font-size:0.65rem;color:var(--gray-dark);margin-top:0.3rem;}
+    .pay-col{display:flex;flex-direction:column;gap:0.4rem;}
+    .pay-label{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-dark);}
+    .pay-select{background:#111;border:1px solid rgba(255,255,255,0.08);color:var(--white);padding:0.38rem 0.6rem;font-family:var(--font-body);font-size:0.75rem;outline:none;cursor:pointer;width:100%;}
+    .res-actions{display:flex;flex-direction:column;gap:0.35rem;}
+    .abtn{border:none;padding:0.38rem 0.85rem;font-family:var(--font-body);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:opacity 0.2s;white-space:nowrap;display:flex;align-items:center;gap:0.3rem;justify-content:center;text-decoration:none;}
+    .abtn:hover{opacity:0.8;}
+    .abtn:disabled{opacity:0.3;cursor:not-allowed;}
+    .btn-confirm{background:var(--green);color:#fff;}
+    .btn-paid{background:var(--blue);color:#fff;}
+    .btn-complete{background:var(--accent);color:var(--black);}
+    .btn-wa{background:#25D366;color:#fff;}
+    .btn-cancel{background:transparent;border:1px solid var(--red)!important;color:var(--red);}
+    .btn-delete{background:transparent;border:1px solid rgba(224,85,85,0.4)!important;color:rgba(224,85,85,0.7);}
+    .btn-perm-delete{background:var(--red);color:#fff;}
+
+    /* BADGES */
+    .badge{display:inline-flex;align-items:center;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.5rem;}
+    .b-pendiente{background:rgba(224,180,85,0.12);color:var(--yellow);border:1px solid rgba(224,180,85,0.3);}
+    .b-confirmada{background:rgba(76,175,125,0.12);color:var(--green);border:1px solid rgba(76,175,125,0.3);}
+    .b-completada{background:rgba(200,185,138,0.12);color:var(--accent);border:1px solid rgba(200,185,138,0.3);}
+    .b-cancelada{background:rgba(224,85,85,0.12);color:var(--red);border:1px solid rgba(224,85,85,0.3);}
+    .b-eliminada{background:rgba(100,100,100,0.12);color:var(--gray-mid);border:1px solid rgba(100,100,100,0.3);}
+    .b-paid{background:rgba(76,175,125,0.12);color:var(--green);border:1px solid rgba(76,175,125,0.3);font-size:0.56rem;}
+    .b-unpaid{background:rgba(224,180,85,0.12);color:var(--yellow);border:1px solid rgba(224,180,85,0.3);font-size:0.56rem;}
+
+    /* HISTORIAL BLOCKS */
+    .hist-block{margin-bottom:2.5rem;}
+    .hist-block-title{font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(255,255,255,0.06);}
 
     /* MODAL */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 800; align-items: center; justify-content: center; }
-    .modal-overlay.show { display: flex; }
-    .modal-box { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.1); padding: 2rem; width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 1rem; }
-    .modal-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 300; }
-    .modal-box input, .modal-box select { background: #111; border: 1px solid rgba(255,255,255,0.08); color: var(--white); padding: 0.7rem 0.9rem; font-family: var(--font-body); font-size: 0.85rem; outline: none; width: 100%; }
-    .modal-actions { display: flex; gap: 0.5rem; }
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:800;align-items:center;justify-content:center;}
+    .modal-overlay.show{display:flex;}
+    .modal-box{background:#0d0d0d;border:1px solid rgba(255,255,255,0.1);padding:2rem;width:100%;max-width:380px;display:flex;flex-direction:column;gap:1rem;}
+    .modal-title{font-family:var(--font-display);font-size:1.3rem;font-weight:300;}
+    .modal-box input,.modal-box select{background:#111;border:1px solid rgba(255,255,255,0.08);color:var(--white);padding:0.7rem 0.9rem;font-family:var(--font-body);font-size:0.85rem;outline:none;width:100%;}
+    .modal-actions{display:flex;gap:0.5rem;}
 
     /* ADD FORM */
-    .add-form { border: 1px solid rgba(255,255,255,0.06); padding: 1.5rem; background: #0d0d0d; margin-bottom: 2rem; }
-    .add-form-title { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
-    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.7rem; margin-bottom: 0.7rem; }
-    .form-row input, .form-row select { background: #111; border: 1px solid rgba(255,255,255,0.08); color: var(--white); padding: 0.65rem 0.9rem; font-family: var(--font-body); font-size: 0.82rem; outline: none; width: 100%; }
-    .form-row select option { background: #111; }
+    .add-form{border:1px solid rgba(255,255,255,0.06);padding:1.5rem;background:#0d0d0d;margin-bottom:2rem;}
+    .add-form-title{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
+    .form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.6rem;margin-bottom:0.6rem;}
+    .form-row input,.form-row select{background:#111;border:1px solid rgba(255,255,255,0.08);color:var(--white);padding:0.6rem 0.85rem;font-family:var(--font-body);font-size:0.8rem;outline:none;width:100%;}
+    .form-row select option{background:#111;}
 
     /* REVIEWS */
-    .review-admin-card { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.05); padding: 1.2rem 1.5rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; margin-bottom: 1px; }
-    .rev-stars { color: var(--accent); font-size: 0.85rem; margin-bottom: 0.3rem; }
-    .rev-text { font-size: 0.85rem; color: var(--gray-mid); font-style: italic; margin-bottom: 0.3rem; }
-    .rev-author { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-dark); }
-    .rev-actions { display: flex; gap: 0.4rem; }
+    .rev-card{background:#0d0d0d;border:1px solid rgba(255,255,255,0.05);padding:1.1rem 1.4rem;display:grid;grid-template-columns:1fr auto;gap:1rem;margin-bottom:1px;}
+    .rev-stars{color:var(--accent);font-size:0.82rem;margin-bottom:0.25rem;}
+    .rev-text{font-size:0.82rem;color:var(--gray-mid);font-style:italic;margin-bottom:0.25rem;}
+    .rev-author{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray-dark);}
+    .rev-actions{display:flex;gap:0.4rem;flex-wrap:wrap;align-items:flex-start;}
 
-    /* STATS TAB */
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); }
-    .stats-card { background: #0d0d0d; padding: 1.8rem 1.5rem; }
-    .stats-card-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-dark); margin-bottom: 0.8rem; }
-    .stats-card-value { font-family: var(--font-display); font-size: 2.8rem; font-weight: 300; line-height: 1; }
-    .stats-card-sub { font-size: 0.75rem; color: var(--gray-mid); margin-top: 0.4rem; }
+    .empty-state{padding:3rem;text-align:center;color:var(--gray-dark);font-size:0.82rem;border:1px solid rgba(255,255,255,0.04);}
+    input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:0.4;cursor:pointer;}
 
-    .empty-state { padding: 3rem; text-align: center; color: var(--gray-dark); font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.04); }
-    .live-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.4; cursor: pointer; }
-
-    @media (max-width: 768px) {
-      .reservation-card { grid-template-columns: 1fr; }
-      .calendar-slots { grid-template-columns: 1fr; }
-      main { padding: 1rem; }
+    @media(max-width:768px){
+      .res-card{grid-template-columns:1fr;} .cal-slots{grid-template-columns:1fr;} main{padding:1rem;}
     }
   </style>
 </head>
@@ -169,8 +174,20 @@
       <option value="2:00 PM">2:00 PM</option>
     </select>
     <div class="modal-actions">
-      <button class="action-btn btn-confirm" style="flex:1;padding:0.7rem;" onclick="confirmReschedule()">Confirmar</button>
-      <button class="action-btn btn-cancel" style="flex:1;padding:0.7rem;" onclick="closeModal()">Cancelar</button>
+      <button class="abtn btn-confirm" style="flex:1;padding:0.7rem;" onclick="confirmReschedule()">Confirmar</button>
+      <button class="abtn btn-cancel" style="flex:1;padding:0.7rem;" onclick="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE MODAL -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal-box">
+    <p class="modal-title">¿Eliminar definitivamente?</p>
+    <p style="font-size:0.82rem;color:var(--gray-mid);line-height:1.6;">Esta acción no se puede deshacer. El registro será eliminado permanentemente de la base de datos.</p>
+    <div class="modal-actions">
+      <button class="abtn btn-perm-delete" style="flex:1;padding:0.7rem;" onclick="confirmPermDelete()">Eliminar</button>
+      <button class="abtn btn-cancel" style="flex:1;padding:0.7rem;" onclick="closeModal()">Cancelar</button>
     </div>
   </div>
 </div>
@@ -178,21 +195,23 @@
 <!-- ADMIN UI -->
 <div id="adminUI">
   <header>
-    <div class="admin-logo">ASD <span>Auto</span> Care <span style="color:var(--gray-dark);font-size:0.65rem;letter-spacing:0.2em;margin-left:0.5rem;">ADMIN</span> <span class="live-dot" title="Tiempo real"></span></div>
+    <div class="admin-logo">ASD <span>Auto</span> Care <span style="color:var(--gray-dark);font-size:0.62rem;letter-spacing:0.2em;margin-left:6px;">ADMIN</span><span class="live-dot" title="Tiempo real"></span></div>
     <div class="header-right">
       <span class="session-timer" id="sessionTimer"></span>
-      <button class="export-btn" onclick="exportCSV()">💾 CSV</button>
-      <button class="logout-btn" onclick="logout()">Salir</button>
+      <button class="hdr-btn" onclick="exportCSV()">💾 CSV</button>
+      <button class="hdr-btn danger" onclick="logout()">Salir</button>
     </div>
   </header>
 
   <main>
-    <div class="stats" id="statsBox"></div>
+    <!-- METRICS -->
+    <div class="metrics" id="metricsBox"></div>
+
+    <!-- TABS -->
     <div class="tabs">
       <button class="tab-btn active" onclick="showTab('hoy')">📅 Hoy</button>
-      <button class="tab-btn" onclick="showTab('reservas')">📋 Reservas</button>
+      <button class="tab-btn" onclick="showTab('activas')">📋 Activas</button>
       <button class="tab-btn" onclick="showTab('historial')">🗂 Historial</button>
-      <button class="tab-btn" onclick="showTab('estadisticas')">📊 Stats</button>
       <button class="tab-btn" onclick="showTab('resenas')">⭐ Reseñas</button>
     </div>
 
@@ -207,8 +226,8 @@
       <div id="calendarView"></div>
     </div>
 
-    <!-- RESERVAS -->
-    <div id="tab-reservas" style="display:none;">
+    <!-- ACTIVAS -->
+    <div id="tab-activas" style="display:none;">
       <div class="add-form">
         <p class="add-form-title">+ Agregar reserva manual</p>
         <div class="form-row">
@@ -218,356 +237,326 @@
           <input type="text" id="addLote" placeholder="Lote" />
         </div>
         <div class="form-row">
-          <select id="addVehiculo"><option value="Sedán – Q80">Sedán – Q80</option><option value="Pickup / SUV – Q95">Pickup / SUV – Q95</option></select>
+          <select id="addVehiculo">
+            <option value="Sedán">Sedán – Q80</option>
+            <option value="Pickup / SUV">Pickup / SUV – Q95</option>
+          </select>
           <input type="date" id="addFecha" />
-          <select id="addHora"><option value="8:00 AM">8:00 AM</option><option value="11:00 AM">11:00 AM</option><option value="2:00 PM">2:00 PM</option></select>
-          <select id="addPago"><option value="pending">Pago pendiente</option><option value="paid">Pagado</option></select>
+          <select id="addHora">
+            <option value="8:00 AM">8:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="2:00 PM">2:00 PM</option>
+          </select>
+          <select id="addEstadoPago">
+            <option value="pendiente">Pago pendiente</option>
+            <option value="pagado">Pagado</option>
+          </select>
         </div>
-        <button class="action-btn btn-confirm" style="padding:0.6rem 1.5rem;" onclick="addManual()">+ Agregar</button>
+        <button class="abtn btn-confirm" style="padding:0.6rem 1.4rem;" onclick="addManual()">+ Agregar</button>
       </div>
-      <h2 class="section-title">Reservas activas</h2>
-      <div class="reservations-list" id="activeList"></div>
+      <p class="sec-title">Reservas activas</p>
+      <div class="res-list" id="activeList"></div>
     </div>
 
     <!-- HISTORIAL -->
     <div id="tab-historial" style="display:none;">
-      <h2 class="section-title">Historial</h2>
-      <div class="reservations-list" id="historyList"></div>
-    </div>
-
-    <!-- ESTADÍSTICAS -->
-    <div id="tab-estadisticas" style="display:none;">
-      <div class="stats-grid" id="statsDetail"></div>
-      <button class="export-btn" onclick="exportCSV()" style="margin-top:1.5rem;">💾 Descargar CSV completo</button>
+      <div class="hist-block">
+        <p class="hist-block-title">✓ Completadas</p>
+        <div class="res-list" id="histCompletadas"></div>
+      </div>
+      <div class="hist-block">
+        <p class="hist-block-title">✕ Canceladas</p>
+        <div class="res-list" id="histCanceladas"></div>
+      </div>
+      <div class="hist-block">
+        <p class="hist-block-title">🗑 Reservas Eliminadas</p>
+        <div class="res-list" id="histEliminadas"></div>
+      </div>
     </div>
 
     <!-- RESEÑAS -->
     <div id="tab-resenas" style="display:none;">
-      <h2 class="section-title">Pendientes de aprobación</h2>
-      <div id="reviewsPendingList"></div>
-      <h2 class="section-title" style="margin-top:2rem;">Publicadas</h2>
-      <div id="reviewsPublishedList"></div>
+      <p class="sec-title">Pendientes de aprobación</p>
+      <div id="resPendientes"></div>
+      <p class="sec-title" style="margin-top:2rem;">Publicadas</p>
+      <div id="resPublicadas"></div>
     </div>
   </main>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// ── SUPABASE ──
 const SUPABASE_URL = 'https://ywjmksluykdwdjhjtgeg.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_W_8ew5JXHQOStCnKJ9I81Q_1ppabff1';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // ── SECURITY ──
 const PASS_HASH = btoa('AsdAutoCare2196');
-const SESSION_DURATION = 25 * 60 * 1000;
-const MAX_ATTEMPTS = 5;
-const LOCKOUT = 10 * 60 * 1000;
-let sessionTimer, rescheduleId, currentFilter = 'today';
-let allReservations = [];
+const SESSION_MS = 25 * 60 * 1000;
+const MAX_ATT = 5;
+const LOCKOUT_MS = 10 * 60 * 1000;
+let sessionInterval, rescheduleId = null, deleteId = null;
+let allReservations = [], allResenas = [];
+let currentFilter = 'today';
 
-function getAttempts() { try { return JSON.parse(sessionStorage.getItem('asd_att')||'{"c":0,"l":0}'); } catch(e){return{c:0,l:0};} }
-function saveAttempts(a) { sessionStorage.setItem('asd_att', JSON.stringify(a)); }
+function getAtt(){try{return JSON.parse(sessionStorage.getItem('asd_att')||'{"c":0,"l":0}');}catch(e){return{c:0,l:0};}}
+function saveAtt(a){sessionStorage.setItem('asd_att',JSON.stringify(a));}
 
-function login() {
-  const att = getAttempts();
-  if (att.l > Date.now()) { showErr(`Bloqueado. Espera ${Math.ceil((att.l-Date.now())/60000)} min.`); return; }
-  const val = document.getElementById('passwordInput').value;
-  if (btoa(val) === PASS_HASH) {
-    saveAttempts({c:0,l:0});
-    sessionStorage.setItem('asd_exp', Date.now() + SESSION_DURATION);
-    showAdmin();
-  } else {
-    att.c++;
-    if (att.c >= MAX_ATTEMPTS) { att.l = Date.now()+LOCKOUT; att.c=0; showErr('Bloqueado 10 min.'); }
-    else showErr(`Contraseña incorrecta. Intentos restantes: ${MAX_ATTEMPTS-att.c}`);
-    saveAttempts(att);
-    document.getElementById('passwordInput').value = '';
-  }
+function login(){
+  const att=getAtt();
+  if(att.l>Date.now()){showErr(`Bloqueado ${Math.ceil((att.l-Date.now())/60000)} min.`);return;}
+  const v=document.getElementById('passwordInput').value;
+  if(btoa(v)===PASS_HASH){saveAtt({c:0,l:0});sessionStorage.setItem('asd_exp',Date.now()+SESSION_MS);showAdmin();}
+  else{att.c++;if(att.c>=MAX_ATT){att.l=Date.now()+LOCKOUT_MS;att.c=0;showErr('Bloqueado 10 min.');}else{showErr(`Incorrecta. Intentos: ${MAX_ATT-att.c}`);}saveAtt(att);document.getElementById('passwordInput').value='';}
 }
-function showErr(m) { const e=document.getElementById('loginError'); e.textContent=m; e.style.display='block'; }
-function logout() { sessionStorage.removeItem('asd_exp'); clearInterval(sessionTimer); location.reload(); }
+function showErr(m){const e=document.getElementById('loginError');e.textContent=m;e.style.display='block';}
+function logout(){sessionStorage.removeItem('asd_exp');clearInterval(sessionInterval);location.reload();}
 
-function showAdmin() {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('adminUI').style.display = 'block';
-  startTimer();
-  loadData();
-  subscribeRealtime();
+function showAdmin(){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('adminUI').style.display='block';
+  startSessionTimer();loadData();subscribeRT();
 }
 
-function startTimer() {
-  sessionTimer = setInterval(() => {
-    const exp = parseInt(sessionStorage.getItem('asd_exp')||'0');
-    const rem = exp - Date.now();
-    if (rem <= 0) { logout(); return; }
-    const el = document.getElementById('sessionTimer');
-    el.textContent = `Sesión: ${Math.floor(rem/60000)}:${String(Math.floor((rem%60000)/1000)).padStart(2,'0')}`;
-    el.className = 'session-timer' + (rem < 180000 ? ' warning' : '');
-  }, 1000);
-  ['click','keydown'].forEach(e => document.addEventListener(e, () => {
-    if (sessionStorage.getItem('asd_exp')) sessionStorage.setItem('asd_exp', Date.now()+SESSION_DURATION);
-  }, {passive:true}));
+function startSessionTimer(){
+  sessionInterval=setInterval(()=>{
+    const exp=parseInt(sessionStorage.getItem('asd_exp')||'0');
+    const rem=exp-Date.now();
+    if(rem<=0){logout();return;}
+    const el=document.getElementById('sessionTimer');
+    el.textContent=`Sesión: ${Math.floor(rem/60000)}:${String(Math.floor((rem%60000)/1000)).padStart(2,'0')}`;
+    el.className='session-timer'+(rem<180000?' warning':'');
+  },1000);
+  ['click','keydown'].forEach(e=>document.addEventListener(e,()=>{if(sessionStorage.getItem('asd_exp'))sessionStorage.setItem('asd_exp',Date.now()+SESSION_MS);},{passive:true}));
 }
 
-if (sessionStorage.getItem('asd_exp') && parseInt(sessionStorage.getItem('asd_exp')) > Date.now()) showAdmin();
+if(sessionStorage.getItem('asd_exp')&&parseInt(sessionStorage.getItem('asd_exp'))>Date.now())showAdmin();
 
-// ── LOAD DATA ──
-async function loadData() {
-  const { data } = await sb.from('reservas').select('*').order('fecha', {ascending:true}).order('hora', {ascending:true});
-  allReservations = data || [];
+// ── DATA ──
+async function loadData(){
+  const[r1,r2]=await Promise.all([
+    sb.from('reservas').select('*').order('created_at',{ascending:false}),
+    sb.from('resenas').select('*').order('created_at',{ascending:false})
+  ]);
+  allReservations=r1.data||[];
+  allResenas=r2.data||[];
   renderAll();
 }
 
-// ── REALTIME ──
-function subscribeRealtime() {
-  sb.channel('reservas-changes')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'reservas' }, () => loadData())
-    .subscribe();
+function subscribeRT(){
+  sb.channel('rt').on('postgres_changes',{event:'*',schema:'public',table:'reservas'},()=>loadData())
+    .on('postgres_changes',{event:'*',schema:'public',table:'resenas'},()=>loadData()).subscribe();
 }
 
-// ── DATE HELPERS ──
-function todayStr() { return new Date().toISOString().split('T')[0]; }
-function tomorrowStr() { const d=new Date(); d.setDate(d.getDate()+1); return d.toISOString().split('T')[0]; }
-function weekDates() { const dates=[]; for(let i=0;i<7;i++){const d=new Date();d.setDate(d.getDate()+i);dates.push(d.toISOString().split('T')[0]);} return dates; }
-function formatDate(s) { if(!s)return''; const [y,m,d]=s.split('-'); const months=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']; return `${d} ${months[parseInt(m)-1]} ${y}`; }
-function isUrgent(fecha,hora) { const map={'8:00 AM':'08:00','11:00 AM':'11:00','2:00 PM':'14:00'}; const t=new Date(`${fecha}T${map[hora]||'08:00'}:00`); return (t-Date.now())<12*3600000 && t>Date.now(); }
+// ── HELPERS ──
+function todayStr(){return new Date().toISOString().split('T')[0];}
+function tomorrowStr(){const d=new Date();d.setDate(d.getDate()+1);return d.toISOString().split('T')[0];}
+function weekDates(){const a=[];for(let i=0;i<7;i++){const d=new Date();d.setDate(d.getDate()+i);a.push(d.toISOString().split('T')[0]);}return a;}
+function fmtDate(s){if(!s)return'';const[y,m,d]=String(s).split('T')[0].split('-');const mo=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];return`${d} ${mo[parseInt(m)-1]} ${y}`;}
+function fmtDateTime(s){if(!s)return'';const d=new Date(s);return`${d.toLocaleDateString('es-GT')} ${d.toLocaleTimeString('es-GT',{hour:'2-digit',minute:'2-digit'})}`;}
+function isUrgent(fecha,hora){const map={'8:00 AM':'08:00','11:00 AM':'11:00','2:00 PM':'14:00'};const t=new Date(`${String(fecha).split('T')[0]}T${map[hora]||'08:00'}:00`);return(t-Date.now())<12*3600000&&t>Date.now();}
+function badge(s){return`<span class="badge b-${s}">${s}</span>`;}
+function payBadge(s){return`<span class="badge ${s==='pagado'?'b-paid':'b-unpaid'}">${s==='pagado'?'✅ Pagado':'⏳ Sin cobrar'}</span>`;}
 
-// ── STATS ──
-function renderStats() {
-  const r = allReservations;
-  const p = r.filter(x=>x.status==='pendiente').length;
-  const c = r.filter(x=>x.status==='confirmada').length;
-  const co = r.filter(x=>x.status==='completada').length;
-  const ca = r.filter(x=>x.status==='cancelada').length;
-  const u = r.filter(x=>(x.status==='confirmada'||x.status==='pendiente')&&x.pay_status!=='paid').length;
-  document.getElementById('statsBox').innerHTML = `
-    <div class="stat-box s-yellow"><div class="stat-num">${p}</div><div class="stat-label">Pendientes</div></div>
-    <div class="stat-box s-green"><div class="stat-num">${c}</div><div class="stat-label">Confirmadas</div></div>
-    <div class="stat-box s-accent"><div class="stat-num">${co}</div><div class="stat-label">Completadas</div></div>
-    <div class="stat-box s-red"><div class="stat-num">${ca}</div><div class="stat-label">Canceladas</div></div>
-    <div class="stat-box s-blue"><div class="stat-num">${u}</div><div class="stat-label">Sin cobrar</div></div>`;
+// ── METRICS ──
+function renderMetrics(){
+  const r=allReservations;
+  const now=new Date();const weekAgo=new Date(now-7*86400000).toISOString().split('T')[0];
+  const completadas=r.filter(x=>x.status==='completada'&&x.estado_pago==='pagado');
+  const ingTotal=completadas.reduce((s,x)=>s+(x.precio||0),0);
+  const ingWeek=completadas.filter(x=>{const f=String(x.fecha).split('T')[0];return f>=weekAgo;}).reduce((s,x)=>s+(x.precio||0),0);
+  const totalCompleted=r.filter(x=>x.status==='completada').length;
+  const totalCanceladas=r.filter(x=>x.status==='cancelada').length;
+  const totalAll=r.filter(x=>x.status!=='eliminada').length;
+  const cancelRate=totalAll?Math.round(totalCanceladas/totalAll*100):0;
+  const pendientes=r.filter(x=>x.status==='pendiente').length;
+  const confirmadas=r.filter(x=>x.status==='confirmada').length;
+  document.getElementById('metricsBox').innerHTML=`
+    <div class="metric-box m-green"><div class="metric-val">Q${ingTotal}</div><div class="metric-label">Ingresos totales</div><div class="metric-sub">Completadas + pagadas</div></div>
+    <div class="metric-box m-accent"><div class="metric-val">Q${ingWeek}</div><div class="metric-label">Esta semana</div><div class="metric-sub">Últimos 7 días</div></div>
+    <div class="metric-box m-blue"><div class="metric-val">${totalCompleted}</div><div class="metric-label">Trabajos completados</div></div>
+    <div class="metric-box m-red"><div class="metric-val">${cancelRate}%</div><div class="metric-label">Tasa cancelación</div><div class="metric-sub">${totalCanceladas} de ${totalAll}</div></div>
+    <div class="metric-box m-yellow"><div class="metric-val">${pendientes}</div><div class="metric-label">Pendientes</div></div>
+    <div class="metric-box m-green"><div class="metric-val">${confirmadas}</div><div class="metric-label">Confirmadas</div></div>`;
 }
 
 // ── TABS ──
-const TABS = ['hoy','reservas','historial','estadisticas','resenas'];
-function showTab(t) {
-  TABS.forEach((tab,i) => {
-    document.getElementById('tab-'+tab).style.display = tab===t?'block':'none';
-    document.querySelectorAll('.tab-btn')[i].classList.toggle('active', tab===t);
-  });
-  renderAll();
-}
+const TABS=['hoy','activas','historial','resenas'];
+function showTab(t){TABS.forEach((tab,i)=>{document.getElementById('tab-'+tab).style.display=tab===t?'block':'none';document.querySelectorAll('.tab-btn')[i].classList.toggle('active',tab===t);});renderAll();}
 
 // ── FILTER ──
-function setFilter(f, btn) {
-  currentFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  renderCalendar();
-}
-function getFilterDates() {
-  if (currentFilter==='today') return [todayStr()];
-  if (currentFilter==='tomorrow') return [tomorrowStr()];
-  if (currentFilter==='week') return weekDates();
-  const v = document.getElementById('customDate')?.value;
-  return v ? [v] : [todayStr()];
+function setFilter(f,btn){currentFilter=f;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderCalendar();}
+function getFilterDates(){
+  if(currentFilter==='today')return[todayStr()];
+  if(currentFilter==='tomorrow')return[tomorrowStr()];
+  if(currentFilter==='week')return weekDates();
+  const v=document.getElementById('customDate')?.value;return v?[v]:[todayStr()];
 }
 
 // ── CALENDAR ──
-function renderCalendar() {
-  const dates = getFilterDates();
-  const container = document.getElementById('calendarView');
-  if (!container) return;
-  const slots = ['8:00 AM','11:00 AM','2:00 PM'];
-  const days = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
-  let html = '';
-  dates.forEach(date => {
-    const dayRes = allReservations.filter(r=>r.fecha===date && r.status!=='cancelada');
-    const d = new Date(date+'T12:00:00');
-    html += `<div class="calendar-day">
-      <div class="calendar-date-header">
-        <div class="calendar-date-label">${formatDate(date)} <span style="color:var(--accent);font-size:0.8em;">${days[d.getDay()]}</span></div>
-        ${date===todayStr()?'<span class="status-badge badge-confirmada">Hoy</span>':''}
-      </div>
-      <div class="calendar-slots">`;
-    slots.forEach(slot => {
-      const b = dayRes.find(r=>r.hora===slot);
-      const urg = b && isUrgent(date,slot);
-      if (b) {
-        html += `<div class="cal-slot" style="background:#0f0f0f;">
-          <div class="cal-slot-time">${slot}</div>
-          <div class="cal-slot-name">${b.nombre}</div>
-          <div class="cal-slot-vehicle">${b.vehiculo||''}</div>
-          <span class="status-badge badge-${b.status}">${b.status}</span>
-          ${urg?'<div class="urgent-tag">⚡ Próxima</div>':''}
-        </div>`;
-      } else {
-        html += `<div class="cal-slot"><div class="cal-slot-time">${slot}</div><div class="cal-slot-free">Disponible</div></div>`;
-      }
+function renderCalendar(){
+  const container=document.getElementById('calendarView');if(!container)return;
+  const dates=getFilterDates();
+  const slots=['8:00 AM','11:00 AM','2:00 PM'];
+  const days=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  let html='';
+  dates.forEach(date=>{
+    const dayRes=allReservations.filter(r=>{const f=String(r.fecha).split('T')[0];return f===date&&r.status!=='cancelada'&&r.status!=='eliminada';});
+    const d=new Date(date+'T12:00:00');
+    html+=`<div class="calendar-day"><div class="cal-header"><div class="cal-date">${fmtDate(date)} <span style="color:var(--accent);font-size:0.8em;">${days[d.getDay()]}</span></div>${date===todayStr()?'<span class="badge b-confirmada">Hoy</span>':''}</div><div class="cal-slots">`;
+    slots.forEach(slot=>{
+      const b=dayRes.find(r=>r.hora===slot);const urg=b&&isUrgent(date,slot);
+      if(b){html+=`<div class="cal-slot" style="background:#0f0f0f;"><div class="cal-slot-time">${slot}</div><div class="cal-slot-name">${b.nombre}</div><div class="cal-slot-vehicle">${b.tipo_vehiculo||''} ${b.precio?'· Q'+b.precio:''}</div>${badge(b.status)}${urg?'<div class="urgent-pill">⚡ Próxima</div>':''}</div>`;}
+      else{html+=`<div class="cal-slot"><div class="cal-slot-time">${slot}</div><div class="cal-slot-free">Disponible</div></div>`;}
     });
-    html += `</div></div>`;
+    html+=`</div></div>`;
   });
-  container.innerHTML = html || '<div class="empty-state">No hay reservas para este período.</div>';
+  container.innerHTML=html||'<div class="empty-state">No hay reservas para este período.</div>';
 }
 
-// ── BADGE ──
-function badge(s) { return `<span class="status-badge badge-${s}">${s}</span>`; }
-
 // ── RENDER CARD ──
-function renderCard(r) {
-  const active = r.status==='pendiente'||r.status==='confirmada';
-  const urg = active && isUrgent(r.fecha, r.hora);
-  const tel = (r.telefono||'').replace(/\D/g,'');
-  const waMsg = encodeURIComponent(`Hola ${r.nombre}, te confirmamos tu cita de lavado el ${formatDate(r.fecha)} a las ${r.hora}. ¡Estaremos puntuales! — ASD Auto Care`);
-  return `<div class="reservation-card${urg?' urgent':''}">
+function renderCard(r,showHistory=false){
+  const active=r.status==='pendiente'||r.status==='confirmada';
+  const urg=active&&isUrgent(String(r.fecha).split('T')[0],r.hora);
+  const tel=(r.telefono||'').replace(/\D/g,'');
+  const waMsg=encodeURIComponent(`Hola ${r.nombre}, te confirmamos tu cita de lavado el ${fmtDate(r.fecha)} a las ${r.hora}. ¡Estaremos puntuales! — ASD Auto Care`);
+  const canComplete=r.estado_pago==='pagado';
+  const fechaStr=String(r.fecha).split('T')[0];
+
+  let actions='';
+  if(active){
+    actions+=`<a href="https://wa.me/502${tel}?text=${waMsg}" target="_blank" class="abtn btn-wa">💬 Contactar</a>`;
+    if(r.status==='pendiente')actions+=`<button class="abtn btn-confirm" onclick="updateStatus('${r.id}','confirmada')">✓ Confirmar</button>`;
+    if(r.estado_pago!=='pagado')actions+=`<button class="abtn btn-paid" onclick="updatePago('${r.id}','pagado')">💰 Pagado</button>`;
+    if(r.status==='confirmada')actions+=`<button class="abtn btn-complete" ${canComplete?'':'disabled title="Debe estar pagado primero"'} onclick="${canComplete?`updateStatus('${r.id}','completada')`:''}">✓ Completar</button>`;
+    actions+=`<button class="abtn btn-cancel" onclick="updateStatus('${r.id}','cancelada')">✕ Cancelar</button>`;
+    actions+=`<button class="abtn btn-delete" onclick="updateStatus('${r.id}','eliminada')">🗑 Eliminar</button>`;
+  }
+  if(showHistory&&(r.status==='completada'||r.status==='cancelada'||r.status==='eliminada')){
+    actions+=`<button class="abtn btn-perm-delete" onclick="openPermDelete('${r.id}')">🗑 Eliminar definitivamente</button>`;
+  }
+
+  return`<div class="res-card${urg?' urgent':''}">
     <div>
-      <div class="res-name">${r.nombre} ${badge(r.status)} ${urg?'<span class="urgent-tag">⚡</span>':''}</div>
-      <div class="res-details">📞 ${r.telefono||'—'}<br>📍 Mz. ${r.manzana||'—'}, Lote ${r.lote||'—'}<br>🚙 ${r.vehiculo||'—'}<br>💳 ${r.metodo_pago||'—'}</div>
+      <div class="res-name-row">${r.nombre} ${badge(r.status)} ${urg?'<span class="urgent-pill">⚡</span>':''}</div>
+      <div class="res-details">📞 ${r.telefono||'—'} · 📍 Mz. ${r.manzana||'—'}, Lote ${r.lote||'—'}<br>🚙 ${r.tipo_vehiculo||'—'} · 💰 Q${r.precio||'—'}<br>💳 Sin especificar</div>
     </div>
-    <div>
-      <div class="res-date">${formatDate(r.fecha)}</div>
+    <div class="res-date-col">
+      <div class="res-date">${fmtDate(fechaStr)}</div>
       <div class="res-hora">${r.hora}</div>
+      <div class="res-created">Creada: ${fmtDateTime(r.created_at)}</div>
     </div>
-    <div>
+    <div class="pay-col">
       <div class="pay-label">Estado de pago</div>
-      <select class="pay-select" onchange="updatePay('${r.id}',this.value)">
-        <option value="pending" ${r.pay_status!=='paid'?'selected':''}>⏳ Pendiente</option>
-        <option value="paid" ${r.pay_status==='paid'?'selected':''}>✅ Pagado</option>
+      <select class="pay-select" onchange="updatePago('${r.id}',this.value)">
+        <option value="pendiente" ${r.estado_pago!=='pagado'?'selected':''}>⏳ Pendiente</option>
+        <option value="pagado" ${r.estado_pago==='pagado'?'selected':''}>✅ Pagado</option>
       </select>
-      <div style="margin-top:0.3rem;"><span class="status-badge ${r.pay_status==='paid'?'badge-paid':'badge-unpaid'}">${r.pay_status==='paid'?'✅ Pagado':'⏳ Sin cobrar'}</span></div>
+      ${payBadge(r.estado_pago)}
     </div>
-    <div class="res-actions">
-      <a href="https://wa.me/502${tel}?text=${waMsg}" target="_blank" class="action-btn btn-wa">💬 Contactar</a>
-      ${r.status==='pendiente'?`<button class="action-btn btn-confirm" onclick="updateStatus('${r.id}','confirmada')">✓ Confirmar</button>`:''}
-      ${r.status==='confirmada'?`<button class="action-btn btn-complete" onclick="updateStatus('${r.id}','completada')">✓ Completar</button>`:''}
-      ${active?`<button class="action-btn btn-reschedule" onclick="openReschedule('${r.id}')">↻ Reprogramar</button>`:''}
-      ${active?`<button class="action-btn btn-cancel" onclick="updateStatus('${r.id}','cancelada')">✕ Cancelar</button>`:''}
-    </div>
+    <div class="res-actions">${actions}</div>
   </div>`;
 }
 
-function renderActiveList() {
-  const active = allReservations.filter(r=>r.status==='pendiente'||r.status==='confirmada');
-  const el = document.getElementById('activeList');
-  if (el) el.innerHTML = active.length ? active.map(renderCard).join('') : '<div class="empty-state">No hay reservas activas.</div>';
+function renderActiveList(){
+  const activas=allReservations.filter(r=>r.status==='pendiente'||r.status==='confirmada');
+  const el=document.getElementById('activeList');
+  if(el)el.innerHTML=activas.length?activas.map(r=>renderCard(r,false)).join(''):'<div class="empty-state">No hay reservas activas.</div>';
 }
 
-function renderHistoryList() {
-  const hist = allReservations.filter(r=>r.status==='completada'||r.status==='cancelada').reverse();
-  const el = document.getElementById('historyList');
-  if (el) el.innerHTML = hist.length ? hist.map(renderCard).join('') : '<div class="empty-state">El historial está vacío.</div>';
+function renderHistorial(){
+  const completadas=allReservations.filter(r=>r.status==='completada').sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
+  const canceladas=allReservations.filter(r=>r.status==='cancelada').sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
+  const eliminadas=allReservations.filter(r=>r.status==='eliminada').sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
+  const ec=document.getElementById('histCompletadas');const ca=document.getElementById('histCanceladas');const el=document.getElementById('histEliminadas');
+  if(ec)ec.innerHTML=completadas.length?completadas.map(r=>renderCard(r,true)).join(''):'<div class="empty-state">Sin registros.</div>';
+  if(ca)ca.innerHTML=canceladas.length?canceladas.map(r=>renderCard(r,true)).join(''):'<div class="empty-state">Sin registros.</div>';
+  if(el)el.innerHTML=eliminadas.length?eliminadas.map(r=>renderCard(r,true)).join(''):'<div class="empty-state">Sin registros.</div>';
 }
 
-async function updateStatus(id, newStatus) {
-  await sb.from('reservas').update({ status: newStatus }).eq('id', id);
-  await loadData();
-}
-
-async function updatePay(id, val) {
-  await sb.from('reservas').update({ pay_status: val }).eq('id', id);
-  await loadData();
-}
+// ── ACTIONS ──
+async function updateStatus(id,s){await sb.from('reservas').update({status:s}).eq('id',id);await loadData();}
+async function updatePago(id,v){await sb.from('reservas').update({estado_pago:v}).eq('id',id);await loadData();}
 
 // ── ADD MANUAL ──
-async function addManual() {
-  const nombre   = document.getElementById('addNombre').value.trim();
-  const telefono = document.getElementById('addTelefono').value.trim();
-  const manzana  = document.getElementById('addManzana').value.trim();
-  const lote     = document.getElementById('addLote').value.trim();
-  const vehiculo = document.getElementById('addVehiculo').value;
-  const fecha    = document.getElementById('addFecha').value;
-  const hora     = document.getElementById('addHora').value;
-  const pay_status = document.getElementById('addPago').value;
-  if (!nombre || !fecha) { alert('Ingresa al menos nombre y fecha.'); return; }
-  await sb.from('reservas').insert({ nombre, telefono, manzana, lote, vehiculo, fecha, hora, pay_status, metodo_pago:'Manual', status:'confirmada' });
-  ['addNombre','addTelefono','addManzana','addLote','addFecha'].forEach(id=>document.getElementById(id).value='');
+async function addManual(){
+  const nombre=document.getElementById('addNombre').value.trim();
+  const telefono=document.getElementById('addTelefono').value.trim();
+  const manzana=document.getElementById('addManzana').value.trim();
+  const lote=document.getElementById('addLote').value.trim();
+  const vehiculo=document.getElementById('addVehiculo').value;
+  const fecha=document.getElementById('addFecha').value;
+  const hora=document.getElementById('addHora').value;
+  const estado_pago=document.getElementById('addEstadoPago').value;
+  const precio=vehiculo==='Pickup / SUV'?95:80;
+  if(!nombre||!fecha){alert('Ingresa al menos nombre y fecha.');return;}
+  // Check slot availability
+  const{data:existing}=await sb.from('reservas').select('id').eq('fecha',fecha).eq('hora',hora).eq('status','confirmada');
+  if(existing&&existing.length){alert('Ese horario ya está confirmado. Elige otro.');return;}
+  await sb.from('reservas').insert({nombre,telefono,manzana,lote,tipo_vehiculo:vehiculo,precio,fecha,hora,estado_pago,status:'confirmada'});
+  ['addNombre','addTelefono','addManzana','addLote','addFecha'].forEach(i=>document.getElementById(i).value='');
   await loadData();
 }
 
 // ── RESCHEDULE ──
-function openReschedule(id) { rescheduleId=id; document.getElementById('rescheduleModal').classList.add('show'); }
-function closeModal() { document.getElementById('rescheduleModal').classList.remove('show'); rescheduleId=null; }
-async function confirmReschedule() {
-  if (!rescheduleId) return;
-  const fecha = document.getElementById('newFecha').value;
-  const hora  = document.getElementById('newHora').value;
-  if (!fecha) { alert('Selecciona una fecha.'); return; }
-  await sb.from('reservas').update({ fecha, hora, status:'confirmada' }).eq('id', rescheduleId);
-  closeModal();
-  await loadData();
+function openReschedule(id){rescheduleId=id;document.getElementById('rescheduleModal').classList.add('show');}
+function closeModal(){document.getElementById('rescheduleModal').classList.remove('show');document.getElementById('deleteModal').classList.remove('show');rescheduleId=null;deleteId=null;}
+async function confirmReschedule(){
+  if(!rescheduleId)return;
+  const fecha=document.getElementById('newFecha').value;
+  const hora=document.getElementById('newHora').value;
+  if(!fecha){alert('Selecciona una fecha.');return;}
+  await sb.from('reservas').update({fecha,hora,status:'confirmada'}).eq('id',rescheduleId);
+  closeModal();await loadData();
 }
 
-// ── STATS DETAIL ──
-function renderStatsDetail() {
-  const r = allReservations;
-  const weekAgo = new Date(Date.now()-7*86400000).toISOString().split('T')[0];
-  const thisWeek = r.filter(x=>x.fecha>=weekAgo&&x.status!=='cancelada').length;
-  const completed = r.filter(x=>x.status==='completada');
-  const cancelled = r.filter(x=>x.status==='cancelada').length;
-  const cancelRate = r.length ? Math.round(cancelled/r.length*100) : 0;
-  const income = completed.reduce((s,x)=>s+(x.vehiculo?.includes('Q95')?95:80),0);
-  const days = [...new Set(completed.map(x=>x.fecha))].length || 1;
-  const el = document.getElementById('statsDetail');
-  if (el) el.innerHTML = `
-    <div class="stats-card"><div class="stats-card-label">Reservas esta semana</div><div class="stats-card-value" style="color:var(--accent)">${thisWeek}</div></div>
-    <div class="stats-card"><div class="stats-card-label">Tasa de cancelación</div><div class="stats-card-value" style="color:var(--red)">${cancelRate}%</div><div class="stats-card-sub">${cancelled} de ${r.length}</div></div>
-    <div class="stats-card"><div class="stats-card-label">Ingresos estimados</div><div class="stats-card-value" style="color:var(--green)">Q${income}</div><div class="stats-card-sub">${completed.length} servicios completados</div></div>
-    <div class="stats-card"><div class="stats-card-label">Promedio por día</div><div class="stats-card-value" style="color:var(--blue)">Q${Math.round(income/days)}</div><div class="stats-card-sub">Días activos: ${days}</div></div>`;
+// ── PERM DELETE ──
+function openPermDelete(id){deleteId=id;document.getElementById('deleteModal').classList.add('show');}
+async function confirmPermDelete(){
+  if(!deleteId)return;
+  await sb.from('reservas').delete().eq('id',deleteId);
+  closeModal();await loadData();
 }
 
 // ── REVIEWS ──
-function getReviews() { try { return JSON.parse(localStorage.getItem('asd_reviews')||'[]'); } catch(e){return[];} }
-function saveReviews(r) { try { localStorage.setItem('asd_reviews',JSON.stringify(r)); } catch(e){} }
-function renderReviewsAdmin() {
-  const reviews = getReviews();
-  const pEl = document.getElementById('reviewsPendingList');
-  const pubEl = document.getElementById('reviewsPublishedList');
-  if (!pEl) return;
-  const pending = reviews.filter(r=>!r.visible);
-  const published = reviews.filter(r=>r.visible);
-  pEl.innerHTML = pending.length ? pending.map(r=>`
-    <div class="review-admin-card">
-      <div><div class="rev-stars">${'★'.repeat(r.estrellas)}${'☆'.repeat(5-r.estrellas)}</div><div class="rev-text">"${r.texto}"</div><div class="rev-author">— ${r.nombre}</div></div>
+function renderResenas(){
+  const pendientes=allResenas.filter(r=>!r.visible);
+  const publicadas=allResenas.filter(r=>r.visible);
+  const pEl=document.getElementById('resPendientes');const pubEl=document.getElementById('resPublicadas');
+  if(!pEl)return;
+  pEl.innerHTML=pendientes.length?pendientes.map(r=>`
+    <div class="rev-card">
+      <div><div class="rev-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div><div class="rev-text">"${r.comentario}"</div><div class="rev-author">— ${r.nombre}</div></div>
       <div class="rev-actions">
-        <button class="action-btn btn-confirm" onclick="approveReview(${reviews.indexOf(r)})">Publicar</button>
-        <button class="action-btn btn-cancel" onclick="deleteReview(${reviews.indexOf(r)})">Eliminar</button>
+        <button class="abtn btn-confirm" onclick="approveResena('${r.id}')">Publicar</button>
+        <button class="abtn btn-perm-delete" onclick="deleteResena('${r.id}')">Eliminar</button>
       </div>
-    </div>`).join('') : '<div class="empty-state">No hay reseñas pendientes.</div>';
-  pubEl.innerHTML = published.length ? published.map(r=>`
-    <div class="review-admin-card">
-      <div><div class="rev-stars">${'★'.repeat(r.estrellas)}${'☆'.repeat(5-r.estrellas)}</div><div class="rev-text">"${r.texto}"</div><div class="rev-author">— ${r.nombre}</div></div>
+    </div>`).join(''):'<div class="empty-state">No hay reseñas pendientes.</div>';
+  pubEl.innerHTML=publicadas.length?publicadas.map(r=>`
+    <div class="rev-card">
+      <div><div class="rev-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div><div class="rev-text">"${r.comentario}"</div><div class="rev-author">— ${r.nombre}</div></div>
       <div class="rev-actions">
-        <button class="action-btn btn-cancel" onclick="hideReview(${reviews.indexOf(r)})">Ocultar</button>
-        <button class="action-btn btn-cancel" onclick="deleteReview(${reviews.indexOf(r)})">Eliminar</button>
+        <button class="abtn btn-cancel" onclick="hideResena('${r.id}')">Ocultar</button>
+        <button class="abtn btn-perm-delete" onclick="deleteResena('${r.id}')">Eliminar</button>
       </div>
-    </div>`).join('') : '<div class="empty-state">No hay reseñas publicadas.</div>';
+    </div>`).join(''):'<div class="empty-state">No hay reseñas publicadas.</div>';
 }
-function approveReview(i){const r=getReviews();r[i].visible=true;saveReviews(r);renderReviewsAdmin();}
-function hideReview(i){const r=getReviews();r[i].visible=false;saveReviews(r);renderReviewsAdmin();}
-function deleteReview(i){const r=getReviews();r.splice(i,1);saveReviews(r);renderReviewsAdmin();}
+
+async function approveResena(id){await sb.from('resenas').update({visible:true}).eq('id',id);await loadData();}
+async function hideResena(id){await sb.from('resenas').update({visible:false}).eq('id',id);await loadData();}
+async function deleteResena(id){if(!confirm('¿Eliminar esta reseña definitivamente?'))return;await sb.from('resenas').delete().eq('id',id);await loadData();}
 
 // ── EXPORT CSV ──
-function exportCSV() {
-  if (!allReservations.length) { alert('No hay datos.'); return; }
-  const headers = ['Nombre','Teléfono','Manzana','Lote','Vehículo','Fecha','Hora','Método Pago','Estado Pago','Estado','Creado'];
-  const rows = allReservations.map(r=>[r.nombre,r.telefono,r.manzana,r.lote,r.vehiculo,r.fecha,r.hora,r.metodo_pago,r.pay_status==='paid'?'Pagado':'Pendiente',r.status,r.created_at?new Date(r.created_at).toLocaleString('es-GT'):''].map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(','));
-  const csv = [headers.join(','),...rows].join('\n');
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));
-  a.download = `asd-autocare-${todayStr()}.csv`;
-  a.click();
+function exportCSV(){
+  if(!allReservations.length){alert('No hay datos.');return;}
+  const headers=['Nombre','Teléfono','Manzana','Lote','Vehículo','Precio','Fecha','Hora','Estado','Estado Pago','Creada'];
+  const rows=allReservations.map(r=>[r.nombre,r.telefono,r.manzana,r.lote,r.tipo_vehiculo,r.precio,String(r.fecha).split('T')[0],r.hora,r.status,r.estado_pago,fmtDateTime(r.created_at)].map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(','));
+  const csv=[headers.join(','),...rows].join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));a.download=`asd-autocare-${todayStr()}.csv`;a.click();
 }
 
 // ── RENDER ALL ──
-function renderAll() {
-  renderStats();
-  renderCalendar();
-  renderActiveList();
-  renderHistoryList();
-  renderStatsDetail();
-  renderReviewsAdmin();
-}
+function renderAll(){renderMetrics();renderCalendar();renderActiveList();renderHistorial();renderResenas();}
 </script>
 </body>
 </html>
