@@ -49,12 +49,12 @@
 
     /* AESTHETIC BG — solo secciones indicadas */
     .section-bg { position: relative; }
-    .section-bg::after { content: ''; position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.04; pointer-events: none; z-index: 0; }
+    .section-bg::after { content: ''; position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.08; pointer-events: none; z-index: 0; }
     .section-bg > * { position: relative; z-index: 1; }
-    #services.section-bg::after  { background-image: url('https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=1200&q=60&fit=crop'); }
-    #booking.section-bg::after   { background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=60&fit=crop'); }
-    #reviews.section-bg::after   { background-image: url('https://images.unsplash.com/photo-1571607388263-1044f9ea01dd?w=1200&q=60&fit=crop'); }
-    #contact.section-bg::after   { background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=60&fit=crop'); }
+    #services.section-bg::after  { background-image: url('https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=1200&q=80&fit=crop'); background-position: center center; }
+    #booking.section-bg::after   { background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80&fit=crop'); }
+    #reviews.section-bg::after   { background-image: url('https://images.unsplash.com/photo-1571607388263-1044f9ea01dd?w=1200&q=80&fit=crop'); }
+    #contact.section-bg::after   { background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80&fit=crop'); }
 
     /* CAROUSEL */
     #gallery { padding: 5rem 0; max-width: 100%; overflow: hidden; }
@@ -542,26 +542,63 @@ new IntersectionObserver((entries) => {
   const track = document.getElementById('carouselTrack');
   const dotsWrap = document.getElementById('carouselDots');
   if (!track) return;
-  const slides = track.querySelectorAll('.carousel-slide');
-  const total = slides.length;
-  const slideW = () => slides[0].offsetWidth + 1;
-  let current = 0;
+
+  const originalSlides = Array.from(track.querySelectorAll('.carousel-slide'));
+  const total = originalSlides.length;
+
+  // Clone slides before and after for infinite loop
+  originalSlides.forEach(slide => {
+    track.appendChild(slide.cloneNode(true));
+    track.insertBefore(slide.cloneNode(true), track.firstChild);
+  });
+
+  const allSlides = track.querySelectorAll('.carousel-slide');
+  const slideW = () => allSlides[0].offsetWidth + 1;
+
+  let current = total; // Start at first real slide (after clones)
+  let isTransitioning = false;
   let autoTimer;
 
-  // Create dots
-  slides.forEach((_, i) => {
+  // Set initial position without animation
+  track.style.transition = 'none';
+  track.style.transform = `translateX(-${current * slideW()}px)`;
+
+  // Create dots for original slides only
+  originalSlides.forEach((_, i) => {
     const d = document.createElement('button');
     d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => goTo(i);
+    d.onclick = () => goTo(total + i);
     dotsWrap.appendChild(d);
   });
 
+  function updateDots() {
+    const realIndex = ((current - total) % total + total) % total;
+    dotsWrap.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === realIndex));
+  }
+
   function goTo(n) {
-    current = (n + total) % total;
+    if (isTransitioning) return;
+    isTransitioning = true;
+    current = n;
+    track.style.transition = 'transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94)';
     track.style.transform = `translateX(-${current * slideW()}px)`;
-    dotsWrap.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    updateDots();
     resetTimer();
   }
+
+  track.addEventListener('transitionend', () => {
+    isTransitioning = false;
+    // Jump silently if at clone boundary
+    if (current >= total * 2) {
+      track.style.transition = 'none';
+      current = total;
+      track.style.transform = `translateX(-${current * slideW()}px)`;
+    } else if (current < total) {
+      track.style.transition = 'none';
+      current = total * 2 - 1;
+      track.style.transform = `translateX(-${current * slideW()}px)`;
+    }
+  });
 
   function resetTimer() {
     clearInterval(autoTimer);
@@ -576,7 +613,14 @@ new IntersectionObserver((entries) => {
     if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
   });
 
+  // Recalculate on resize
+  window.addEventListener('resize', () => {
+    track.style.transition = 'none';
+    track.style.transform = `translateX(-${current * slideW()}px)`;
+  });
+
   resetTimer();
+  updateDots();
 })();
 
 renderReviews();
