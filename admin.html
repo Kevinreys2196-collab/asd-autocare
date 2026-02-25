@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASD Auto Care — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #0a0a0a; --white: #f5f5f0; --gray-mid: #b0b0a8;
+      --gray-dark: #3a3a38; --accent: #c8b98a;
+      --green: #4caf7d; --red: #e05555; --yellow: #e0b455;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+    body { background: #0a0a0a; color: var(--white); font-family: var(--font-body); font-weight: 300; min-height: 100vh; }
+
+    /* LOGIN */
+    #loginScreen { position: fixed; inset: 0; background: #0a0a0a; display: flex; align-items: center; justify-content: center; z-index: 999; flex-direction: column; gap: 1.5rem; }
+    .login-box { border: 1px solid rgba(255,255,255,0.08); padding: 3rem 2.5rem; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 1.2rem; background: #0d0d0d; }
+    .login-title { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; text-align: center; }
+    .login-title span { color: var(--accent); }
+    .login-sub { font-size: 0.75rem; color: var(--gray-dark); text-align: center; letter-spacing: 0.1em; text-transform: uppercase; }
+    .login-box input { background: #111; border: 1px solid rgba(255,255,255,0.1); color: var(--white); padding: 0.9rem 1rem; font-family: var(--font-body); font-size: 0.9rem; outline: none; width: 100%; transition: border-color 0.3s; }
+    .login-box input:focus { border-color: var(--accent); }
+    .login-btn { background: var(--white); color: var(--black); border: none; padding: 0.9rem; font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
+    .login-btn:hover { background: var(--accent); }
+    .login-error { font-size: 0.78rem; color: var(--red); text-align: center; display: none; }
+
+    /* ADMIN UI */
+    #adminUI { display: none; }
+    header { background: rgba(10,10,10,0.95); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
+    .admin-logo { font-family: var(--font-display); font-size: 1rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
+    .admin-logo span { color: var(--accent); }
+    .logout-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--gray-mid); padding: 0.45rem 1rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: border-color 0.3s; font-family: var(--font-body); }
+    .logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+    main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); margin-bottom: 2.5rem; }
+    .stat-box { background: #0d0d0d; padding: 1.5rem; text-align: center; }
+    .stat-num { font-family: var(--font-display); font-size: 2.5rem; font-weight: 300; line-height: 1; }
+    .stat-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-dark); margin-top: 0.4rem; }
+    .stat-box.green .stat-num { color: var(--green); }
+    .stat-box.yellow .stat-num { color: var(--yellow); }
+    .stat-box.red .stat-num { color: var(--red); }
+    .stat-box.accent .stat-num { color: var(--accent); }
+
+    /* TABS */
+    .tabs { display: flex; gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); margin-bottom: 2rem; }
+    .tab-btn { background: #0d0d0d; border: none; color: var(--gray-mid); padding: 0.85rem 1.5rem; font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.3s, color 0.3s; flex: 1; }
+    .tab-btn.active { background: var(--white); color: var(--black); font-weight: 500; }
+
+    /* RESERVATIONS TABLE */
+    .section-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 300; margin-bottom: 1.5rem; }
+    .reservations-list { display: flex; flex-direction: column; gap: 1px; }
+    .reservation-card { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.06); padding: 1.2rem 1.5rem; display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; align-items: center; transition: background 0.3s; }
+    .reservation-card:hover { background: #111; }
+    .res-info { display: flex; flex-direction: column; gap: 0.3rem; }
+    .res-name { font-size: 0.95rem; font-weight: 400; color: var(--white); }
+    .res-details { font-size: 0.75rem; color: var(--gray-mid); line-height: 1.6; }
+    .res-meta { display: flex; flex-direction: column; gap: 0.3rem; align-items: flex-start; }
+    .res-date { font-family: var(--font-display); font-size: 1.1rem; color: var(--white); }
+    .res-hora { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .res-actions { display: flex; flex-direction: column; gap: 0.4rem; }
+    .action-btn { border: none; padding: 0.4rem 0.9rem; font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; white-space: nowrap; }
+    .btn-confirm { background: var(--green); color: #fff; }
+    .btn-complete { background: var(--accent); color: var(--black); }
+    .btn-cancel { background: transparent; border: 1px solid var(--red) !important; color: var(--red); }
+    .action-btn:hover { opacity: 0.8; }
+
+    /* STATUS BADGE */
+    .status-badge { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 0; }
+    .badge-pending  { background: rgba(224,180,85,0.12); color: var(--yellow); border: 1px solid rgba(224,180,85,0.3); }
+    .badge-confirmed { background: rgba(76,175,125,0.12); color: var(--green); border: 1px solid rgba(76,175,125,0.3); }
+    .badge-completed { background: rgba(200,185,138,0.12); color: var(--accent); border: 1px solid rgba(200,185,138,0.3); }
+    .badge-cancelled { background: rgba(224,85,85,0.12); color: var(--red); border: 1px solid rgba(224,85,85,0.3); }
+
+    .empty-state { padding: 3rem; text-align: center; color: var(--gray-dark); font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.04); }
+
+    /* REVIEWS ADMIN */
+    .review-admin-card { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.06); padding: 1.2rem 1.5rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; margin-bottom: 1px; }
+    .rev-stars { color: var(--accent); font-size: 0.85rem; margin-bottom: 0.3rem; }
+    .rev-text { font-size: 0.85rem; color: var(--gray-mid); font-style: italic; margin-bottom: 0.3rem; }
+    .rev-author { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-dark); }
+    .rev-actions { display: flex; gap: 0.4rem; }
+
+    /* MANUAL ADD FORM */
+    .add-form { border: 1px solid rgba(255,255,255,0.06); padding: 1.5rem; background: #0d0d0d; margin-bottom: 2rem; }
+    .add-form-title { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.8rem; margin-bottom: 0.8rem; }
+    .form-row input, .form-row select { background: #111; border: 1px solid rgba(255,255,255,0.08); color: var(--white); padding: 0.7rem 0.9rem; font-family: var(--font-body); font-size: 0.82rem; outline: none; width: 100%; }
+    .form-row input:focus, .form-row select:focus { border-color: var(--accent); }
+    .form-row select option { background: #111; }
+
+    @media (max-width: 640px) {
+      .reservation-card { grid-template-columns: 1fr; }
+      .res-actions { flex-direction: row; flex-wrap: wrap; }
+      main { padding: 1rem; }
+      .tabs { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <p class="login-sub">Panel de administración</p>
+    <h1 class="login-title">ASD <span>Auto</span> Care</h1>
+    <input type="password" id="passwordInput" placeholder="Contraseña" onkeydown="if(event.key==='Enter')login()" />
+    <button class="login-btn" onclick="login()">Ingresar</button>
+    <p class="login-error" id="loginError">Contraseña incorrecta</p>
+  </div>
+</div>
+
+<!-- ADMIN UI -->
+<div id="adminUI">
+  <header>
+    <div class="admin-logo">ASD <span>Auto</span> Care <span style="color:var(--gray-dark);font-size:0.7rem;letter-spacing:0.2em;"> · ADMIN</span></div>
+    <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+  </header>
+
+  <main>
+    <!-- STATS -->
+    <div class="stats" id="statsBox"></div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('reservas')">Reservas</button>
+      <button class="tab-btn" onclick="showTab('historial')">Historial</button>
+      <button class="tab-btn" onclick="showTab('resenas')">Reseñas</button>
+    </div>
+
+    <!-- TAB: RESERVAS -->
+    <div id="tab-reservas">
+      <!-- Manual add -->
+      <div class="add-form">
+        <p class="add-form-title">+ Agregar reserva manual</p>
+        <div class="form-row">
+          <input type="text" id="addNombre" placeholder="Nombre completo" />
+          <input type="tel" id="addTelefono" placeholder="Teléfono" />
+          <input type="text" id="addManzana" placeholder="Manzana" />
+          <input type="text" id="addLote" placeholder="Lote" />
+        </div>
+        <div class="form-row">
+          <select id="addVehiculo">
+            <option value="Sedán – Q80">Sedán – Q80</option>
+            <option value="Pickup / SUV – Q95">Pickup / SUV – Q95</option>
+          </select>
+          <input type="date" id="addFecha" />
+          <select id="addHora">
+            <option value="8:00 AM">8:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="2:00 PM">2:00 PM</option>
+          </select>
+          <select id="addEstado">
+            <option value="pending">Pendiente</option>
+            <option value="confirmed">Confirmada</option>
+          </select>
+        </div>
+        <button class="action-btn btn-confirm" style="padding:0.6rem 1.5rem;" onclick="addManual()">Agregar reserva</button>
+      </div>
+
+      <h2 class="section-title">Reservas activas</h2>
+      <div class="reservations-list" id="activeList"></div>
+    </div>
+
+    <!-- TAB: HISTORIAL -->
+    <div id="tab-historial" style="display:none;">
+      <h2 class="section-title">Historial</h2>
+      <div class="reservations-list" id="historyList"></div>
+    </div>
+
+    <!-- TAB: RESEÑAS -->
+    <div id="tab-resenas" style="display:none;">
+      <h2 class="section-title">Reseñas pendientes de aprobación</h2>
+      <div id="reviewsPendingList"></div>
+      <h2 class="section-title" style="margin-top:2rem;">Reseñas publicadas</h2>
+      <div id="reviewsPublishedList"></div>
+    </div>
+  </main>
+</div>
+
+<script>
+const PASS = 'AsdAutoCare2196';
+
+function login() {
+  const val = document.getElementById('passwordInput').value;
+  if (val === PASS) {
+    sessionStorage.setItem('asd_admin', '1');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminUI').style.display = 'block';
+    renderAll();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('passwordInput').value = '';
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('asd_admin');
+  location.reload();
+}
+
+// Auto-login if session exists
+if (sessionStorage.getItem('asd_admin')) {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminUI').style.display = 'block';
+}
+
+// ── DATA ──
+function getReservations() {
+  try { return JSON.parse(localStorage.getItem('asd_reservations') || '[]'); } catch(e) { return []; }
+}
+function saveReservations(data) {
+  localStorage.setItem('asd_reservations', JSON.stringify(data));
+  // Also update blocked slots for the main page
+  const blocked = data
+    .filter(r => r.status === 'confirmed' || r.status === 'pending')
+    .map(r => `${r.fecha}|${r.hora}`);
+  localStorage.setItem('asd_blocked', JSON.stringify(blocked));
+}
+
+function getReviews() {
+  try { return JSON.parse(localStorage.getItem('asd_reviews') || '[]'); } catch(e) { return []; }
+}
+function saveReviews(data) { localStorage.setItem('asd_reviews', JSON.stringify(data)); }
+
+// ── STATS ──
+function renderStats() {
+  const res = getReservations();
+  const pending   = res.filter(r => r.status === 'pending').length;
+  const confirmed = res.filter(r => r.status === 'confirmed').length;
+  const completed = res.filter(r => r.status === 'completed').length;
+  const cancelled = res.filter(r => r.status === 'cancelled').length;
+  document.getElementById('statsBox').innerHTML = `
+    <div class="stat-box yellow"><div class="stat-num">${pending}</div><div class="stat-label">Pendientes</div></div>
+    <div class="stat-box green"><div class="stat-num">${confirmed}</div><div class="stat-label">Confirmadas</div></div>
+    <div class="stat-box accent"><div class="stat-num">${completed}</div><div class="stat-label">Completadas</div></div>
+    <div class="stat-box red"><div class="stat-num">${cancelled}</div><div class="stat-label">Canceladas</div></div>
+  `;
+}
+
+// ── TABS ──
+function showTab(tab) {
+  ['reservas','historial','resenas'].forEach(t => {
+    document.getElementById('tab-' + t).style.display = t === tab ? 'block' : 'none';
+    document.querySelectorAll('.tab-btn')[['reservas','historial','resenas'].indexOf(t)].classList.toggle('active', t === tab);
+  });
+  renderAll();
+}
+
+// ── BADGE ──
+function badge(status) {
+  const map = { pending: ['badge-pending','Pendiente'], confirmed: ['badge-confirmed','Confirmada'], completed: ['badge-completed','Completada'], cancelled: ['badge-cancelled','Cancelada'] };
+  const [cls, label] = map[status] || ['badge-pending','Pendiente'];
+  return `<span class="status-badge ${cls}">${label}</span>`;
+}
+
+// ── RENDER RESERVATIONS ──
+function renderCard(r, i) {
+  const isActive = r.status === 'pending' || r.status === 'confirmed';
+  const actions = isActive ? `
+    ${r.status === 'pending' ? `<button class="action-btn btn-confirm" onclick="updateStatus(${i},'confirmed')">✓ Confirmar</button>` : ''}
+    ${r.status === 'confirmed' ? `<button class="action-btn btn-complete" onclick="updateStatus(${i},'completed')">✓ Completar</button>` : ''}
+    <button class="action-btn btn-cancel" onclick="updateStatus(${i},'cancelled')">✕ Cancelar</button>
+  ` : '';
+
+  return `
+    <div class="reservation-card">
+      <div class="res-info">
+        <div class="res-name">${r.nombre} ${badge(r.status)}</div>
+        <div class="res-details">
+          📞 ${r.telefono}<br>
+          📍 Manzana ${r.manzana}, Lote ${r.lote}<br>
+          🚙 ${r.vehiculo}<br>
+          💳 ${r.metodoPago || 'No especificado'}
+        </div>
+      </div>
+      <div class="res-meta">
+        <div class="res-date">${r.fecha}</div>
+        <div class="res-hora">${r.hora}</div>
+      </div>
+      <div class="res-actions">${actions}</div>
+    </div>
+  `;
+}
+
+function renderActiveList() {
+  const res = getReservations();
+  const active = res.filter(r => r.status === 'pending' || r.status === 'confirmed');
+  const el = document.getElementById('activeList');
+  el.innerHTML = active.length
+    ? active.map((r, i) => renderCard(r, res.indexOf(r))).join('')
+    : '<div class="empty-state">No hay reservas activas.</div>';
+}
+
+function renderHistoryList() {
+  const res = getReservations();
+  const history = res.filter(r => r.status === 'completed' || r.status === 'cancelled').reverse();
+  const el = document.getElementById('historyList');
+  el.innerHTML = history.length
+    ? history.map((r) => renderCard(r, res.indexOf(r))).join('')
+    : '<div class="empty-state">El historial está vacío.</div>';
+}
+
+function updateStatus(i, newStatus) {
+  const res = getReservations();
+  res[i].status = newStatus;
+  saveReservations(res);
+  renderAll();
+}
+
+// ── ADD MANUAL ──
+function addManual() {
+  const nombre   = document.getElementById('addNombre').value.trim();
+  const telefono = document.getElementById('addTelefono').value.trim();
+  const manzana  = document.getElementById('addManzana').value.trim();
+  const lote     = document.getElementById('addLote').value.trim();
+  const vehiculo = document.getElementById('addVehiculo').value;
+  const fecha    = document.getElementById('addFecha').value;
+  const hora     = document.getElementById('addHora').value;
+  const status   = document.getElementById('addEstado').value;
+
+  if (!nombre || !fecha) { alert('Por favor ingresa al menos nombre y fecha.'); return; }
+
+  const res = getReservations();
+  res.push({ nombre, telefono, manzana, lote, vehiculo, fecha, hora, status, metodoPago: 'Agregado manualmente', createdAt: new Date().toISOString() });
+  saveReservations(res);
+
+  // Clear fields
+  ['addNombre','addTelefono','addManzana','addLote','addFecha'].forEach(id => document.getElementById(id).value = '');
+  renderAll();
+}
+
+// ── REVIEWS ──
+function renderReviewsAdmin() {
+  const reviews = getReviews();
+  const pending   = reviews.filter(r => !r.visible);
+  const published = reviews.filter(r => r.visible);
+
+  const pendingEl = document.getElementById('reviewsPendingList');
+  pendingEl.innerHTML = pending.length ? pending.map((r, i) => `
+    <div class="review-admin-card">
+      <div>
+        <div class="rev-stars">${'★'.repeat(r.estrellas)}${'☆'.repeat(5-r.estrellas)}</div>
+        <div class="rev-text">"${r.texto}"</div>
+        <div class="rev-author">— ${r.nombre}</div>
+      </div>
+      <div class="rev-actions">
+        <button class="action-btn btn-confirm" onclick="approveReview(${reviews.indexOf(r)})">Publicar</button>
+        <button class="action-btn btn-cancel" onclick="deleteReview(${reviews.indexOf(r)})">Eliminar</button>
+      </div>
+    </div>
+  `).join('') : '<div class="empty-state">No hay reseñas pendientes.</div>';
+
+  const publishedEl = document.getElementById('reviewsPublishedList');
+  publishedEl.innerHTML = published.length ? published.map((r) => `
+    <div class="review-admin-card">
+      <div>
+        <div class="rev-stars">${'★'.repeat(r.estrellas)}${'☆'.repeat(5-r.estrellas)}</div>
+        <div class="rev-text">"${r.texto}"</div>
+        <div class="rev-author">— ${r.nombre}</div>
+      </div>
+      <div class="rev-actions">
+        <button class="action-btn btn-cancel" onclick="hideReview(${reviews.indexOf(r)})">Ocultar</button>
+        <button class="action-btn btn-cancel" onclick="deleteReview(${reviews.indexOf(r)})">Eliminar</button>
+      </div>
+    </div>
+  `).join('') : '<div class="empty-state">No hay reseñas publicadas.</div>';
+}
+
+function approveReview(i) { const r = getReviews(); r[i].visible = true; saveReviews(r); renderAll(); }
+function hideReview(i)    { const r = getReviews(); r[i].visible = false; saveReviews(r); renderAll(); }
+function deleteReview(i)  { const r = getReviews(); r.splice(i,1); saveReviews(r); renderAll(); }
+
+// ── RENDER ALL ──
+function renderAll() {
+  renderStats();
+  renderActiveList();
+  renderHistoryList();
+  renderReviewsAdmin();
+}
+
+if (sessionStorage.getItem('asd_admin')) renderAll();
+</script>
+</body>
+</html>
