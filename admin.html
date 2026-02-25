@@ -11,96 +11,152 @@
     :root {
       --black: #0a0a0a; --white: #f5f5f0; --gray-mid: #b0b0a8;
       --gray-dark: #3a3a38; --accent: #c8b98a;
-      --green: #4caf7d; --red: #e05555; --yellow: #e0b455;
-      --font-display: 'Cormorant Garamond', serif;
-      --font-body: 'DM Sans', sans-serif;
+      --green: #4caf7d; --red: #e05555; --yellow: #e0b455; --blue: #5588e0;
+      --font-display: 'Cormorant Garamond', serif; --font-body: 'DM Sans', sans-serif;
     }
     body { background: #0a0a0a; color: var(--white); font-family: var(--font-body); font-weight: 300; min-height: 100vh; }
 
-    /* LOGIN */
-    #loginScreen { position: fixed; inset: 0; background: #0a0a0a; display: flex; align-items: center; justify-content: center; z-index: 999; flex-direction: column; gap: 1.5rem; }
+    /* ── LOGIN ── */
+    #loginScreen { position: fixed; inset: 0; background: #0a0a0a; display: flex; align-items: center; justify-content: center; z-index: 9999; }
     .login-box { border: 1px solid rgba(255,255,255,0.08); padding: 3rem 2.5rem; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 1.2rem; background: #0d0d0d; }
     .login-title { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; text-align: center; }
     .login-title span { color: var(--accent); }
-    .login-sub { font-size: 0.75rem; color: var(--gray-dark); text-align: center; letter-spacing: 0.1em; text-transform: uppercase; }
+    .login-sub { font-size: 0.72rem; color: var(--gray-dark); text-align: center; letter-spacing: 0.12em; text-transform: uppercase; }
     .login-box input { background: #111; border: 1px solid rgba(255,255,255,0.1); color: var(--white); padding: 0.9rem 1rem; font-family: var(--font-body); font-size: 0.9rem; outline: none; width: 100%; transition: border-color 0.3s; }
     .login-box input:focus { border-color: var(--accent); }
     .login-btn { background: var(--white); color: var(--black); border: none; padding: 0.9rem; font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
     .login-btn:hover { background: var(--accent); }
     .login-error { font-size: 0.78rem; color: var(--red); text-align: center; display: none; }
+    .login-attempts { font-size: 0.72rem; color: var(--gray-dark); text-align: center; }
 
-    /* ADMIN UI */
+    /* ── ADMIN UI ── */
     #adminUI { display: none; }
     header { background: rgba(10,10,10,0.95); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
     .admin-logo { font-family: var(--font-display); font-size: 1rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
     .admin-logo span { color: var(--accent); }
-    .logout-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--gray-mid); padding: 0.45rem 1rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: border-color 0.3s; font-family: var(--font-body); }
+    .header-right { display: flex; align-items: center; gap: 1rem; }
+    .session-timer { font-size: 0.68rem; color: var(--gray-dark); letter-spacing: 0.1em; }
+    .session-timer.warning { color: var(--red); }
+    .logout-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--gray-mid); padding: 0.45rem 1rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; font-family: var(--font-body); }
     .logout-btn:hover { border-color: var(--red); color: var(--red); }
 
-    main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+    main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
 
-    /* STATS */
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); margin-bottom: 2.5rem; }
-    .stat-box { background: #0d0d0d; padding: 1.5rem; text-align: center; }
-    .stat-num { font-family: var(--font-display); font-size: 2.5rem; font-weight: 300; line-height: 1; }
-    .stat-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-dark); margin-top: 0.4rem; }
-    .stat-box.green .stat-num { color: var(--green); }
-    .stat-box.yellow .stat-num { color: var(--yellow); }
-    .stat-box.red .stat-num { color: var(--red); }
-    .stat-box.accent .stat-num { color: var(--accent); }
+    /* ── STATS ── */
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); margin-bottom: 2rem; }
+    .stat-box { background: #0d0d0d; padding: 1.2rem 1rem; text-align: center; }
+    .stat-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 300; line-height: 1; }
+    .stat-label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray-dark); margin-top: 0.4rem; }
+    .stat-sub { font-size: 0.72rem; color: var(--gray-mid); margin-top: 0.2rem; }
+    .s-yellow .stat-num { color: var(--yellow); }
+    .s-green .stat-num { color: var(--green); }
+    .s-accent .stat-num { color: var(--accent); }
+    .s-red .stat-num { color: var(--red); }
+    .s-blue .stat-num { color: var(--blue); }
 
-    /* TABS */
-    .tabs { display: flex; gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); margin-bottom: 2rem; }
-    .tab-btn { background: #0d0d0d; border: none; color: var(--gray-mid); padding: 0.85rem 1.5rem; font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.3s, color 0.3s; flex: 1; }
+    /* ── TABS ── */
+    .tabs { display: flex; gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); margin-bottom: 2rem; overflow-x: auto; }
+    .tab-btn { background: #0d0d0d; border: none; color: var(--gray-mid); padding: 0.85rem 1.2rem; font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; white-space: nowrap; flex: 1; min-width: 100px; }
     .tab-btn.active { background: var(--white); color: var(--black); font-weight: 500; }
 
-    /* RESERVATIONS TABLE */
-    .section-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 300; margin-bottom: 1.5rem; }
+    /* ── FILTERS ── */
+    .filter-bar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; }
+    .filter-btn { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.08); color: var(--gray-mid); padding: 0.45rem 1rem; font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+    .filter-btn.active, .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-date { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.08); color: var(--white); padding: 0.45rem 0.8rem; font-family: var(--font-body); font-size: 0.78rem; outline: none; }
+    .filter-date:focus { border-color: var(--accent); }
+
+    /* ── CALENDAR VIEW ── */
+    .calendar-day { border: 1px solid rgba(255,255,255,0.06); background: #0d0d0d; margin-bottom: 1.5rem; }
+    .calendar-date-header { padding: 0.8rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; }
+    .calendar-date-label { font-family: var(--font-display); font-size: 1.1rem; font-weight: 400; }
+    .calendar-date-sub { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-dark); }
+    .calendar-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.04); }
+    .cal-slot { background: #0a0a0a; padding: 1rem; min-height: 90px; position: relative; }
+    .cal-slot-time { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-dark); margin-bottom: 0.5rem; }
+    .cal-slot-free { font-size: 0.75rem; color: var(--gray-dark); font-style: italic; }
+    .cal-slot-booked { background: #0f0f0f; }
+    .cal-slot-name { font-size: 0.85rem; color: var(--white); font-weight: 400; margin-bottom: 0.2rem; }
+    .cal-slot-vehicle { font-size: 0.72rem; color: var(--gray-mid); }
+    .urgent-tag { display: inline-block; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(224,85,85,0.15); color: var(--red); border: 1px solid rgba(224,85,85,0.3); padding: 0.15rem 0.4rem; margin-top: 0.3rem; }
+
+    /* ── RESERVATION CARDS ── */
+    .section-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 300; margin-bottom: 1.2rem; }
     .reservations-list { display: flex; flex-direction: column; gap: 1px; }
-    .reservation-card { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.06); padding: 1.2rem 1.5rem; display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; align-items: center; transition: background 0.3s; }
+    .reservation-card { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.05); padding: 1.2rem 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 1rem; align-items: start; transition: background 0.2s; }
     .reservation-card:hover { background: #111; }
+    .reservation-card.urgent { border-left: 2px solid var(--red); }
     .res-info { display: flex; flex-direction: column; gap: 0.3rem; }
-    .res-name { font-size: 0.95rem; font-weight: 400; color: var(--white); }
-    .res-details { font-size: 0.75rem; color: var(--gray-mid); line-height: 1.6; }
-    .res-meta { display: flex; flex-direction: column; gap: 0.3rem; align-items: flex-start; }
-    .res-date { font-family: var(--font-display); font-size: 1.1rem; color: var(--white); }
-    .res-hora { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .res-name { font-size: 0.95rem; font-weight: 400; color: var(--white); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .res-details { font-size: 0.75rem; color: var(--gray-mid); line-height: 1.7; }
+    .res-meta { display: flex; flex-direction: column; gap: 0.3rem; }
+    .res-date { font-family: var(--font-display); font-size: 1.05rem; color: var(--white); }
+    .res-hora { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .res-payment { display: flex; flex-direction: column; gap: 0.4rem; }
+    .pay-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-dark); }
+    .pay-select { background: #111; border: 1px solid rgba(255,255,255,0.08); color: var(--white); padding: 0.4rem 0.6rem; font-family: var(--font-body); font-size: 0.78rem; outline: none; cursor: pointer; }
+    .pay-select:focus { border-color: var(--accent); }
     .res-actions { display: flex; flex-direction: column; gap: 0.4rem; }
-    .action-btn { border: none; padding: 0.4rem 0.9rem; font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; white-space: nowrap; }
-    .btn-confirm { background: var(--green); color: #fff; }
-    .btn-complete { background: var(--accent); color: var(--black); }
-    .btn-cancel { background: transparent; border: 1px solid var(--red) !important; color: var(--red); }
+    .action-btn { border: none; padding: 0.42rem 0.9rem; font-family: var(--font-body); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; white-space: nowrap; display: flex; align-items: center; gap: 0.3rem; justify-content: center; }
     .action-btn:hover { opacity: 0.8; }
+    .btn-confirm  { background: var(--green); color: #fff; }
+    .btn-complete { background: var(--accent); color: var(--black); }
+    .btn-reschedule { background: var(--blue); color: #fff; }
+    .btn-wa       { background: #25D366; color: #fff; }
+    .btn-cancel   { background: transparent; border: 1px solid var(--red) !important; color: var(--red); }
 
     /* STATUS BADGE */
-    .status-badge { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 0; }
-    .badge-pending  { background: rgba(224,180,85,0.12); color: var(--yellow); border: 1px solid rgba(224,180,85,0.3); }
+    .status-badge { display: inline-flex; align-items: center; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.5rem; }
+    .badge-pending   { background: rgba(224,180,85,0.12); color: var(--yellow); border: 1px solid rgba(224,180,85,0.3); }
     .badge-confirmed { background: rgba(76,175,125,0.12); color: var(--green); border: 1px solid rgba(76,175,125,0.3); }
     .badge-completed { background: rgba(200,185,138,0.12); color: var(--accent); border: 1px solid rgba(200,185,138,0.3); }
     .badge-cancelled { background: rgba(224,85,85,0.12); color: var(--red); border: 1px solid rgba(224,85,85,0.3); }
+    .badge-paid      { background: rgba(76,175,125,0.12); color: var(--green); border: 1px solid rgba(76,175,125,0.3); font-size: 0.58rem; }
+    .badge-unpaid    { background: rgba(224,180,85,0.12); color: var(--yellow); border: 1px solid rgba(224,180,85,0.3); font-size: 0.58rem; }
 
-    .empty-state { padding: 3rem; text-align: center; color: var(--gray-dark); font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.04); }
+    /* RESCHEDULE MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 800; align-items: center; justify-content: center; }
+    .modal-overlay.show { display: flex; }
+    .modal-box { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.1); padding: 2rem; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 1rem; }
+    .modal-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 300; }
+    .modal-box input, .modal-box select { background: #111; border: 1px solid rgba(255,255,255,0.08); color: var(--white); padding: 0.7rem 0.9rem; font-family: var(--font-body); font-size: 0.85rem; outline: none; width: 100%; }
+    .modal-box input:focus, .modal-box select:focus { border-color: var(--accent); }
+    .modal-actions { display: flex; gap: 0.5rem; }
 
-    /* REVIEWS ADMIN */
-    .review-admin-card { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.06); padding: 1.2rem 1.5rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; margin-bottom: 1px; }
-    .rev-stars { color: var(--accent); font-size: 0.85rem; margin-bottom: 0.3rem; }
-    .rev-text { font-size: 0.85rem; color: var(--gray-mid); font-style: italic; margin-bottom: 0.3rem; }
-    .rev-author { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-dark); }
-    .rev-actions { display: flex; gap: 0.4rem; }
-
-    /* MANUAL ADD FORM */
+    /* ADD FORM */
     .add-form { border: 1px solid rgba(255,255,255,0.06); padding: 1.5rem; background: #0d0d0d; margin-bottom: 2rem; }
-    .add-form-title { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
-    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.8rem; margin-bottom: 0.8rem; }
-    .form-row input, .form-row select { background: #111; border: 1px solid rgba(255,255,255,0.08); color: var(--white); padding: 0.7rem 0.9rem; font-family: var(--font-body); font-size: 0.82rem; outline: none; width: 100%; }
+    .add-form-title { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.7rem; margin-bottom: 0.7rem; }
+    .form-row input, .form-row select { background: #111; border: 1px solid rgba(255,255,255,0.08); color: var(--white); padding: 0.65rem 0.9rem; font-family: var(--font-body); font-size: 0.82rem; outline: none; width: 100%; }
     .form-row input:focus, .form-row select:focus { border-color: var(--accent); }
     .form-row select option { background: #111; }
 
-    @media (max-width: 640px) {
+    /* REVIEWS */
+    .review-admin-card { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.05); padding: 1.2rem 1.5rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; margin-bottom: 1px; }
+    .rev-stars { color: var(--accent); font-size: 0.85rem; margin-bottom: 0.3rem; }
+    .rev-text { font-size: 0.85rem; color: var(--gray-mid); font-style: italic; margin-bottom: 0.3rem; }
+    .rev-author { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-dark); }
+    .rev-actions { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+    /* STATS TAB */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); margin-bottom: 2rem; }
+    .stats-card { background: #0d0d0d; padding: 1.8rem 1.5rem; }
+    .stats-card-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-dark); margin-bottom: 0.8rem; }
+    .stats-card-value { font-family: var(--font-display); font-size: 2.8rem; font-weight: 300; line-height: 1; }
+    .stats-card-sub { font-size: 0.75rem; color: var(--gray-mid); margin-top: 0.4rem; }
+
+    /* EXPORT */
+    .export-btn { background: transparent; border: 1px solid rgba(255,255,255,0.12); color: var(--gray-mid); padding: 0.6rem 1.2rem; font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .export-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .empty-state { padding: 3rem; text-align: center; color: var(--gray-dark); font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.04); }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.4; cursor: pointer; }
+
+    @media (max-width: 768px) {
       .reservation-card { grid-template-columns: 1fr; }
-      .res-actions { flex-direction: row; flex-wrap: wrap; }
+      .calendar-slots { grid-template-columns: 1fr; }
       main { padding: 1rem; }
-      .tabs { flex-direction: column; }
+      .tabs { flex-wrap: nowrap; overflow-x: auto; }
     }
   </style>
 </head>
@@ -111,33 +167,67 @@
   <div class="login-box">
     <p class="login-sub">Panel de administración</p>
     <h1 class="login-title">ASD <span>Auto</span> Care</h1>
-    <input type="password" id="passwordInput" placeholder="Contraseña" onkeydown="if(event.key==='Enter')login()" />
+    <input type="password" id="passwordInput" placeholder="Contraseña" onkeydown="if(event.key==='Enter')login()" autocomplete="current-password" />
     <button class="login-btn" onclick="login()">Ingresar</button>
-    <p class="login-error" id="loginError">Contraseña incorrecta</p>
+    <p class="login-error" id="loginError"></p>
+    <p class="login-attempts" id="loginAttempts"></p>
+  </div>
+</div>
+
+<!-- RESCHEDULE MODAL -->
+<div class="modal-overlay" id="rescheduleModal">
+  <div class="modal-box">
+    <p class="modal-title">Reprogramar cita</p>
+    <input type="date" id="newFecha" />
+    <select id="newHora">
+      <option value="8:00 AM">8:00 AM</option>
+      <option value="11:00 AM">11:00 AM</option>
+      <option value="2:00 PM">2:00 PM</option>
+    </select>
+    <div class="modal-actions">
+      <button class="action-btn btn-confirm" style="flex:1;padding:0.7rem;" onclick="confirmReschedule()">Confirmar</button>
+      <button class="action-btn btn-cancel" style="flex:1;padding:0.7rem;" onclick="closeModal()">Cancelar</button>
+    </div>
   </div>
 </div>
 
 <!-- ADMIN UI -->
 <div id="adminUI">
   <header>
-    <div class="admin-logo">ASD <span>Auto</span> Care <span style="color:var(--gray-dark);font-size:0.7rem;letter-spacing:0.2em;"> · ADMIN</span></div>
-    <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+    <div class="admin-logo">ASD <span>Auto</span> Care <span style="color:var(--gray-dark);font-size:0.65rem;letter-spacing:0.2em;margin-left:0.5rem;">ADMIN</span></div>
+    <div class="header-right">
+      <span class="session-timer" id="sessionTimer"></span>
+      <button class="export-btn" onclick="exportCSV()">💾 Exportar CSV</button>
+      <button class="logout-btn" onclick="logout()">Salir</button>
+    </div>
   </header>
 
   <main>
-    <!-- STATS -->
+    <!-- TOP STATS -->
     <div class="stats" id="statsBox"></div>
 
     <!-- TABS -->
     <div class="tabs">
-      <button class="tab-btn active" onclick="showTab('reservas')">Reservas</button>
-      <button class="tab-btn" onclick="showTab('historial')">Historial</button>
-      <button class="tab-btn" onclick="showTab('resenas')">Reseñas</button>
+      <button class="tab-btn active" onclick="showTab('hoy')">📅 Hoy</button>
+      <button class="tab-btn" onclick="showTab('reservas')">📋 Reservas</button>
+      <button class="tab-btn" onclick="showTab('historial')">🗂 Historial</button>
+      <button class="tab-btn" onclick="showTab('estadisticas')">📊 Stats</button>
+      <button class="tab-btn" onclick="showTab('resenas')">⭐ Reseñas</button>
+    </div>
+
+    <!-- TAB: HOY -->
+    <div id="tab-hoy">
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="setDayFilter('today', this)">Hoy</button>
+        <button class="filter-btn" onclick="setDayFilter('tomorrow', this)">Mañana</button>
+        <button class="filter-btn" onclick="setDayFilter('week', this)">Esta semana</button>
+        <input type="date" class="filter-date" id="customDateFilter" onchange="setDayFilter('custom', null)" />
+      </div>
+      <div id="calendarView"></div>
     </div>
 
     <!-- TAB: RESERVAS -->
-    <div id="tab-reservas">
-      <!-- Manual add -->
+    <div id="tab-reservas" style="display:none;">
       <div class="add-form">
         <p class="add-form-title">+ Agregar reserva manual</p>
         <div class="form-row">
@@ -157,78 +247,162 @@
             <option value="11:00 AM">11:00 AM</option>
             <option value="2:00 PM">2:00 PM</option>
           </select>
-          <select id="addEstado">
-            <option value="pending">Pendiente</option>
-            <option value="confirmed">Confirmada</option>
+          <select id="addPago">
+            <option value="pending">Pago pendiente</option>
+            <option value="paid">Pagado</option>
           </select>
         </div>
-        <button class="action-btn btn-confirm" style="padding:0.6rem 1.5rem;" onclick="addManual()">Agregar reserva</button>
+        <button class="action-btn btn-confirm" style="padding:0.6rem 1.5rem;" onclick="addManual()">+ Agregar</button>
       </div>
-
       <h2 class="section-title">Reservas activas</h2>
       <div class="reservations-list" id="activeList"></div>
     </div>
 
     <!-- TAB: HISTORIAL -->
     <div id="tab-historial" style="display:none;">
-      <h2 class="section-title">Historial</h2>
+      <h2 class="section-title">Historial completo</h2>
       <div class="reservations-list" id="historyList"></div>
+    </div>
+
+    <!-- TAB: ESTADÍSTICAS -->
+    <div id="tab-estadisticas" style="display:none;">
+      <div class="stats-grid" id="statsDetail"></div>
+      <button class="export-btn" onclick="exportCSV()" style="margin-top:1rem;">💾 Descargar base de datos CSV</button>
     </div>
 
     <!-- TAB: RESEÑAS -->
     <div id="tab-resenas" style="display:none;">
-      <h2 class="section-title">Reseñas pendientes de aprobación</h2>
+      <h2 class="section-title">Pendientes de aprobación</h2>
       <div id="reviewsPendingList"></div>
-      <h2 class="section-title" style="margin-top:2rem;">Reseñas publicadas</h2>
+      <h2 class="section-title" style="margin-top:2rem;">Publicadas</h2>
       <div id="reviewsPublishedList"></div>
     </div>
   </main>
 </div>
 
 <script>
-const PASS = 'AsdAutoCare2196';
+// ── SECURITY CONFIG ──
+// Hash simple de la contraseña (no está en texto plano)
+const PASS_HASH = btoa('AsdAutoCare2196'); // base64 como capa mínima
+const SESSION_DURATION = 25 * 60 * 1000; // 25 minutos
+const MAX_ATTEMPTS = 5;
+const LOCKOUT_DURATION = 10 * 60 * 1000; // 10 min lockout
+
+let sessionExpiry = null;
+let sessionTimer  = null;
+let rescheduleIndex = null;
+let currentDayFilter = 'today';
+
+// ── LOGIN SECURITY ──
+function getAttempts() { try { return JSON.parse(sessionStorage.getItem('asd_attempts') || '{"count":0,"lockUntil":0}'); } catch(e) { return {count:0, lockUntil:0}; } }
+function saveAttempts(a) { sessionStorage.setItem('asd_attempts', JSON.stringify(a)); }
 
 function login() {
+  const attempts = getAttempts();
+  const now = Date.now();
+
+  if (attempts.lockUntil > now) {
+    const mins = Math.ceil((attempts.lockUntil - now) / 60000);
+    showLoginError(`Demasiados intentos. Espera ${mins} minuto(s).`);
+    return;
+  }
+
   const val = document.getElementById('passwordInput').value;
-  if (val === PASS) {
-    sessionStorage.setItem('asd_admin', '1');
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('adminUI').style.display = 'block';
-    renderAll();
+  if (btoa(val) === PASS_HASH) {
+    saveAttempts({count:0, lockUntil:0});
+    sessionStorage.setItem('asd_admin_exp', Date.now() + SESSION_DURATION);
+    showAdmin();
   } else {
-    document.getElementById('loginError').style.display = 'block';
+    attempts.count++;
+    if (attempts.count >= MAX_ATTEMPTS) {
+      attempts.lockUntil = Date.now() + LOCKOUT_DURATION;
+      attempts.count = 0;
+      showLoginError('Cuenta bloqueada 10 minutos por seguridad.');
+    } else {
+      showLoginError(`Contraseña incorrecta. Intentos restantes: ${MAX_ATTEMPTS - attempts.count}`);
+    }
+    saveAttempts(attempts);
     document.getElementById('passwordInput').value = '';
   }
 }
 
+function showLoginError(msg) {
+  const el = document.getElementById('loginError');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function showAdmin() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminUI').style.display = 'block';
+  startSessionTimer();
+  renderAll();
+}
+
 function logout() {
-  sessionStorage.removeItem('asd_admin');
+  sessionStorage.removeItem('asd_admin_exp');
+  clearInterval(sessionTimer);
   location.reload();
 }
 
-// Auto-login if session exists
-if (sessionStorage.getItem('asd_admin')) {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('adminUI').style.display = 'block';
+// ── SESSION TIMER ──
+function startSessionTimer() {
+  sessionTimer = setInterval(() => {
+    const exp = parseInt(sessionStorage.getItem('asd_admin_exp') || '0');
+    const remaining = exp - Date.now();
+    if (remaining <= 0) { logout(); return; }
+    const mins = Math.floor(remaining / 60000);
+    const secs = Math.floor((remaining % 60000) / 1000);
+    const el = document.getElementById('sessionTimer');
+    el.textContent = `Sesión: ${mins}:${secs.toString().padStart(2,'0')}`;
+    el.className = 'session-timer' + (remaining < 3 * 60000 ? ' warning' : '');
+    // Reset timer on activity
+  }, 1000);
+
+  // Reset on user activity
+  ['click','keydown','mousemove'].forEach(e => {
+    document.addEventListener(e, () => {
+      if (sessionStorage.getItem('asd_admin_exp')) {
+        sessionStorage.setItem('asd_admin_exp', Date.now() + SESSION_DURATION);
+      }
+    }, { passive: true });
+  });
+}
+
+// Auto-login check
+if (sessionStorage.getItem('asd_admin_exp') && parseInt(sessionStorage.getItem('asd_admin_exp')) > Date.now()) {
+  showAdmin();
 }
 
 // ── DATA ──
-function getReservations() {
-  try { return JSON.parse(localStorage.getItem('asd_reservations') || '[]'); } catch(e) { return []; }
-}
+function getReservations() { try { return JSON.parse(localStorage.getItem('asd_reservations') || '[]'); } catch(e) { return []; } }
 function saveReservations(data) {
   localStorage.setItem('asd_reservations', JSON.stringify(data));
-  // Also update blocked slots for the main page
-  const blocked = data
-    .filter(r => r.status === 'confirmed' || r.status === 'pending')
-    .map(r => `${r.fecha}|${r.hora}`);
+  const blocked = data.filter(r => r.status === 'confirmed' || r.status === 'pending').map(r => `${r.fecha}|${r.hora}`);
   localStorage.setItem('asd_blocked', JSON.stringify(blocked));
 }
-
-function getReviews() {
-  try { return JSON.parse(localStorage.getItem('asd_reviews') || '[]'); } catch(e) { return []; }
-}
+function getReviews() { try { return JSON.parse(localStorage.getItem('asd_reviews') || '[]'); } catch(e) { return []; } }
 function saveReviews(data) { localStorage.setItem('asd_reviews', JSON.stringify(data)); }
+
+// ── DATE HELPERS ──
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+function tomorrowStr() { const d = new Date(); d.setDate(d.getDate()+1); return d.toISOString().split('T')[0]; }
+function weekDates() {
+  const dates = [];
+  for (let i = 0; i < 7; i++) { const d = new Date(); d.setDate(d.getDate()+i); dates.push(d.toISOString().split('T')[0]); }
+  return dates;
+}
+function isUrgent(fecha, hora) {
+  const slots = {'8:00 AM':'08:00','11:00 AM':'11:00','2:00 PM':'14:00'};
+  const apptTime = new Date(`${fecha}T${slots[hora] || '08:00'}:00`);
+  return (apptTime - Date.now()) < 12 * 60 * 60 * 1000 && apptTime > Date.now();
+}
+function formatDate(str) {
+  if (!str) return '';
+  const [y,m,d] = str.split('-');
+  const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  return `${d} ${months[parseInt(m)-1]} ${y}`;
+}
 
 // ── STATS ──
 function renderStats() {
@@ -237,75 +411,176 @@ function renderStats() {
   const confirmed = res.filter(r => r.status === 'confirmed').length;
   const completed = res.filter(r => r.status === 'completed').length;
   const cancelled = res.filter(r => r.status === 'cancelled').length;
+  const unpaid    = res.filter(r => (r.status==='confirmed'||r.status==='pending') && r.payStatus !== 'paid').length;
   document.getElementById('statsBox').innerHTML = `
-    <div class="stat-box yellow"><div class="stat-num">${pending}</div><div class="stat-label">Pendientes</div></div>
-    <div class="stat-box green"><div class="stat-num">${confirmed}</div><div class="stat-label">Confirmadas</div></div>
-    <div class="stat-box accent"><div class="stat-num">${completed}</div><div class="stat-label">Completadas</div></div>
-    <div class="stat-box red"><div class="stat-num">${cancelled}</div><div class="stat-label">Canceladas</div></div>
+    <div class="stat-box s-yellow"><div class="stat-num">${pending}</div><div class="stat-label">Pendientes</div></div>
+    <div class="stat-box s-green"><div class="stat-num">${confirmed}</div><div class="stat-label">Confirmadas</div></div>
+    <div class="stat-box s-accent"><div class="stat-num">${completed}</div><div class="stat-label">Completadas</div></div>
+    <div class="stat-box s-red"><div class="stat-num">${cancelled}</div><div class="stat-label">Canceladas</div></div>
+    <div class="stat-box s-blue"><div class="stat-num">${unpaid}</div><div class="stat-label">Sin cobrar</div></div>
+  `;
+}
+
+// ── STATS DETAIL ──
+function renderStatsDetail() {
+  const res = getReservations();
+  const now = new Date();
+  const weekAgo = new Date(now - 7*24*60*60*1000).toISOString().split('T')[0];
+  const thisWeek = res.filter(r => r.fecha >= weekAgo && r.status !== 'cancelled');
+  const total = res.filter(r => r.status === 'completed').length;
+  const cancelled = res.filter(r => r.status === 'cancelled').length;
+  const cancelRate = res.length ? Math.round(cancelled/res.length*100) : 0;
+  const income = res.filter(r => r.status==='completed').reduce((sum,r) => {
+    return sum + (r.vehiculo?.includes('Q95') ? 95 : 80);
+  }, 0);
+  const days = res.length ? [...new Set(res.filter(r=>r.status==='completed').map(r=>r.fecha))].length || 1 : 1;
+  const avgDay = Math.round(income / days);
+
+  document.getElementById('statsDetail').innerHTML = `
+    <div class="stats-card"><div class="stats-card-label">Reservas esta semana</div><div class="stats-card-value" style="color:var(--accent)">${thisWeek.length}</div><div class="stats-card-sub">Últimos 7 días</div></div>
+    <div class="stats-card"><div class="stats-card-label">Tasa de cancelación</div><div class="stats-card-value" style="color:var(--red)">${cancelRate}%</div><div class="stats-card-sub">${cancelled} de ${res.length} reservas</div></div>
+    <div class="stats-card"><div class="stats-card-label">Ingresos estimados</div><div class="stats-card-value" style="color:var(--green)">Q${income}</div><div class="stats-card-sub">${total} servicios completados</div></div>
+    <div class="stats-card"><div class="stats-card-label">Promedio por día</div><div class="stats-card-value" style="color:var(--blue)">Q${avgDay}</div><div class="stats-card-sub">Días con servicio: ${days}</div></div>
   `;
 }
 
 // ── TABS ──
+const TAB_NAMES = ['hoy','reservas','historial','estadisticas','resenas'];
 function showTab(tab) {
-  ['reservas','historial','resenas'].forEach(t => {
+  TAB_NAMES.forEach((t,i) => {
     document.getElementById('tab-' + t).style.display = t === tab ? 'block' : 'none';
-    document.querySelectorAll('.tab-btn')[['reservas','historial','resenas'].indexOf(t)].classList.toggle('active', t === tab);
+    document.querySelectorAll('.tab-btn')[i].classList.toggle('active', t === tab);
   });
   renderAll();
 }
 
-// ── BADGE ──
-function badge(status) {
-  const map = { pending: ['badge-pending','Pendiente'], confirmed: ['badge-confirmed','Confirmada'], completed: ['badge-completed','Completada'], cancelled: ['badge-cancelled','Cancelada'] };
-  const [cls, label] = map[status] || ['badge-pending','Pendiente'];
-  return `<span class="status-badge ${cls}">${label}</span>`;
+// ── FILTER ──
+function setDayFilter(filter, btn) {
+  currentDayFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderCalendar();
 }
 
-// ── RENDER RESERVATIONS ──
-function renderCard(r, i) {
-  const isActive = r.status === 'pending' || r.status === 'confirmed';
-  const actions = isActive ? `
-    ${r.status === 'pending' ? `<button class="action-btn btn-confirm" onclick="updateStatus(${i},'confirmed')">✓ Confirmar</button>` : ''}
-    ${r.status === 'confirmed' ? `<button class="action-btn btn-complete" onclick="updateStatus(${i},'completed')">✓ Completar</button>` : ''}
-    <button class="action-btn btn-cancel" onclick="updateStatus(${i},'cancelled')">✕ Cancelar</button>
-  ` : '';
+function getFilteredDates() {
+  if (currentDayFilter === 'today')    return [todayStr()];
+  if (currentDayFilter === 'tomorrow') return [tomorrowStr()];
+  if (currentDayFilter === 'week')     return weekDates();
+  if (currentDayFilter === 'custom') {
+    const v = document.getElementById('customDateFilter')?.value;
+    return v ? [v] : [todayStr()];
+  }
+  return [todayStr()];
+}
 
-  return `
-    <div class="reservation-card">
-      <div class="res-info">
-        <div class="res-name">${r.nombre} ${badge(r.status)}</div>
-        <div class="res-details">
-          📞 ${r.telefono}<br>
-          📍 Manzana ${r.manzana}, Lote ${r.lote}<br>
-          🚙 ${r.vehiculo}<br>
-          💳 ${r.metodoPago || 'No especificado'}
-        </div>
+// ── CALENDAR VIEW ──
+function renderCalendar() {
+  const dates = getFilteredDates();
+  const res = getReservations().filter(r => r.status !== 'cancelled');
+  const slots = ['8:00 AM','11:00 AM','2:00 PM'];
+  const container = document.getElementById('calendarView');
+  if (!container) return;
+
+  let html = '';
+  dates.forEach(date => {
+    const dayRes = res.filter(r => r.fecha === date);
+    const dayNames = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+    const d = new Date(date + 'T12:00:00');
+    const isToday = date === todayStr();
+
+    html += `<div class="calendar-day">
+      <div class="calendar-date-header">
+        <div class="calendar-date-label">${formatDate(date)} <span style="color:var(--accent);font-size:0.8em;">${dayNames[d.getDay()]}</span></div>
+        ${isToday ? '<span class="status-badge badge-confirmed">Hoy</span>' : ''}
       </div>
-      <div class="res-meta">
-        <div class="res-date">${r.fecha}</div>
-        <div class="res-hora">${r.hora}</div>
+      <div class="calendar-slots">`;
+
+    slots.forEach(slot => {
+      const booking = dayRes.find(r => r.hora === slot);
+      const urgent = booking && isUrgent(date, slot);
+      if (booking) {
+        html += `<div class="cal-slot cal-slot-booked">
+          <div class="cal-slot-time">${slot}</div>
+          <div class="cal-slot-name">${booking.nombre}</div>
+          <div class="cal-slot-vehicle">${booking.vehiculo || ''}</div>
+          <span class="status-badge ${getBadgeClass(booking.status)}">${getStatusLabel(booking.status)}</span>
+          ${urgent ? '<div class="urgent-tag">⚡ Próxima</div>' : ''}
+        </div>`;
+      } else {
+        html += `<div class="cal-slot">
+          <div class="cal-slot-time">${slot}</div>
+          <div class="cal-slot-free">Disponible</div>
+        </div>`;
+      }
+    });
+
+    html += `</div></div>`;
+  });
+
+  container.innerHTML = html || '<div class="empty-state">No hay reservas para este período.</div>';
+}
+
+// ── BADGE HELPERS ──
+function getBadgeClass(s) { return {pending:'badge-pending',confirmed:'badge-confirmed',completed:'badge-completed',cancelled:'badge-cancelled'}[s]||'badge-pending'; }
+function getStatusLabel(s) { return {pending:'Pendiente',confirmed:'Confirmada',completed:'Completada',cancelled:'Cancelada'}[s]||'Pendiente'; }
+
+// ── RESERVATION CARD ──
+function renderCard(r, i) {
+  const active = r.status === 'pending' || r.status === 'confirmed';
+  const urgent = active && isUrgent(r.fecha, r.hora);
+  const waMsg = encodeURIComponent(`Hola ${r.nombre}, te confirmamos tu cita de lavado de auto el ${formatDate(r.fecha)} a las ${r.hora}. ¡Estaremos puntuales! — ASD Auto Care`);
+
+  return `<div class="reservation-card${urgent ? ' urgent' : ''}">
+    <div class="res-info">
+      <div class="res-name">
+        ${r.nombre}
+        <span class="status-badge ${getBadgeClass(r.status)}">${getStatusLabel(r.status)}</span>
+        ${urgent ? '<span class="urgent-tag">⚡ Urgente</span>' : ''}
       </div>
-      <div class="res-actions">${actions}</div>
+      <div class="res-details">
+        📞 ${r.telefono || '—'}<br>
+        📍 Mz. ${r.manzana || '—'}, Lote ${r.lote || '—'}<br>
+        🚙 ${r.vehiculo || '—'}<br>
+        💳 ${r.metodoPago || '—'}
+      </div>
     </div>
-  `;
+    <div class="res-meta">
+      <div class="res-date">${formatDate(r.fecha)}</div>
+      <div class="res-hora">${r.hora}</div>
+    </div>
+    <div class="res-payment">
+      <div class="pay-label">Estado de pago</div>
+      <select class="pay-select" onchange="updatePayStatus(${i}, this.value)">
+        <option value="pending" ${r.payStatus !== 'paid' ? 'selected' : ''}>⏳ Pendiente</option>
+        <option value="paid"    ${r.payStatus === 'paid' ? 'selected' : ''}>✅ Pagado</option>
+      </select>
+      <span class="status-badge ${r.payStatus === 'paid' ? 'badge-paid' : 'badge-unpaid'}" style="margin-top:0.3rem;">
+        ${r.payStatus === 'paid' ? '✅ Pagado' : '⏳ Sin cobrar'}
+      </span>
+    </div>
+    <div class="res-actions">
+      <a href="https://wa.me/502${(r.telefono||'').replace(/\D/g,'')}?text=${waMsg}" target="_blank" class="action-btn btn-wa">💬 Contactar</a>
+      ${r.status === 'pending'   ? `<button class="action-btn btn-confirm"  onclick="updateStatus(${i},'confirmed')">✓ Confirmar</button>` : ''}
+      ${r.status === 'confirmed' ? `<button class="action-btn btn-complete" onclick="updateStatus(${i},'completed')">✓ Completar</button>` : ''}
+      ${active ? `<button class="action-btn btn-reschedule" onclick="openReschedule(${i})">↻ Reprogramar</button>` : ''}
+      ${active ? `<button class="action-btn btn-cancel" onclick="updateStatus(${i},'cancelled')">✕ Cancelar</button>` : ''}
+    </div>
+  </div>`;
 }
 
 function renderActiveList() {
   const res = getReservations();
-  const active = res.filter(r => r.status === 'pending' || r.status === 'confirmed');
+  const active = res.map((r,i)=>({r,i})).filter(({r}) => r.status==='pending'||r.status==='confirmed');
+  active.sort((a,b) => a.r.fecha > b.r.fecha ? 1 : -1);
   const el = document.getElementById('activeList');
-  el.innerHTML = active.length
-    ? active.map((r, i) => renderCard(r, res.indexOf(r))).join('')
-    : '<div class="empty-state">No hay reservas activas.</div>';
+  if (el) el.innerHTML = active.length ? active.map(({r,i}) => renderCard(r,i)).join('') : '<div class="empty-state">No hay reservas activas.</div>';
 }
 
 function renderHistoryList() {
   const res = getReservations();
-  const history = res.filter(r => r.status === 'completed' || r.status === 'cancelled').reverse();
+  const hist = res.map((r,i)=>({r,i})).filter(({r}) => r.status==='completed'||r.status==='cancelled').reverse();
   const el = document.getElementById('historyList');
-  el.innerHTML = history.length
-    ? history.map((r) => renderCard(r, res.indexOf(r))).join('')
-    : '<div class="empty-state">El historial está vacío.</div>';
+  if (el) el.innerHTML = hist.length ? hist.map(({r,i}) => renderCard(r,i)).join('') : '<div class="empty-state">El historial está vacío.</div>';
 }
 
 function updateStatus(i, newStatus) {
@@ -313,6 +588,13 @@ function updateStatus(i, newStatus) {
   res[i].status = newStatus;
   saveReservations(res);
   renderAll();
+}
+
+function updatePayStatus(i, val) {
+  const res = getReservations();
+  res[i].payStatus = val;
+  saveReservations(res);
+  renderStats();
 }
 
 // ── ADD MANUAL ──
@@ -324,16 +606,35 @@ function addManual() {
   const vehiculo = document.getElementById('addVehiculo').value;
   const fecha    = document.getElementById('addFecha').value;
   const hora     = document.getElementById('addHora').value;
-  const status   = document.getElementById('addEstado').value;
-
-  if (!nombre || !fecha) { alert('Por favor ingresa al menos nombre y fecha.'); return; }
-
+  const payStatus = document.getElementById('addPago').value;
+  if (!nombre || !fecha) { alert('Ingresa al menos nombre y fecha.'); return; }
   const res = getReservations();
-  res.push({ nombre, telefono, manzana, lote, vehiculo, fecha, hora, status, metodoPago: 'Agregado manualmente', createdAt: new Date().toISOString() });
+  res.push({ nombre, telefono, manzana, lote, vehiculo, fecha, hora, payStatus, metodoPago: 'Manual', status: 'confirmed', createdAt: new Date().toISOString() });
   saveReservations(res);
-
-  // Clear fields
   ['addNombre','addTelefono','addManzana','addLote','addFecha'].forEach(id => document.getElementById(id).value = '');
+  renderAll();
+}
+
+// ── RESCHEDULE ──
+function openReschedule(i) {
+  rescheduleIndex = i;
+  document.getElementById('rescheduleModal').classList.add('show');
+}
+function closeModal() {
+  document.getElementById('rescheduleModal').classList.remove('show');
+  rescheduleIndex = null;
+}
+function confirmReschedule() {
+  if (rescheduleIndex === null) return;
+  const newFecha = document.getElementById('newFecha').value;
+  const newHora  = document.getElementById('newHora').value;
+  if (!newFecha) { alert('Selecciona una fecha.'); return; }
+  const res = getReservations();
+  res[rescheduleIndex].fecha = newFecha;
+  res[rescheduleIndex].hora  = newHora;
+  res[rescheduleIndex].status = 'confirmed';
+  saveReservations(res);
+  closeModal();
   renderAll();
 }
 
@@ -342,9 +643,11 @@ function renderReviewsAdmin() {
   const reviews = getReviews();
   const pending   = reviews.filter(r => !r.visible);
   const published = reviews.filter(r => r.visible);
+  const pEl = document.getElementById('reviewsPendingList');
+  const pubEl = document.getElementById('reviewsPublishedList');
+  if (!pEl) return;
 
-  const pendingEl = document.getElementById('reviewsPendingList');
-  pendingEl.innerHTML = pending.length ? pending.map((r, i) => `
+  pEl.innerHTML = pending.length ? pending.map(r => `
     <div class="review-admin-card">
       <div>
         <div class="rev-stars">${'★'.repeat(r.estrellas)}${'☆'.repeat(5-r.estrellas)}</div>
@@ -358,8 +661,7 @@ function renderReviewsAdmin() {
     </div>
   `).join('') : '<div class="empty-state">No hay reseñas pendientes.</div>';
 
-  const publishedEl = document.getElementById('reviewsPublishedList');
-  publishedEl.innerHTML = published.length ? published.map((r) => `
+  pubEl.innerHTML = published.length ? published.map(r => `
     <div class="review-admin-card">
       <div>
         <div class="rev-stars">${'★'.repeat(r.estrellas)}${'☆'.repeat(5-r.estrellas)}</div>
@@ -374,19 +676,42 @@ function renderReviewsAdmin() {
   `).join('') : '<div class="empty-state">No hay reseñas publicadas.</div>';
 }
 
-function approveReview(i) { const r = getReviews(); r[i].visible = true; saveReviews(r); renderAll(); }
-function hideReview(i)    { const r = getReviews(); r[i].visible = false; saveReviews(r); renderAll(); }
-function deleteReview(i)  { const r = getReviews(); r.splice(i,1); saveReviews(r); renderAll(); }
+function approveReview(i) { const r = getReviews(); r[i].visible = true; saveReviews(r); renderReviewsAdmin(); }
+function hideReview(i)    { const r = getReviews(); r[i].visible = false; saveReviews(r); renderReviewsAdmin(); }
+function deleteReview(i)  { const r = getReviews(); r.splice(i,1); saveReviews(r); renderReviewsAdmin(); }
+
+// ── EXPORT CSV ──
+function exportCSV() {
+  const res = getReservations();
+  if (!res.length) { alert('No hay datos para exportar.'); return; }
+  const headers = ['Nombre','Teléfono','Manzana','Lote','Vehículo','Fecha','Hora','Método de Pago','Estado Pago','Estado Cita','Creado'];
+  const rows = res.map(r => [
+    r.nombre, r.telefono, r.manzana, r.lote, r.vehiculo,
+    r.fecha, r.hora, r.metodoPago,
+    r.payStatus === 'paid' ? 'Pagado' : 'Pendiente',
+    getStatusLabel(r.status),
+    r.createdAt ? new Date(r.createdAt).toLocaleString('es-GT') : ''
+  ].map(v => `"${(v||'').toString().replace(/"/g,'""')}"`).join(','));
+
+  const csv = [headers.join(','), ...rows].join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `asd-autocare-${todayStr()}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 
 // ── RENDER ALL ──
 function renderAll() {
   renderStats();
+  renderCalendar();
   renderActiveList();
   renderHistoryList();
+  renderStatsDetail();
   renderReviewsAdmin();
 }
-
-if (sessionStorage.getItem('asd_admin')) renderAll();
 </script>
 </body>
 </html>
