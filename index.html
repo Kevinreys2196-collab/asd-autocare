@@ -388,10 +388,20 @@
 </a>
 
 <script>
-// ── FECHAS BLOQUEADAS ──
-// Agrega aquí "YYYY-MM-DD|HH:MM AM/PM" para bloquear slots
-// Ejemplo: "2026-03-01|8:00 AM"
-const reservasBloqueadas = [];
+// ── FECHAS BLOQUEADAS — sincronizadas con panel admin ──
+function getReservasBloqueadas() {
+  try { return JSON.parse(localStorage.getItem('asd_blocked') || '[]'); } catch(e) { return []; }
+}
+
+function guardarReservaLocal(data) {
+  try {
+    const res = JSON.parse(localStorage.getItem('asd_reservations') || '[]');
+    res.push({ ...data, status: 'pending', createdAt: new Date().toISOString() });
+    localStorage.setItem('asd_reservations', JSON.stringify(res));
+    const blocked = res.filter(r => r.status === 'confirmed' || r.status === 'pending').map(r => `${r.fecha}|${r.hora}`);
+    localStorage.setItem('asd_blocked', JSON.stringify(blocked));
+  } catch(e) {}
+}
 
 let selectedStars = 0;
 
@@ -400,6 +410,7 @@ function verificarFecha() {
   const warning = document.getElementById('dateWarning');
   const warningText = document.getElementById('dateWarningText');
   const slots = { '8:00 AM': 'slot-8am', '11:00 AM': 'slot-11am', '2:00 PM': 'slot-2pm' };
+  const reservasBloqueadas = getReservasBloqueadas();
   let bloqueadas = [];
 
   reservasBloqueadas.forEach(r => {
@@ -464,6 +475,7 @@ ${esTrans ? '📎 _Por favor envía tu comprobante de pago para confirmar la cit
 _Reserva enviada desde asdautocare.com_`;
 
   window.open(`https://wa.me/50231098720?text=${encodeURIComponent(mensaje)}`, '_blank');
+  guardarReservaLocal({ nombre, telefono, manzana, lote, vehiculo, fecha, hora, metodoPago });
 }
 
 // ── REVIEWS ──
