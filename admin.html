@@ -3,978 +3,601 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>ASD Auto Care — Admin</title>
+  <title>ASD Auto Care — Fraijanes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
     :root{
-      --bg:#0a0a0a;--sf:#0f0f0f;--sf2:#141414;
-      --bd:rgba(255,255,255,0.07);--wh:#f0f0eb;
-      --mid:#909088;--dim:#3a3a38;
-      --acc:#c8b98a;--grn:#52c481;--red:#d96060;
-      --yel:#d4a84b;--blu:#6090d8;
-      --ff:'DM Sans',sans-serif;--fd:'Cormorant Garamond',serif;
+      --black:#0a0a0a;--white:#f5f5f0;
+      --gray-mid:#b0b0a8;--gray-dark:#3a3a38;--accent:#c8b98a;
+      --fd:'Cormorant Garamond',serif;--fb:'DM Sans',sans-serif;
     }
-    body{background:var(--bg);color:var(--wh);font-family:var(--ff);font-weight:300;min-height:100vh;font-size:14px;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--white);font-family:var(--fb);font-weight:300;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:0.6;}
 
-    /* LOGIN */
-    #loginScreen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;}
-    .lbox{border:1px solid var(--bd);padding:2.5rem;width:100%;max-width:340px;background:var(--sf);display:flex;flex-direction:column;gap:1rem;}
-    .lbox-title{font-family:var(--fd);font-size:1.7rem;font-weight:300;text-align:center;}
-    .lbox-title b{color:var(--acc);font-weight:600;}
-    .lbox-sub{font-size:.68rem;color:var(--dim);text-align:center;letter-spacing:.18em;text-transform:uppercase;}
-    .lbox input{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.8rem 1rem;font-family:var(--ff);font-size:.88rem;outline:none;width:100%;transition:border-color .3s;}
-    .lbox input:focus{border-color:var(--acc);}
-    .lbox-btn{background:var(--wh);color:var(--bg);border:none;padding:.85rem;font-family:var(--ff);font-size:.75rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:background .3s;}
-    .lbox-btn:hover{background:var(--acc);}
-    .lbox-err{font-size:.75rem;color:var(--red);text-align:center;display:none;}
+    /* PROMO BANNER */
+    #promoBanner{display:none;background:linear-gradient(135deg,rgba(200,185,138,0.18),rgba(200,185,138,0.06));border-bottom:1px solid rgba(200,185,138,0.35);padding:0.6rem 2rem;text-align:center;font-size:0.82rem;color:var(--accent);letter-spacing:0.06em;position:relative;z-index:850;}
 
-    /* HEADER */
-    #adminUI{display:none;}
-    header{background:rgba(10,10,10,.96);border-bottom:1px solid var(--bd);padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);}
-    .hlogo{font-family:var(--fd);font-size:1rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;}
-    .hlogo b{color:var(--acc);}
-    .hlogo-tag{font-size:.55rem;color:var(--dim);letter-spacing:.2em;text-transform:uppercase;}
-    .live{width:6px;height:6px;background:var(--grn);border-radius:50%;display:inline-block;animation:blink 2s infinite;}
-    @keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
-    .hright{display:flex;align-items:center;gap:.7rem;}
-    .stimer{font-size:.65rem;color:var(--mid);}
-    .stimer.warn{color:var(--red);}
-    .hbtn{background:transparent;border:1px solid var(--bd);color:var(--mid);padding:.4rem .9rem;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:var(--ff);transition:all .25s;}
-    .hbtn:hover{border-color:var(--acc);color:var(--acc);}
-    .hbtn.out:hover{border-color:var(--red);color:var(--red);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;background:rgba(10,10,10,0.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+    .nav-logo{font-family:var(--fd);font-size:1.1rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;}
+    .nav-logo span{color:var(--accent);}
+    .nav-links{display:flex;gap:2rem;list-style:none;}
+    .nav-links a{color:var(--gray-mid);text-decoration:none;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.3s;}
+    .nav-links a:hover{color:var(--white);}
 
-    main{max-width:1100px;margin:0 auto;padding:1.5rem;}
+    #hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:7rem 2rem 4rem;position:relative;overflow:hidden;}
+    .hero-bg{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,.45) 0%,rgba(10,10,10,.72) 50%,rgba(10,10,10,.97) 100%),url('https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=1600&q=80&fit=crop') center/cover no-repeat;}
+    .hero-line{position:absolute;top:0;left:50%;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.06),transparent);transform:translateX(-50%);}
+    .hero-content{position:relative;max-width:700px;}
+    .hero-eyebrow{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .2s forwards;}
+    .hero-title{font-family:var(--fd);font-size:clamp(2.4rem,7vw,5rem);font-weight:300;line-height:1.1;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .4s forwards;}
+    .hero-title em{font-style:italic;font-weight:600;}
+    .hero-sub{font-size:.95rem;color:var(--gray-mid);line-height:1.7;max-width:480px;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s .6s forwards;}
+    .hero-buttons{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .8s forwards;}
+    .btn-primary{background:var(--white);color:var(--black);border:none;padding:.9rem 2.2rem;font-family:var(--fb);font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .3s,transform .2s;text-decoration:none;display:inline-block;}
+    .btn-primary:hover{background:var(--accent);transform:translateY(-1px);}
+    .btn-secondary{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.25);padding:.9rem 2.2rem;font-family:var(--fb);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block;}
+    .btn-secondary:hover{border-color:var(--white);transform:translateY(-1px);}
+    .hero-scroll{position:absolute;bottom:2rem;right:2rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeIn 1s 1.2s forwards;}
+    .hero-scroll span{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-dark);writing-mode:vertical-rl;}
+    .scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--gray-dark),transparent);animation:scrollPulse 2s infinite;}
 
-    /* KPI STRIP */
-    .kpi-strip{display:flex;border:1px solid var(--bd);background:var(--sf);margin-bottom:1.5rem;overflow-x:auto;}
-    .kpi{flex:1;min-width:120px;padding:1rem 1.1rem;border-right:1px solid var(--bd);}
-    .kpi:last-child{border-right:none;}
-    .kpi-lbl{font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:.35rem;}
-    .kpi-val{font-family:var(--fd);font-size:1.75rem;font-weight:400;line-height:1;color:var(--wh);}
-    .kpi-note{font-size:.65rem;color:var(--mid);margin-top:.2rem;}
-    .kpi.g .kpi-val{color:#6dd99a;}
-    .kpi.a .kpi-val{color:#d4c49a;}
-    .kpi.b .kpi-val{color:#7aabf0;}
-    .kpi.r .kpi-val{color:#e08080;}
-    .kpi.y .kpi-val{color:#e8c26a;}
+    .divider{width:100%;height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,.1),transparent);}
+    section.std{padding:5rem 2rem;max-width:900px;margin:0 auto;}
+    .section-label{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;}
+    .section-title{font-family:var(--fd);font-size:clamp(2rem,5vw,3.5rem);font-weight:300;line-height:1.15;margin-bottom:3rem;}
 
-    /* TABS */
-    .tabs{display:flex;gap:1px;background:var(--bd);border:1px solid var(--bd);margin-bottom:1.5rem;overflow-x:auto;}
-    .tbtn{background:var(--sf);border:none;color:var(--mid);padding:.75rem 1.1rem;font-family:var(--ff);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s;white-space:nowrap;flex:1;}
-    .tbtn.active{background:var(--wh);color:var(--bg);font-weight:500;}
+    .section-bg{position:relative;}
+    .section-bg::after{content:'';position:absolute;inset:0;background-size:cover;background-position:center;opacity:.08;pointer-events:none;z-index:0;}
+    .section-bg>*{position:relative;z-index:1;}
+    #booking.section-bg::after{background-image:url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80&fit=crop');}
+    #reviews.section-bg::after{background-image:url('https://images.unsplash.com/photo-1571607388263-1044f9ea01dd?w=1200&q=80&fit=crop');}
+    #contact.section-bg::after{background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80&fit=crop');}
 
-    /* FILTER */
-    .fbar{display:flex;gap:.4rem;margin-bottom:1.2rem;flex-wrap:wrap;align-items:center;}
-    .fbtn{background:var(--sf);border:1px solid var(--bd);color:var(--mid);padding:.38rem .85rem;font-family:var(--ff);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .25s;}
-    .fbtn.active,.fbtn:hover{border-color:var(--acc);color:var(--acc);}
-    .fdate{background:var(--sf);border:1px solid var(--bd);color:var(--wh);padding:.38rem .7rem;font-family:var(--ff);font-size:.72rem;outline:none;}
+    /* SERVICES */
+    #services{position:relative;padding:0;margin:0;width:100%;}
+    #services::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=1600&q=85&fit=crop') center/cover no-repeat fixed;z-index:0;}
+    #services::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,.88) 0%,rgba(10,10,10,.78) 30%,rgba(10,10,10,.82) 70%,rgba(10,10,10,.96) 100%);z-index:1;}
+    .services-inner{position:relative;z-index:2;max-width:900px;margin:0 auto;padding:5rem 2rem;}
+    .svc-list{border-top:1px solid rgba(255,255,255,.1);margin-top:2.5rem;}
+    .svc-row{display:grid;grid-template-columns:28px 1fr auto;align-items:start;gap:1.2rem;padding:1.3rem 0;border-bottom:1px solid rgba(255,255,255,.07);}
+    .svc-check{color:var(--accent);font-size:1.1rem;padding-top:.15rem;}
+    .svc-name{font-size:.95rem;font-weight:400;color:var(--white);margin-bottom:.2rem;}
+    .svc-desc{font-size:.78rem;color:var(--gray-mid);line-height:1.5;}
+    .svc-promo{display:inline-block;margin-top:.35rem;font-size:.68rem;color:var(--accent);border:1px solid rgba(200,185,138,.3);padding:.18rem .55rem;letter-spacing:.1em;}
+    .svc-tag{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-dark);border:1px solid rgba(255,255,255,.08);padding:.3rem .7rem;white-space:nowrap;align-self:center;}
+    .svc-tag-free{color:var(--accent);border-color:rgba(200,185,138,.35);background:rgba(200,185,138,.06);}
+    .svc-pricing{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);margin-top:3rem;}
+    .price-card{background:rgba(10,10,10,.85);padding:2.5rem 2rem;text-align:center;position:relative;overflow:hidden;}
+    .price-card.featured{background:rgba(18,18,18,.95);}
+    .price-card.featured::before{content:'Popular';position:absolute;top:1rem;right:-1.8rem;background:var(--accent);color:var(--black);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:.25rem 2.5rem;transform:rotate(45deg);}
+    .price-type{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gray-mid);margin-bottom:1.2rem;}
+    .price-amount{font-family:var(--fd);font-size:4rem;font-weight:300;line-height:1;margin-bottom:.4rem;}
+    .price-amount sup{font-size:1.4rem;vertical-align:super;color:var(--gray-mid);font-weight:300;}
+    .price-vehicle{font-size:.78rem;color:var(--gray-mid);}
+    .pricing-note{font-size:.78rem;color:rgba(176,176,168,.7);text-align:center;margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.06);}
+    .pricing-note strong{color:var(--gray-mid);}
 
-    /* CALENDAR */
-    .calday{border:1px solid var(--bd);background:var(--sf);margin-bottom:1.2rem;}
-    .calhead{padding:.7rem 1.2rem;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;}
-    .caldate{font-family:var(--fd);font-size:1.05rem;}
-    .caldate span{color:var(--acc);font-size:.8em;}
-    .calslots{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.03);}
-    .calslot{background:var(--bg);padding:.9rem;min-height:76px;}
-    .calslot.taken{background:#0d0d0d;}
-    .cstime{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:.4rem;}
-    .csfree{font-size:.72rem;color:var(--dim);font-style:italic;}
-    .csname{font-size:.82rem;color:var(--wh);font-weight:400;margin-bottom:.15rem;}
-    .csveh{font-size:.68rem;color:var(--mid);}
-    .upill{display:inline-block;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(217,96,96,.12);color:var(--red);border:1px solid rgba(217,96,96,.28);padding:.1rem .4rem;margin-top:.25rem;}
+    /* GALLERY */
+    #gallery{padding:5rem 0;overflow:hidden;}
+    .gallery-header{padding:0 2rem;max-width:900px;margin:0 auto 2.5rem;}
+    .carousel-track-wrap{overflow:hidden;}
+    .carousel-track{display:flex;gap:1px;transition:transform .6s cubic-bezier(.25,.46,.45,.94);will-change:transform;}
+    .carousel-slide{min-width:340px;height:260px;flex-shrink:0;overflow:hidden;position:relative;background:#111;}
+    .carousel-slide img{width:100%;height:100%;object-fit:cover;filter:grayscale(30%) brightness(.85);transition:filter .4s,transform .4s;display:block;}
+    .carousel-slide:hover img{filter:grayscale(0%) brightness(1);transform:scale(1.03);}
+    .carousel-slide .slide-label{position:absolute;bottom:0;left:0;right:0;padding:.8rem 1rem;background:linear-gradient(transparent,rgba(0,0,0,.75));font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-mid);}
+    .carousel-dots{display:flex;justify-content:center;gap:.5rem;margin-top:1.5rem;}
+    .carousel-dot{width:6px;height:6px;background:var(--gray-dark);border:none;cursor:pointer;transition:background .3s,width .3s;padding:0;}
+    .carousel-dot.active{background:var(--accent);width:20px;}
 
-    /* RES CARDS */
-    .rlist{display:flex;flex-direction:column;gap:1px;}
-    .rcard{background:var(--sf);border:1px solid var(--bd);padding:1rem 1.3rem;display:grid;grid-template-columns:1fr 130px 110px auto;gap:.9rem;align-items:start;transition:background .2s;}
-    .rcard:hover{background:var(--sf2);}
-    .rcard.urg{border-left:2px solid var(--red);}
-    .rname{font-size:.87rem;font-weight:400;color:var(--wh);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.35rem;}
-    .rdet{font-size:.7rem;color:var(--mid);line-height:1.7;}
-    .rdcol{display:flex;flex-direction:column;gap:.18rem;}
-    .rdate{font-family:var(--fd);font-size:.95rem;color:var(--wh);}
-    .rhora{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);}
-    .rcreated{font-size:.6rem;color:var(--dim);margin-top:.25rem;}
-    .pcol{display:flex;flex-direction:column;gap:.35rem;}
-    .plbl{font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);}
-    .psel{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.32rem .5rem;font-family:var(--ff);font-size:.7rem;outline:none;cursor:pointer;width:100%;}
-    .acts{display:flex;flex-direction:column;gap:.3rem;}
-    .ab{border:none;padding:.32rem .75rem;font-family:var(--ff);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;white-space:nowrap;display:flex;align-items:center;gap:.25rem;justify-content:center;text-decoration:none;}
-    .ab:hover{opacity:.78;}
-    .ab:disabled{opacity:.2;cursor:not-allowed;}
-    .ac{background:var(--grn);color:#000;}
-    .ap{background:var(--blu);color:#fff;}
-    .ao{background:var(--acc);color:#000;}
-    .aw{background:#25D366;color:#fff;}
-    .ax{background:transparent;border:1px solid var(--red)!important;color:var(--red);}
-    .ad{background:transparent;border:1px solid rgba(217,96,96,.3)!important;color:rgba(217,96,96,.6);}
-    .apd{background:var(--red);color:#fff;}
-    .adl{background:transparent;border:1px solid rgba(200,185,138,.3)!important;color:var(--acc);font-size:.62rem;}
+    /* FORM */
+    .form-group{display:flex;flex-direction:column;gap:.5rem;}
+    .form-group>label{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-mid);}
+    .form-group input,.form-group select{background:#0d0d0d;border:1px solid rgba(255,255,255,.1);color:var(--white);padding:.85rem 1rem;font-family:var(--fb);font-size:.88rem;outline:none;width:100%;transition:border-color .3s;-webkit-appearance:none;}
+    .form-group input:focus,.form-group select:focus{border-color:var(--accent);}
+    .form-group select option{background:#0d0d0d;}
 
-    /* BADGES */
-    .bdg{display:inline-flex;align-items:center;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .45rem;border:1px solid;}
-    .bp{background:rgba(212,168,75,.1);color:var(--yel);border-color:rgba(212,168,75,.28);}
-    .bc{background:rgba(82,196,129,.1);color:var(--grn);border-color:rgba(82,196,129,.28);}
-    .bco{background:rgba(200,185,138,.1);color:var(--acc);border-color:rgba(200,185,138,.28);}
-    .bca{background:rgba(217,96,96,.1);color:var(--red);border-color:rgba(217,96,96,.28);}
-    .be{background:rgba(120,120,120,.08);color:var(--mid);border-color:rgba(120,120,120,.2);}
-    .bpd{background:rgba(82,196,129,.1);color:var(--grn);border-color:rgba(82,196,129,.28);font-size:.52rem;}
-    .bup{background:rgba(212,168,75,.1);color:var(--yel);border-color:rgba(212,168,75,.28);font-size:.52rem;}
+    /* SLOTS */
+    .radio-label{display:flex;align-items:center;gap:.7rem;font-size:.88rem;color:var(--white);cursor:pointer;padding:.75rem 1rem;border:1px solid rgba(255,255,255,.08);transition:border-color .3s,background .3s;position:relative;user-select:none;}
+    .radio-label:hover{border-color:rgba(200,185,138,.4);background:rgba(200,185,138,.04);}
+    .radio-label input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;flex-shrink:0;}
+    .radio-label.is-selected{border-color:var(--accent);background:rgba(200,185,138,.08);}
+    .radio-label .slot-check{display:none;margin-left:auto;width:20px;height:20px;background:var(--accent);border-radius:50%;align-items:center;justify-content:center;font-size:.7rem;color:var(--black);font-weight:700;flex-shrink:0;}
+    .radio-label.is-selected .slot-check{display:flex;}
+    .radio-label.slot-unavailable{opacity:.3;pointer-events:none;border-color:rgba(224,85,85,.2)!important;background:transparent!important;}
+    .radio-label.slot-unavailable .slot-time::after{content:' — Reservado';font-size:.7rem;color:#e05555;}
 
-    /* SUMMARY */
-    .sum-wrap{margin-bottom:2rem;}
-    .sum-period-label{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);margin-bottom:.75rem;}
-    .sum-card{border:1px solid var(--bd);background:var(--sf);display:grid;grid-template-columns:1fr 260px;}
-    .sum-left{padding:1.4rem 1.5rem;border-right:1px solid var(--bd);display:flex;flex-direction:column;gap:1.1rem;}
-    .sum-headline{font-family:var(--fd);font-size:2rem;font-weight:300;line-height:1.1;color:var(--wh);}
-    .sum-headline .hl-g{color:#6dd99a;}
-    .sum-headline .hl-d{color:var(--mid);font-size:1.2rem;}
-    .sum-points{list-style:none;display:flex;flex-direction:column;gap:.55rem;border-top:1px solid var(--bd);padding-top:1rem;}
-    .sum-points li{display:grid;grid-template-columns:16px 1fr;gap:.5rem;font-size:.8rem;color:var(--mid);line-height:1.5;}
-    .sum-points li .dot{width:4px;height:4px;background:var(--acc);border-radius:50%;margin-top:.45rem;justify-self:center;}
-    .sum-points li strong{color:var(--wh);font-weight:500;}
-    .sum-points li.ok strong{color:#6dd99a;}
-    .sum-points li.warn strong{color:#e08080;}
-    .sum-dl{display:flex;gap:.5rem;padding-top:.5rem;border-top:1px solid var(--bd);}
-    .sum-right{padding:1.4rem 1.3rem;display:flex;flex-direction:column;gap:1.1rem;}
-    .chart-title{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);}
-    .bars{display:flex;flex-direction:column;gap:.9rem;}
-    .bar-row{display:flex;flex-direction:column;gap:.28rem;}
-    .bar-meta{display:flex;justify-content:space-between;}
-    .bar-name{font-size:.68rem;color:var(--mid);}
-    .bar-val{font-size:.68rem;color:var(--wh);font-weight:500;}
-    .bar-track{height:4px;background:rgba(255,255,255,.05);}
-    .bar-fill{height:100%;transition:width .7s ease;}
-    .bg{background:var(--grn);}.ba{background:var(--acc);}.br{background:var(--red);}.bb{background:var(--blu);}
-    .chart-legend{display:flex;flex-wrap:wrap;gap:.6rem;padding-top:.6rem;border-top:1px solid var(--bd);}
-    .leg-item{display:flex;align-items:center;gap:.35rem;font-size:.62rem;color:var(--mid);}
-    .leg-dot{width:8px;height:8px;}
-    .sum-empty{border:1px solid var(--bd);background:var(--sf);padding:2rem;text-align:center;font-size:.8rem;color:var(--dim);}
+    input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.5;cursor:pointer;}
+    .alert-box{display:none;align-items:center;gap:.5rem;padding:.85rem 1rem;font-size:.82rem;margin-top:.5rem;border:1px solid;}
+    .alert-box.show{display:flex;}
+    .alert-warn{background:rgba(224,85,85,.07);border-color:rgba(224,85,85,.3);color:#e05555;}
+    .alert-blocked{background:rgba(224,85,85,.12);border-color:rgba(224,85,85,.4);color:#e07070;font-weight:500;}
+    .alert-past{background:rgba(150,120,50,.1);border-color:rgba(200,185,138,.3);color:var(--accent);}
 
-    /* HIST BLOCKS */
-    .hblock{margin-bottom:2rem;}
-    .hblock-title{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--bd);}
+    .payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.08);}
+    .payment-card{background:#0d0d0d;padding:1.5rem;}
+    .payment-card-title{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;}
+    .payment-card-info{font-size:.82rem;color:var(--gray-mid);line-height:1.8;}
+    .payment-card-info strong{color:var(--white);font-weight:400;}
+    .payment-cash{background:#0d0d0d;padding:1rem 1.5rem;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:.8rem;}
+    .payment-note{font-size:.78rem;color:var(--gray-mid);margin-top:1rem;padding:.9rem 1.2rem;border-left:2px solid var(--accent);background:rgba(200,185,138,.04);line-height:1.6;}
+    .payment-note a{color:var(--accent);text-decoration:none;}
 
-    /* ADD FORM */
-    .addform{border:1px solid var(--bd);padding:1.2rem;background:var(--sf);margin-bottom:1.5rem;}
-    .addform-title{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:.8rem;}
-    .frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.5rem;margin-bottom:.5rem;}
-    .frow input,.frow select{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.55rem .8rem;font-family:var(--ff);font-size:.77rem;outline:none;width:100%;}
+    .reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);margin-bottom:2.5rem;min-height:80px;}
+    .review-card{background:#0a0a0a;padding:2rem 1.5rem;display:flex;flex-direction:column;gap:1rem;}
+    .review-stars{color:var(--accent);font-size:1rem;}
+    .review-text{font-size:.88rem;color:var(--gray-mid);line-height:1.7;font-style:italic;}
+    .review-author{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-dark);margin-top:auto;}
+    .review-form-wrap{border:1px solid rgba(255,255,255,.08);padding:2rem;background:#0d0d0d;}
+    .review-form-title{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;}
+    .star-select{display:flex;gap:.4rem;margin-bottom:1rem;}
+    .star-btn{background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--gray-dark);transition:color .2s;line-height:1;}
+    .star-btn.active{color:var(--accent);}
 
-    /* ══ CONFIG TAB ══ */
-    .cfg-section{border:1px solid var(--bd);background:var(--sf);margin-bottom:1.5rem;}
-    .cfg-head{padding:1rem 1.3rem;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;}
-    .cfg-head-title{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);}
-    .cfg-body{padding:1.2rem 1.3rem;display:flex;flex-direction:column;gap:.8rem;}
-    .cfg-row{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;}
-    .cfg-label{font-size:.72rem;color:var(--mid);min-width:120px;}
-    .cfg-input{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.5rem .8rem;font-family:var(--ff);font-size:.82rem;outline:none;flex:1;min-width:80px;max-width:160px;}
-    .cfg-input:focus{border-color:var(--acc);}
-    .cfg-textarea{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.6rem .8rem;font-family:var(--ff);font-size:.82rem;outline:none;width:100%;resize:vertical;min-height:60px;}
-    .cfg-textarea:focus{border-color:var(--acc);}
-    .cfg-toggle{display:flex;align-items:center;gap:.6rem;cursor:pointer;font-size:.8rem;color:var(--mid);}
-    .cfg-toggle input[type="checkbox"]{width:16px;height:16px;accent-color:var(--acc);}
-    .cfg-save-btn{background:var(--acc);color:var(--bg);border:none;padding:.5rem 1.2rem;font-family:var(--ff);font-size:.65rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;}
-    .cfg-save-btn:hover{opacity:.85;}
-    .cfg-saved{font-size:.68rem;color:var(--grn);display:none;}
+    .contact-inner{border:1px solid rgba(255,255,255,.08);padding:3rem 2rem;display:flex;flex-direction:column;gap:1.5rem;background:#0d0d0d;}
+    .contact-label{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);}
+    .contact-number{font-family:var(--fd);font-size:clamp(1.8rem,5vw,3rem);font-weight:300;color:var(--white);text-decoration:none;display:block;transition:color .3s;}
+    .contact-number:hover{color:var(--accent);}
+    .wa-btn{display:inline-flex;align-items:center;gap:.7rem;background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--white);text-decoration:none;padding:.85rem 1.8rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;transition:all .3s;align-self:flex-start;}
+    .wa-btn:hover{border-color:#25D366;background:rgba(37,211,102,.08);}
+    .wa-float{position:fixed;bottom:2rem;right:2rem;z-index:800;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .3s;text-decoration:none;}
+    .wa-float:hover{transform:scale(1.1);}
+    footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem;display:flex;flex-direction:column;align-items:center;gap:.6rem;text-align:center;}
+    .footer-brand{font-family:var(--fd);font-size:1rem;letter-spacing:.2em;text-transform:uppercase;}
+    .footer-sub{font-size:.72rem;color:var(--gray-dark);letter-spacing:.1em;}
 
-    /* SERVICES EDITOR */
-    .svc-editor-row{display:grid;grid-template-columns:1fr 1fr 100px 90px 60px auto;gap:.5rem;align-items:center;padding:.7rem .5rem;border-bottom:1px solid var(--bd);}
-    .svc-editor-row:last-child{border-bottom:none;}
-    .svc-editor-row input,.svc-editor-row select{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.4rem .6rem;font-family:var(--ff);font-size:.75rem;outline:none;width:100%;}
-    .svc-editor-row select option{background:#111;}
-    .svc-editor-header{display:grid;grid-template-columns:1fr 1fr 100px 90px 60px auto;gap:.5rem;padding:.5rem;background:var(--sf2);margin-bottom:1px;}
-    .svc-editor-header span{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:.8}}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+    .reveal.visible{opacity:1;transform:none;}
 
-    /* GALLERY MANAGER */
-    .gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1px;background:var(--bd);border:1px solid var(--bd);margin-bottom:1rem;}
-    .gal-card{background:var(--sf);position:relative;aspect-ratio:4/3;overflow:hidden;}
-    .gal-card img{width:100%;height:100%;object-fit:cover;display:block;}
-    .gal-card-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;opacity:0;transition:opacity .25s;}
-    .gal-card:hover .gal-card-overlay{opacity:1;}
-    .gal-card-caption{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);padding:.4rem .6rem;font-size:.65rem;color:var(--mid);}
-    .gal-card-order{position:absolute;top:.4rem;left:.5rem;font-size:.62rem;color:var(--acc);background:rgba(0,0,0,.7);padding:.15rem .4rem;}
-    .gal-hidden{opacity:.35;}
-    .upload-box{border:1px dashed rgba(255,255,255,.15);padding:2rem;text-align:center;cursor:pointer;transition:border-color .3s;background:rgba(255,255,255,.02);}
-    .upload-box:hover,.upload-box.dragover{border-color:var(--acc);background:rgba(200,185,138,.04);}
-    .upload-box input{display:none;}
-    .upload-label{font-size:.78rem;color:var(--mid);display:block;margin-top:.5rem;}
-    .upload-sub{font-size:.68rem;color:var(--dim);margin-top:.3rem;}
-
-    /* BLOCKED DATES */
-    .blocked-list{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem;}
-    .blocked-chip{display:flex;align-items:center;gap:.4rem;background:rgba(217,96,96,.12);border:1px solid rgba(217,96,96,.3);padding:.3rem .7rem;font-size:.72rem;color:var(--red);}
-    .blocked-chip button{background:none;border:none;color:var(--red);cursor:pointer;font-size:.85rem;padding:0;line-height:1;}
-
-    /* MODALS */
-    .mover{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:800;align-items:center;justify-content:center;}
-    .mover.show{display:flex;}
-    .mbox{background:var(--sf);border:1px solid rgba(255,255,255,.1);padding:1.8rem;width:100%;max-width:420px;display:flex;flex-direction:column;gap:.9rem;}
-    .mtitle{font-family:var(--fd);font-size:1.25rem;font-weight:300;}
-    .mbox input,.mbox select,.mbox textarea{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.65rem .85rem;font-family:var(--ff);font-size:.82rem;outline:none;width:100%;}
-    .macts{display:flex;gap:.5rem;}
-
-    /* REVIEWS */
-    .revcard{background:var(--sf);border:1px solid var(--bd);padding:1rem 1.2rem;display:grid;grid-template-columns:1fr auto;gap:.8rem;margin-bottom:1px;}
-    .revstars{color:var(--acc);font-size:.8rem;margin-bottom:.2rem;}
-    .revtext{font-size:.8rem;color:var(--mid);font-style:italic;margin-bottom:.2rem;}
-    .revauthor{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);}
-    .revacts{display:flex;gap:.4rem;flex-wrap:wrap;align-items:flex-start;}
-
-    .stitle{font-family:var(--fd);font-size:1.2rem;font-weight:300;margin-bottom:.8rem;}
-    .empty{padding:2.5rem;text-align:center;color:var(--dim);font-size:.78rem;border:1px solid var(--bd);}
-    .toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--sf);border:1px solid var(--acc);color:var(--acc);padding:.7rem 1.4rem;font-size:.78rem;z-index:9000;display:none;letter-spacing:.08em;}
-    input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.4;cursor:pointer;}
-
-    @media(max-width:760px){
-      .rcard{grid-template-columns:1fr;}
-      .calslots{grid-template-columns:1fr;}
-      .sum-card{grid-template-columns:1fr;}
-      .sum-right{border-top:1px solid var(--bd);}
-      .svc-editor-row,.svc-editor-header{grid-template-columns:1fr 1fr;}
-      main{padding:1rem;}
+    @media(max-width:640px){
+      nav{padding:1rem 1.2rem;}.nav-links{display:none;}
+      section.std{padding:4rem 1.2rem;}#hero{padding:6rem 1.2rem 3.5rem;}
+      .payment-grid{grid-template-columns:1fr;}.svc-pricing{grid-template-columns:1fr;}
+      .svc-row{grid-template-columns:22px 1fr auto;gap:.8rem;}
+      .carousel-slide{min-width:280px;height:200px;}
     }
   </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="loginScreen">
-  <div class="lbox">
-    <p class="lbox-sub">Panel de administración</p>
-    <h1 class="lbox-title">ASD <b>Auto</b> Care</h1>
-    <input type="password" id="pwInput" placeholder="Contraseña" onkeydown="if(event.key==='Enter')login()" autocomplete="current-password"/>
-    <button class="lbox-btn" onclick="login()">Ingresar</button>
-    <p class="lbox-err" id="loginErr"></p>
-  </div>
-</div>
+<div id="promoBanner"></div>
 
-<!-- RESCHEDULE MODAL -->
-<div class="mover" id="modalRe">
-  <div class="mbox">
-    <p class="mtitle">Reprogramar cita</p>
-    <input type="date" id="newFecha"/>
-    <select id="newHora" id="newHoraSelect"></select>
-    <div class="macts">
-      <button class="ab ac" style="flex:1;padding:.65rem;" onclick="confirmReschedule()">Confirmar</button>
-      <button class="ab ax" style="flex:1;padding:.65rem;" onclick="closeModals()">Cancelar</button>
+<nav>
+  <div class="nav-logo">ASD <span>Auto</span> Care</div>
+  <ul class="nav-links">
+    <li><a href="#services">Servicios</a></li>
+    <li><a href="#booking">Agendar</a></li>
+    <li><a href="#gallery">Galería</a></li>
+    <li><a href="#reviews">Reseñas</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div><div class="hero-line"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Fraijanes, Guatemala · Servicio a Domicilio</p>
+    <h1 class="hero-title">Lavado de <em>Autos</em><br>a Domicilio</h1>
+    <p class="hero-sub">Servicio residencial por cita. Comodidad, puntualidad y acabado impecable.</p>
+    <div class="hero-buttons">
+      <a href="#booking" class="btn-primary">Agendar Ahora</a>
+      <a href="https://wa.me/50231098720" target="_blank" class="btn-secondary">Escribir por WhatsApp</a>
     </div>
   </div>
-</div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
 
-<!-- DELETE MODAL -->
-<div class="mover" id="modalDel">
-  <div class="mbox">
-    <p class="mtitle">¿Eliminar definitivamente?</p>
-    <p style="font-size:.78rem;color:var(--mid);line-height:1.6;">Esta acción no se puede deshacer.</p>
-    <div class="macts">
-      <button class="ab apd" style="flex:1;padding:.65rem;" onclick="confirmPermDelete()">Eliminar</button>
-      <button class="ab ax" style="flex:1;padding:.65rem;" onclick="closeModals()">Cancelar</button>
+<div class="divider"></div>
+
+<section id="services">
+  <div class="services-inner">
+    <p class="section-label reveal">Servicios y Promociones</p>
+    <h2 class="section-title reveal">Lo que <em style="font-family:'Cormorant Garamond',serif;font-style:italic;">Incluye</em></h2>
+    <div class="svc-list reveal" id="svcList"><div style="padding:1.5rem;color:var(--gray-dark);font-size:.85rem;">Cargando servicios...</div></div>
+    <p class="section-label reveal" style="margin-top:3rem;">Precios</p>
+    <div class="svc-pricing reveal">
+      <div class="price-card"><p class="price-type">Sedán</p><p class="price-amount"><sup>Q</sup><span id="precioSedan">80</span></p><p class="price-vehicle">Vehículo sedan estándar</p></div>
+      <div class="price-card featured"><p class="price-type">SUV / Pickup</p><p class="price-amount"><sup>Q</sup><span id="precioSuv">100</span></p><p class="price-vehicle">SUV, pickup y camionetas</p></div>
     </div>
+    <p class="pricing-note reveal"><strong>Cupos limitados por semana.</strong> Reserva con anticipación.</p>
+    <p class="pricing-note reveal" style="margin-top:.6rem;border-top:none;font-size:.75rem;color:rgba(176,176,168,.55);">Solo necesitamos acceso a <strong style="color:rgba(176,176,168,.75);">energía eléctrica y agua</strong> — proporcionados por el residente. Todo lo demás lo traemos nosotros.</p>
   </div>
-</div>
+</section>
 
-<!-- IMAGE CAPTION MODAL -->
-<div class="mover" id="modalCaption">
-  <div class="mbox">
-    <p class="mtitle">Agregar descripción</p>
-    <input type="text" id="captionInput" placeholder="Ej: Limpieza exterior — Sedán" maxlength="60"/>
-    <div class="macts">
-      <button class="ab ac" style="flex:1;padding:.65rem;" onclick="confirmUpload()">Subir imagen</button>
-      <button class="ab ax" style="flex:1;padding:.65rem;" onclick="closeModals()">Cancelar</button>
-    </div>
+<div class="divider"></div>
+
+<section id="gallery" style="padding:5rem 0;overflow:hidden;">
+  <div class="gallery-header">
+    <p class="section-label reveal">Portafolio</p>
+    <h2 class="section-title reveal">Nuestro <em style="font-family:'Cormorant Garamond',serif;font-style:italic;">Trabajo</em></h2>
   </div>
-</div>
+  <div class="carousel-track-wrap reveal"><div class="carousel-track" id="carouselTrack"></div></div>
+  <div class="carousel-dots" id="carouselDots"></div>
+</section>
 
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
+<div class="divider"></div>
 
-<!-- ADMIN UI -->
-<div id="adminUI">
-  <header>
-    <div class="hlogo">ASD <b>Auto</b> Care <span class="hlogo-tag">Admin</span><span class="live"></span></div>
-    <div class="hright">
-      <span class="stimer" id="stimer"></span>
-      <button class="hbtn" onclick="exportCSV()">CSV</button>
-      <button class="hbtn out" onclick="logout()">Salir</button>
+<section id="booking" class="std section-bg">
+  <p class="section-label reveal">Reservas</p>
+  <h2 class="section-title reveal">Reserva tu <em style="font-family:'Cormorant Garamond',serif;font-style:italic;">Servicio</em></h2>
+  <div class="reveal" style="border:1px solid rgba(200,185,138,.3);background:rgba(200,185,138,.06);padding:1rem 1.5rem;margin-bottom:2rem;display:flex;align-items:center;gap:.8rem;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c8b98a" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <p style="font-size:.85rem;color:var(--gray-mid);line-height:1.5;">Tiempo estimado: <strong style="color:var(--white);">45 a 80 minutos</strong> según el estado del vehículo.</p>
+  </div>
+  <form id="reservaForm" class="reveal" onsubmit="enviarReserva(event)" style="display:flex;flex-direction:column;gap:1.2rem;">
+    <div class="form-group"><label>Nombre completo *</label><input type="text" id="nombre" placeholder="Tu nombre" required/></div>
+    <div class="form-group"><label>Número de teléfono *</label><input type="tel" id="telefono" placeholder="+502 0000 0000" required/></div>
+    <div class="form-group">
+      <label>Dirección *</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">
+        <div><span style="font-size:.72rem;color:var(--gray-mid);letter-spacing:.1em;display:block;margin-bottom:.4rem;">MANZANA</span><input type="text" id="manzana" placeholder="Ej. 3" required/></div>
+        <div><span style="font-size:.72rem;color:var(--gray-mid);letter-spacing:.1em;display:block;margin-bottom:.4rem;">LOTE</span><input type="text" id="lote" placeholder="Ej. 12" required/></div>
+      </div>
     </div>
-  </header>
-
-  <main>
-    <div class="kpi-strip" id="kpiStrip"></div>
-
-    <div class="tabs">
-      <button class="tbtn active" onclick="showTab('hoy')">Hoy</button>
-      <button class="tbtn" onclick="showTab('activas')">Activas</button>
-      <button class="tbtn" onclick="showTab('historial')">Historial</button>
-      <button class="tbtn" onclick="showTab('resenas')">Reseñas</button>
-      <button class="tbtn" onclick="showTab('config')">⚙ Configuración</button>
+    <div class="form-group">
+      <label>Tipo de vehículo *</label>
+      <select id="vehiculo" required>
+        <option value="" disabled selected>Selecciona tu vehículo</option>
+        <option value="Sedán" id="optSedan">Sedán – Q80</option>
+        <option value="Pickup / SUV" id="optSuv">Pickup / SUV – Q100</option>
+      </select>
     </div>
-
-    <!-- HOY -->
-    <div id="tab-hoy">
-      <div class="fbar">
-        <button class="fbtn active" onclick="setF('today',this)">Hoy</button>
-        <button class="fbtn" onclick="setF('tomorrow',this)">Mañana</button>
-        <button class="fbtn" onclick="setF('week',this)">Esta semana</button>
-        <input type="date" class="fdate" id="customDate" onchange="setF('custom',null)"/>
+    <div class="form-group">
+      <label>Fecha de servicio *</label>
+      <input type="date" id="fecha" required oninput="onDateChange()"/>
+      <div class="alert-box alert-past" id="alertPast">No puedes reservar en una fecha pasada. Por favor elige otra fecha.</div>
+      <div class="alert-box alert-blocked" id="alertBlocked">Esta fecha está bloqueada — no está disponible para reservas. Por favor elige otra fecha.</div>
+      <div class="alert-box alert-warn" id="alertWarn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e05555" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="alertWarnText"></span>
       </div>
-      <div id="calView"></div>
     </div>
-
-    <!-- ACTIVAS -->
-    <div id="tab-activas" style="display:none;">
-      <div class="addform">
-        <p class="addform-title">+ Agregar reserva manual</p>
-        <div class="frow">
-          <input type="text" id="aN" placeholder="Nombre completo"/>
-          <input type="tel" id="aT" placeholder="Teléfono"/>
-          <input type="text" id="aM" placeholder="Manzana (Ej. 3)"/>
-          <input type="text" id="aL" placeholder="Lote (Ej. 12)"/>
-        </div>
-        <div class="frow">
-          <select id="aV"><option value="Sedán" id="addOptSedan">Sedán – Q80</option><option value="Pickup / SUV" id="addOptSuv">Pickup / SUV – Q100</option></select>
-          <input type="date" id="aF"/>
-          <select id="aH"></select>
-          <select id="aP"><option value="pendiente">Pago pendiente</option><option value="pagado">Pagado</option></select>
-        </div>
-        <button class="ab ac" style="padding:.55rem 1.2rem;" onclick="addManual()">+ Agregar</button>
-      </div>
-      <p class="stitle">Reservas activas</p>
-      <div class="rlist" id="activeList"></div>
+    <div class="form-group" id="slotsWrap">
+      <label>Hora disponible *</label>
+      <div style="display:flex;flex-direction:column;gap:.6rem;margin-top:.4rem;" id="slotsContainer"></div>
+      <p style="font-size:.75rem;color:var(--gray-dark);margin-top:.8rem;">Para horarios especiales escribe por <a href="https://wa.me/50231098720" style="color:var(--accent);text-decoration:none;">WhatsApp</a>.</p>
     </div>
-
-    <!-- HISTORIAL -->
-    <div id="tab-historial" style="display:none;">
-      <div id="summarySection"></div>
-      <div class="hblock"><p class="hblock-title">Completadas</p><div class="rlist" id="hComp"></div></div>
-      <div class="hblock"><p class="hblock-title">Canceladas</p><div class="rlist" id="hCan"></div></div>
-      <div class="hblock"><p class="hblock-title">Eliminadas</p><div class="rlist" id="hEli"></div></div>
+    <div class="form-group">
+      <label>Método de pago *</label>
+      <select id="metodoPago" required>
+        <option value="" disabled selected>Selecciona método de pago</option>
+        <option value="Transferencia BAC">Transferencia BAC</option>
+        <option value="Transferencia BI">Transferencia BI</option>
+        <option value="Pago al finalizar el servicio">Pago al finalizar el servicio</option>
+      </select>
     </div>
-
-    <!-- RESEÑAS -->
-    <div id="tab-resenas" style="display:none;">
-      <p class="stitle">Pendientes de aprobación</p>
-      <div id="resPend"></div>
-      <p class="stitle" style="margin-top:1.5rem;">Publicadas</p>
-      <div id="resPub"></div>
+    <div>
+      <p style="font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;">Datos para transferencia</p>
+      <div style="border:1px solid rgba(255,255,255,.08);">
+        <div class="payment-grid">
+          <div class="payment-card"><p class="payment-card-title">🏦 BAC Credomatic</p><div class="payment-card-info"><strong>Kevin Antonio Reyes Urbina</strong><br>Cuenta: <strong>976160655</strong></div></div>
+          <div class="payment-card"><p class="payment-card-title">🏦 Banco Industrial</p><div class="payment-card-info"><strong>Reyes Urbina Kevin Antonio</strong><br>Cuenta: <strong>0420105173</strong><br><span style="font-size:.75rem;color:var(--gray-dark);">Cuenta Monetaria</span></div></div>
+        </div>
+        <div class="payment-cash"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg><span style="font-size:.82rem;color:var(--gray-mid);">Pago en efectivo <strong style="color:var(--white);">al finalizar</strong> también disponible.</span></div>
+      </div>
+      <div class="payment-note">📎 Si realizas transferencia, envía tu <strong>comprobante</strong> por WhatsApp al <a href="https://wa.me/50231098720">+502 3109 8720</a>.</div>
     </div>
+    <div id="formMsg" style="display:none;padding:.9rem 1rem;font-size:.85rem;border:1px solid;line-height:1.5;"></div>
+    <button type="submit" id="submitBtn" class="btn-primary" style="margin-top:.5rem;text-align:center;border:none;cursor:pointer;width:100%;padding:1.1rem;">Enviar Reserva por WhatsApp →</button>
+  </form>
+</section>
 
-    <!-- CONFIGURACIÓN -->
-    <div id="tab-config" style="display:none;">
+<div class="divider"></div>
 
-      <!-- PRECIOS -->
-      <div class="cfg-section">
-        <div class="cfg-head">
-          <span class="cfg-head-title">Precios del servicio</span>
-          <div style="display:flex;align-items:center;gap:.8rem;">
-            <span class="cfg-saved" id="savedPrecios">✓ Guardado</span>
-            <button class="cfg-save-btn" onclick="savePrecios()">Guardar precios</button>
-          </div>
-        </div>
-        <div class="cfg-body">
-          <div class="cfg-row">
-            <span class="cfg-label">Sedán (Q)</span>
-            <input type="number" class="cfg-input" id="cfgSedan" min="1" max="9999"/>
-          </div>
-          <div class="cfg-row">
-            <span class="cfg-label">SUV / Pickup (Q)</span>
-            <input type="number" class="cfg-input" id="cfgSuv" min="1" max="9999"/>
-          </div>
-        </div>
-      </div>
+<section id="reviews" class="std section-bg">
+  <p class="section-label reveal">Opiniones</p>
+  <h2 class="section-title reveal">Lo que dicen<br><em style="font-family:'Cormorant Garamond',serif;font-style:italic;">nuestros clientes</em></h2>
+  <div class="reviews-grid reveal" id="reviewsGrid"><div style="padding:2rem;color:var(--gray-dark);font-size:.85rem;text-align:center;width:100%;">Cargando reseñas...</div></div>
+  <div class="review-form-wrap reveal">
+    <p class="review-form-title">Deja tu reseña</p>
+    <div class="star-select"><button class="star-btn" onclick="setStars(1)" type="button">★</button><button class="star-btn" onclick="setStars(2)" type="button">★</button><button class="star-btn" onclick="setStars(3)" type="button">★</button><button class="star-btn" onclick="setStars(4)" type="button">★</button><button class="star-btn" onclick="setStars(5)" type="button">★</button></div>
+    <div style="display:flex;flex-direction:column;gap:.8rem;">
+      <input type="text" id="reviewName" placeholder="Tu nombre" style="background:#111;border:1px solid rgba(255,255,255,.1);color:var(--white);padding:.75rem 1rem;font-family:var(--fb);font-size:.85rem;outline:none;width:100%;"/>
+      <textarea id="reviewText" placeholder="Cuéntanos tu experiencia..." rows="3" style="background:#111;border:1px solid rgba(255,255,255,.1);color:var(--white);padding:.75rem 1rem;font-family:var(--fb);font-size:.85rem;outline:none;width:100%;resize:vertical;"></textarea>
+      <button onclick="submitReview()" class="btn-secondary" style="align-self:flex-start;">Enviar reseña</button>
+    </div>
+    <p id="reviewSuccess" style="display:none;font-size:.8rem;color:var(--accent);margin-top:1rem;">✓ Gracias por tu reseña. Será publicada pronto.</p>
+  </div>
+</section>
 
-      <!-- PROMOCIÓN -->
-      <div class="cfg-section">
-        <div class="cfg-head">
-          <span class="cfg-head-title">Banner de promoción</span>
-          <div style="display:flex;align-items:center;gap:.8rem;">
-            <span class="cfg-saved" id="savedPromo">✓ Guardado</span>
-            <button class="cfg-save-btn" onclick="savePromo()">Guardar</button>
-          </div>
-        </div>
-        <div class="cfg-body">
-          <label class="cfg-toggle"><input type="checkbox" id="cfgPromoActiva"/> Mostrar banner en la página web</label>
-          <div class="cfg-row">
-            <span class="cfg-label">Texto del banner</span>
-            <input type="text" class="cfg-input" id="cfgPromoTexto" placeholder="Ej: 🎉 Lavado gratis en tu primera reserva del mes" style="max-width:100%;flex:1;"/>
-          </div>
-          <p style="font-size:.68rem;color:var(--dim);">El banner aparece en la parte superior de la página, visible para todos los visitantes.</p>
-        </div>
-      </div>
+<div class="divider"></div>
 
-      <!-- DÍAS BLOQUEADOS -->
-      <div class="cfg-section">
-        <div class="cfg-head">
-          <span class="cfg-head-title">Días no disponibles</span>
-        </div>
-        <div class="cfg-body">
-          <p style="font-size:.75rem;color:var(--mid);">Bloquea fechas específicas. Los clientes no podrán reservar en esos días (vacaciones, feriados, días de descanso).</p>
-          <div class="cfg-row">
-            <input type="date" class="fdate" id="newBlockDate"/>
-            <button class="cfg-save-btn" onclick="addBlockedDate()">Bloquear fecha</button>
-          </div>
-          <div class="blocked-list" id="blockedList"></div>
-        </div>
-      </div>
+<section id="contact" class="std section-bg">
+  <p class="section-label reveal">Contacto directo</p>
+  <h2 class="section-title reveal">Hablemos</h2>
+  <div class="contact-inner reveal">
+    <p class="contact-label">WhatsApp</p>
+    <a href="https://wa.me/50231098720" class="contact-number" target="_blank">+502 3109 8720</a>
+    <a href="https://wa.me/50231098720" class="wa-btn" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Escribir por WhatsApp
+    </a>
+  </div>
+</section>
 
-      <!-- SERVICIOS -->
-      <div class="cfg-section">
-        <div class="cfg-head">
-          <span class="cfg-head-title">Servicios incluidos</span>
-          <div style="display:flex;align-items:center;gap:.8rem;">
-            <span class="cfg-saved" id="savedSvcs">✓ Guardado</span>
-            <button class="cfg-save-btn" onclick="saveServicios()">Guardar servicios</button>
-          </div>
-        </div>
-        <div class="cfg-body" style="padding:0;">
-          <div class="svc-editor-header">
-            <span>Nombre del servicio</span><span>Descripción / Promo</span>
-            <span>Etiqueta</span><span>Tipo</span><span>Visible</span><span></span>
-          </div>
-          <div id="svcEditor"></div>
-          <div style="padding:.8rem 1.3rem;border-top:1px solid var(--bd);">
-            <button class="ab ac" onclick="addSvcRow()" style="padding:.5rem 1rem;">+ Agregar servicio</button>
-          </div>
-        </div>
-      </div>
+<footer><div class="footer-brand">ASD Auto Care</div><p class="footer-sub">Servicio residencial en Fraijanes, Guatemala</p></footer>
 
-      <!-- GALERÍA -->
-      <div class="cfg-section">
-        <div class="cfg-head">
-          <span class="cfg-head-title">Galería de trabajos</span>
-        </div>
-        <div class="cfg-body">
-          <p style="font-size:.75rem;color:var(--mid);margin-bottom:.5rem;">Las imágenes aparecen en el carrusel de la página web. Puedes subir fotos de tu trabajo, reordenarlas y ocultarlas.</p>
-          <div class="gal-grid" id="galGrid"></div>
-          <div class="upload-box" id="uploadBox" onclick="document.getElementById('imgFile').click()" ondragover="e=>{e.preventDefault();this.classList.add('dragover')}" ondragleave="this.classList.remove('dragover')" ondrop="onDrop(event)">
-            <input type="file" id="imgFile" accept="image/*" multiple onchange="onFilePick(event)"/>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            <span class="upload-label">Haz clic o arrastra imágenes aquí</span>
-            <span class="upload-sub">JPG, PNG, WEBP · máx. 5 MB por imagen</span>
-          </div>
-          <p style="font-size:.68rem;color:var(--dim);margin-top:.5rem;">Las imágenes se guardan como URL. Puedes usar enlaces de Imgur, Google Drive (público) o cualquier servicio de hosting de imágenes.</p>
-        </div>
-      </div>
+<a href="https://wa.me/50231098720" target="_blank" class="wa-float" aria-label="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
 
-      <!-- URL DIRECTA -->
-      <div class="cfg-section">
-        <div class="cfg-head"><span class="cfg-head-title">Agregar imagen por URL</span></div>
-        <div class="cfg-body">
-          <div class="cfg-row">
-            <input type="url" class="cfg-input" id="imgUrlInput" placeholder="https://..." style="max-width:100%;flex:1;"/>
-            <input type="text" class="cfg-input" id="imgUrlCaption" placeholder="Descripción opcional" style="max-width:200px;"/>
-            <button class="cfg-save-btn" onclick="addImageByUrl()">Agregar</button>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /tab-config -->
-  </main>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SB_URL='https://ywjmksluykdwdjhjtgeg.supabase.co';
 const SB_KEY='sb_publishable_W_8ew5JXHQOStCnKJ9I81Q_1ppabff1';
 const sb=supabase.createClient(SB_URL,SB_KEY);
 
-const PH=btoa('AsdAutoCare2196');
-const SEXP=25*60*1000,MAX_A=5,LOCK=10*60*1000;
-let sInt,_reId=null,_delId=null,_pendingFile=null;
-let allR=[],allRev=[],cFilt='today';
-let cfgData={precios:{sedan:80,suv:100},servicios:[],horarios:['8:00 AM','11:00 AM','2:00 PM'],dias_bloqueados:[],galeria:[],promocion:{activa:false,texto:''}};
+let cfg={precios:{sedan:80,suv:100},servicios:[],horarios:['8:00 AM','11:00 AM','2:00 PM'],dias_bloqueados:[],galeria:[],promocion:{activa:false,texto:''}};
+let confirmadasCache=[], selectedStars=0;
 
-/* ── AUTH ── */
-function ga(){try{return JSON.parse(sessionStorage.getItem('_a')||'{"c":0,"l":0}');}catch{return{c:0,l:0};}}
-function sa(a){sessionStorage.setItem('_a',JSON.stringify(a));}
-function login(){
-  const a=ga();
-  if(a.l>Date.now()){lerr(`Bloqueado ${Math.ceil((a.l-Date.now())/60000)} min.`);return;}
-  const v=document.getElementById('pwInput').value;
-  if(btoa(v)===PH){sa({c:0,l:0});sessionStorage.setItem('_exp',Date.now()+SEXP);boot();}
-  else{a.c++;if(a.c>=MAX_A){a.l=Date.now()+LOCK;a.c=0;lerr('Bloqueado 10 min.');}else lerr(`Contraseña incorrecta (${MAX_A-a.c} intentos)`);sa(a);document.getElementById('pwInput').value='';}
-}
-function lerr(m){const e=document.getElementById('loginErr');e.textContent=m;e.style.display='block';}
-function logout(){sessionStorage.removeItem('_exp');clearInterval(sInt);location.reload();}
-function boot(){
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('adminUI').style.display='block';
-  startTimer();loadAll();subRT();
-}
-function startTimer(){
-  sInt=setInterval(()=>{
-    const r=parseInt(sessionStorage.getItem('_exp')||0)-Date.now();
-    if(r<=0){logout();return;}
-    const el=document.getElementById('stimer');
-    el.textContent=`Sesión ${Math.floor(r/60000)}:${String(Math.floor((r%60000)/1000)).padStart(2,'0')}`;
-    el.className='stimer'+(r<180000?' warn':'');
-  },1000);
-  ['click','keydown'].forEach(e=>document.addEventListener(e,()=>{if(sessionStorage.getItem('_exp'))sessionStorage.setItem('_exp',Date.now()+SEXP);},{passive:true}));
-}
-if(sessionStorage.getItem('_exp')&&+sessionStorage.getItem('_exp')>Date.now())boot();
+const FALLBACK=[
+  {url:'https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=700&q=80&fit=crop',caption:'Lavado exterior'},
+  {url:'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=700&q=80&fit=crop',caption:'Detalle carrocería'},
+  {url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80&fit=crop',caption:'Limpieza de rines'},
+  {url:'https://images.unsplash.com/photo-1571607388263-1044f9ea01dd?w=700&q=80&fit=crop',caption:'Aspirado interior'},
+  {url:'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80&fit=crop',caption:'Acabado final'},
+];
 
-/* ── DATA LOAD ── */
-async function loadAll(){
-  const[r1,r2,r3,r4]=await Promise.all([
-    sb.from('reservas').select('*').order('created_at',{ascending:false}),
-    sb.from('resenas').select('*').order('created_at',{ascending:false}),
+async function init(){
+  // Load config & gallery in parallel
+  const [cfgData, galData] = await Promise.all([
     sb.from('configuracion').select('id,valor'),
-    sb.from('galeria').select('*').order('orden',{ascending:true})
+    sb.from('galeria').select('*').eq('visible',true).order('orden',{ascending:true})
   ]);
-  allR=r1.data||[]; allRev=r2.data||[];
-  if(r3.data) r3.data.forEach(row=>{
-    if(row.id==='precios') cfgData.precios=row.valor;
-    if(row.id==='servicios') cfgData.servicios=row.valor||[];
-    if(row.id==='horarios') cfgData.horarios=row.valor||['8:00 AM','11:00 AM','2:00 PM'];
-    if(row.id==='dias_bloqueados') cfgData.dias_bloqueados=row.valor||[];
-    if(row.id==='promocion') cfgData.promocion=row.valor||{activa:false,texto:''};
+  if(cfgData.data) cfgData.data.forEach(r=>{
+    if(r.id==='precios') cfg.precios=r.valor;
+    if(r.id==='servicios') cfg.servicios=r.valor;
+    if(r.id==='horarios') cfg.horarios=r.valor;
+    if(r.id==='dias_bloqueados') cfg.dias_bloqueados=r.valor;
+    if(r.id==='promocion') cfg.promocion=r.valor;
   });
-  cfgData.galeria=r4.data||[];
-  renderAll();
-}
-function subRT(){
-  sb.channel('adm4')
-    .on('postgres_changes',{event:'*',schema:'public',table:'reservas'},()=>loadAll())
-    .on('postgres_changes',{event:'*',schema:'public',table:'resenas'},()=>loadAll())
-    .on('postgres_changes',{event:'*',schema:'public',table:'configuracion'},()=>loadAll())
-    .on('postgres_changes',{event:'*',schema:'public',table:'galeria'},()=>loadAll())
-    .subscribe();
+  if(galData.data && galData.data.length) cfg.galeria=galData.data;
+
+  renderPromo(); renderServices(); renderPrices(); buildSlots(); buildCarousel();
+  await renderReviews();
+  await cargarConfirmadas();
+  setTodayMin();
 }
 
-/* ── HELPERS ── */
-function td(){return new Date().toISOString().split('T')[0];}
-function tmo(){const d=new Date();d.setDate(d.getDate()+1);return d.toISOString().split('T')[0];}
-function wk(){const a=[];for(let i=0;i<7;i++){const d=new Date();d.setDate(d.getDate()+i);a.push(d.toISOString().split('T')[0]);}return a;}
-function ds(r){return String(r.fecha||'').split('T')[0];}
-function fd(s){if(!s)return'';const[y,m,d]=String(s).split('T')[0].split('-');return`${d} ${['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'][+m-1]} ${y}`;}
-function fdt(s){if(!s)return'';const d=new Date(s);return`${d.toLocaleDateString('es-GT')} ${d.toLocaleTimeString('es-GT',{hour:'2-digit',minute:'2-digit'})}`;}
-function isUrg(f,h){const m={'8:00 AM':'08:00','11:00 AM':'11:00','2:00 PM':'14:00'};const t=new Date(`${f}T${m[h]||'08:00'}:00`);return(t-Date.now())<43200000&&t>Date.now();}
-function bdg(s){const map={pendiente:'bp',confirmada:'bc',completada:'bco',cancelada:'bca',eliminada:'be'};return`<span class="bdg ${map[s]||'be'}">${s}</span>`;}
-function pbdg(s){return s==='pagado'?`<span class="bdg bpd">Pagado</span>`:`<span class="bdg bup">Sin cobrar</span>`;}
-function toast(msg,t=2500){const el=document.getElementById('toast');el.textContent=msg;el.style.display='block';setTimeout(()=>el.style.display='none',t);}
-
-/* ── KPI ── */
-function renderKPI(){
-  const r=allR;
-  const wAgo=new Date(Date.now()-7*86400000).toISOString().split('T')[0];
-  const cp=r.filter(x=>x.status==='completada'&&x.estado_pago==='pagado');
-  const ingT=cp.reduce((s,x)=>s+(x.precio||0),0);
-  const ingW=cp.filter(x=>ds(x)>=wAgo).reduce((s,x)=>s+(x.precio||0),0);
-  const nComp=r.filter(x=>x.status==='completada').length;
-  const nCan=r.filter(x=>x.status==='cancelada').length;
-  const nAll=r.filter(x=>x.status!=='eliminada').length;
-  const cr=nAll?Math.round(nCan/nAll*100):0;
-  const nPend=r.filter(x=>x.status==='pendiente').length;
-  const nConf=r.filter(x=>x.status==='confirmada').length;
-  document.getElementById('kpiStrip').innerHTML=`
-    <div class="kpi g"><div class="kpi-lbl">Ingresos totales</div><div class="kpi-val">Q${ingT}</div><div class="kpi-note">completadas · pagadas</div></div>
-    <div class="kpi a"><div class="kpi-lbl">Esta semana</div><div class="kpi-val">Q${ingW}</div><div class="kpi-note">últimos 7 días</div></div>
-    <div class="kpi b"><div class="kpi-lbl">Completados</div><div class="kpi-val">${nComp}</div></div>
-    <div class="kpi r"><div class="kpi-lbl">Cancelaciones</div><div class="kpi-val">${cr}%</div><div class="kpi-note">${nCan} de ${nAll}</div></div>
-    <div class="kpi y"><div class="kpi-lbl">Pendientes</div><div class="kpi-val">${nPend}</div></div>
-    <div class="kpi"><div class="kpi-lbl">Confirmadas</div><div class="kpi-val">${nConf}</div></div>`;
+function setTodayMin(){
+  const f=document.getElementById('fecha');
+  if(f) f.min=new Date().toISOString().split('T')[0];
 }
 
-/* ── TABS ── */
-const TABS=['hoy','activas','historial','resenas','config'];
-function showTab(t){
-  TABS.forEach((tab,i)=>{
-    document.getElementById('tab-'+tab).style.display=tab===t?'block':'none';
-    document.querySelectorAll('.tbtn')[i].classList.toggle('active',tab===t);
-  });
-  if(t==='config') renderConfigTab();
-  renderAll();
+/* ── PROMO BANNER ── */
+function renderPromo(){
+  const b=document.getElementById('promoBanner');
+  if(cfg.promocion&&cfg.promocion.activa&&cfg.promocion.texto){b.textContent=cfg.promocion.texto;b.style.display='block';}
+  else b.style.display='none';
 }
 
-/* ── FILTER / CALENDAR ── */
-function setF(f,btn){cFilt=f;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderCal();}
-function getFD(){
-  if(cFilt==='today')return[td()];if(cFilt==='tomorrow')return[tmo()];if(cFilt==='week')return wk();
-  const v=document.getElementById('customDate')?.value;return v?[v]:[td()];
+/* ── SERVICES ── */
+function renderServices(){
+  const el=document.getElementById('svcList');
+  const list=(cfg.servicios||[]).filter(s=>s.activo!==false);
+  if(!list.length){el.innerHTML='<div style="padding:1rem;color:var(--gray-dark);">Sin servicios configurados.</div>';return;}
+  el.innerHTML=list.map(s=>`
+    <div class="svc-row">
+      <div class="svc-check">✓</div>
+      <div>
+        <div class="svc-name">${s.nombre}</div>
+        <div class="svc-desc">${s.descripcion||''}</div>
+        ${s.promo?`<div class="svc-promo">🎉 ${s.promo}</div>`:''}
+      </div>
+      <div class="svc-tag${s.tag_type==='free'?' svc-tag-free':''}">${s.tag_type==='free'?'🎁 ':''}${s.tag||'Incluido'}</div>
+    </div>`).join('');
 }
-function renderCal(){
-  const el=document.getElementById('calView');if(!el)return;
-  const dates=getFD(),slots=cfgData.horarios,days=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
-  let html='';
-  dates.forEach(date=>{
-    const dr=allR.filter(r=>{const f=ds(r);return f===date&&r.status!=='cancelada'&&r.status!=='eliminada';});
-    const day=new Date(date+'T12:00:00');
-    const bloq=cfgData.dias_bloqueados&&cfgData.dias_bloqueados.includes(date);
-    html+=`<div class="calday"><div class="calhead"><div class="caldate">${fd(date)} <span>${days[day.getDay()]}</span></div>${date===td()?`<span class="bdg bc">Hoy</span>`:''} ${bloq?`<span class="bdg bca">Bloqueado</span>`:''}</div><div class="calslots">`;
-    slots.forEach(s=>{
-      const b=dr.find(r=>r.hora===s),urg=b&&isUrg(date,s);
-      if(b)html+=`<div class="calslot taken"><div class="cstime">${s}</div><div class="csname">${b.nombre}</div><div class="csveh">${b.tipo_vehiculo||''} ${b.precio?'· Q'+b.precio:''}</div>${bdg(b.status)}${urg?'<div class="upill">Próxima</div>':''}</div>`;
-      else html+=`<div class="calslot"><div class="cstime">${s}</div><div class="csfree">${bloq?'Día bloqueado':'Disponible'}</div></div>`;
+
+/* ── PRICES ── */
+function renderPrices(){
+  document.getElementById('precioSedan').textContent=cfg.precios.sedan;
+  document.getElementById('precioSuv').textContent=cfg.precios.suv;
+  document.getElementById('optSedan').textContent=`Sedán – Q${cfg.precios.sedan}`;
+  document.getElementById('optSuv').textContent=`Pickup / SUV – Q${cfg.precios.suv}`;
+}
+
+/* ── SLOTS ── */
+function buildSlots(){
+  const c=document.getElementById('slotsContainer');
+  c.innerHTML=(cfg.horarios||['8:00 AM','11:00 AM','2:00 PM']).map(h=>`
+    <label class="radio-label" id="slot-${h.replace(/[\s:]/g,'_')}">
+      <input type="radio" name="hora" value="${h}" required/>
+      <span class="slot-time">${h}</span>
+      <span class="slot-check">✓</span>
+    </label>`).join('');
+  c.querySelectorAll('input[name="hora"]').forEach(r=>{
+    r.addEventListener('change',()=>{
+      c.querySelectorAll('.radio-label').forEach(l=>l.classList.remove('is-selected'));
+      if(r.checked) r.closest('.radio-label').classList.add('is-selected');
     });
-    html+=`</div></div>`;
   });
-  el.innerHTML=html||'<div class="empty">Sin reservas para este período.</div>';
 }
 
-/* ── RES CARD ── */
-function rcard(r,hist=false){
-  const act=r.status==='pendiente'||r.status==='confirmada';
-  const urg=act&&isUrg(ds(r),r.hora);
-  const tel=(r.telefono||'').replace(/\D/g,'');
-  const waM=encodeURIComponent(`Hola ${r.nombre}, confirmamos tu cita el ${fd(r.fecha)} a las ${r.hora}. — ASD Auto Care`);
-  const canC=r.estado_pago==='pagado';
-  let ac='';
-  if(act){
-    ac+=`<a href="https://wa.me/502${tel}?text=${waM}" target="_blank" class="ab aw">WhatsApp</a>`;
-    if(r.status==='pendiente')ac+=`<button class="ab ac" onclick="upS('${r.id}','confirmada')">Confirmar</button>`;
-    if(r.estado_pago!=='pagado')ac+=`<button class="ab ap" onclick="upP('${r.id}','pagado')">Marcar pagado</button>`;
-    if(r.status==='confirmada')ac+=`<button class="ab ao" ${canC?`onclick="upS('${r.id}','completada')"`:' disabled title="Debe pagarse primero"'}>Completar</button>`;
-    ac+=`<button class="ab ax" onclick="upS('${r.id}','cancelada')">Cancelar</button>`;
-    ac+=`<button class="ab ad" onclick="upS('${r.id}','eliminada')">Eliminar</button>`;
+/* ── CAROUSEL ── */
+function buildCarousel(){
+  const track=document.getElementById('carouselTrack');
+  const dots=document.getElementById('carouselDots');
+  // Clear both before rebuilding (realtime may call this multiple times)
+  track.innerHTML='';
+  dots.innerHTML='';
+  const slides=cfg.galeria.length?cfg.galeria.map(g=>({url:g.url,caption:g.caption})):FALLBACK;
+  track.innerHTML=slides.map(s=>`<div class="carousel-slide"><img src="${s.url}" alt="${s.caption}" loading="lazy"/><span class="slide-label">${s.caption||''}</span></div>`).join('');
+  initCarousel(track,dots);
+}
+
+function initCarousel(track,dotsWrap){
+  const orig=Array.from(track.querySelectorAll('.carousel-slide')),total=orig.length;
+  if(!total)return;
+  orig.forEach(s=>{track.appendChild(s.cloneNode(true));track.insertBefore(s.cloneNode(true),track.firstChild);});
+  const w=()=>track.querySelectorAll('.carousel-slide')[0].offsetWidth+1;
+  let cur=total,trans=false,timer;
+  track.style.transition='none';track.style.transform=`translateX(-${cur*w()}px)`;
+  orig.forEach((_,i)=>{const d=document.createElement('button');d.className='carousel-dot'+(i===0?' active':'');d.onclick=()=>go(total+i);dotsWrap.appendChild(d);});
+  function mkDots(){const ri=((cur-total)%total+total)%total;dotsWrap.querySelectorAll('.carousel-dot').forEach((d,i)=>d.classList.toggle('active',i===ri));}
+  function go(n){if(trans)return;trans=true;cur=n;track.style.transition='transform .6s cubic-bezier(.25,.46,.45,.94)';track.style.transform=`translateX(-${cur*w()}px)`;mkDots();reset();}
+  track.addEventListener('transitionend',()=>{trans=false;if(cur>=total*2){track.style.transition='none';cur=total;track.style.transform=`translateX(-${cur*w()}px)`;}else if(cur<total){track.style.transition='none';cur=total*2-1;track.style.transform=`translateX(-${cur*w()}px)`;}});
+  function reset(){clearInterval(timer);timer=setInterval(()=>go(cur+1),3500);}
+  let sx=0;track.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});track.addEventListener('touchend',e=>{const d=sx-e.changedTouches[0].clientX;if(Math.abs(d)>50)go(cur+(d>0?1:-1));});
+  window.addEventListener('resize',()=>{track.style.transition='none';track.style.transform=`translateX(-${cur*w()}px)`;});
+  reset();mkDots();
+}
+
+/* ── AVAILABILITY ── */
+async function cargarConfirmadas(){
+  const{data}=await sb.from('reservas').select('fecha,hora').in('status',['pendiente','confirmada']);
+  confirmadasCache=data||[];
+}
+
+async function onDateChange(){
+  const fecha=document.getElementById('fecha').value;
+  ['alertPast','alertBlocked','alertWarn'].forEach(id=>document.getElementById(id).classList.remove('show'));
+
+  if(!fecha) return;
+  const today=new Date().toISOString().split('T')[0];
+
+  if(fecha<today){
+    document.getElementById('alertPast').classList.add('show');
+    disableAllSlots(); return;
   }
-  if(hist)ac+=`<button class="ab apd" onclick="openDel('${r.id}')">Borrar definitivo</button>`;
-  return`<div class="rcard${urg?' urg':''}">
-    <div>
-      <div class="rname">${r.nombre} ${bdg(r.status)} ${urg?'<span class="upill">Próxima</span>':''}</div>
-      <div class="rdet">${r.telefono||'—'} · Mz. ${r.manzana||'—'}, Lote ${r.lote||'—'}<br>${r.tipo_vehiculo||'—'} · Q${r.precio||'—'}</div>
-    </div>
-    <div class="rdcol">
-      <div class="rdate">${fd(ds(r))}</div>
-      <div class="rhora">${r.hora}</div>
-      <div class="rcreated">Creada: ${fdt(r.created_at)}</div>
-    </div>
-    <div class="pcol">
-      <div class="plbl">Estado de pago</div>
-      <select class="psel" onchange="upP('${r.id}',this.value)">
-        <option value="pendiente" ${r.estado_pago!=='pagado'?'selected':''}>Sin cobrar</option>
-        <option value="pagado" ${r.estado_pago==='pagado'?'selected':''}>Pagado</option>
-      </select>
-      ${pbdg(r.estado_pago)}
-    </div>
-    <div class="acts">${ac}</div>
-  </div>`;
-}
+  if(cfg.dias_bloqueados&&cfg.dias_bloqueados.includes(fecha)){
+    document.getElementById('alertBlocked').classList.add('show');
+    disableAllSlots(); return;
+  }
 
-function renderActive(){
-  const a=allR.filter(r=>r.status==='pendiente'||r.status==='confirmada');
-  const el=document.getElementById('activeList');
-  if(el)el.innerHTML=a.length?a.map(r=>rcard(r)).join(''):'<div class="empty">No hay reservas activas.</div>';
-  // Sync manual form selects
-  const aH=document.getElementById('aH');
-  if(aH){aH.innerHTML=cfgData.horarios.map(h=>`<option value="${h}">${h}</option>`).join('');}
-  const aV=document.getElementById('aV');
-  if(aV){
-    document.getElementById('addOptSedan').textContent=`Sedán – Q${cfgData.precios.sedan}`;
-    document.getElementById('addOptSuv').textContent=`Pickup / SUV – Q${cfgData.precios.suv}`;
+  enableAllSlots();
+  await cargarConfirmadas();
+  const ocupadas=confirmadasCache.filter(r=>r.fecha===fecha).map(r=>r.hora);
+
+  cfg.horarios.forEach(h=>{
+    const el=document.getElementById('slot-'+h.replace(/[\s:]/g,'_'));
+    if(!el)return;
+    const inp=el.querySelector('input');
+    if(ocupadas.includes(h)){
+      el.classList.add('slot-unavailable');el.classList.remove('is-selected');
+      inp.disabled=true;if(inp.checked)inp.checked=false;
+    } else {
+      el.classList.remove('slot-unavailable');inp.disabled=false;
+    }
+  });
+
+  if(ocupadas.length>=cfg.horarios.length){
+    document.getElementById('alertWarnText').textContent='Esta fecha está completamente reservada. Elige otra.';
+    document.getElementById('alertWarn').classList.add('show');
+  } else if(ocupadas.length>0){
+    document.getElementById('alertWarnText').textContent=`Horario(s) ya reservado(s): ${ocupadas.join(', ')}.`;
+    document.getElementById('alertWarn').classList.add('show');
   }
 }
 
-/* ── SUMMARIES ── */
-function sumCard(title,recs,dlKey){
-  if(!recs.length) return`<div class="sum-empty">Sin actividad en este período.</div>`;
-  const comp=recs.filter(x=>x.status==='completada');
-  const can=recs.filter(x=>x.status==='cancelada');
-  const pend=recs.filter(x=>x.status==='pendiente');
-  const conf=recs.filter(x=>x.status==='confirmada');
-  const ingC=comp.filter(x=>x.estado_pago==='pagado').reduce((s,x)=>s+(x.precio||0),0);
-  const ingP=comp.filter(x=>x.estado_pago!=='pagado').reduce((s,x)=>s+(x.precio||0),0);
-  const total=recs.filter(x=>x.status!=='eliminada').length;
-  const cr=total?Math.round(can.length/total*100):0;
-  const sedan=comp.filter(x=>(x.tipo_vehiculo||'').includes('edán')).length;
-  const suv=comp.filter(x=>(x.tipo_vehiculo||'').includes('SUV')||(x.tipo_vehiculo||'').includes('ickup')).length;
-  const hlMain=ingC>0?`<span class="hl-g">Q${ingC}</span>`:`<span class="hl-d">Q0</span>`;
-  const hlSub=ingC>0?` cobrados`:`  sin ingresos cobrados`;
-  const pts=[];
-  pts.push(`<li class="${ingC>0?'ok':''}"><span class="dot"></span><span>Ingresos cobrados: <strong>Q${ingC}</strong>${ingP>0?` · Por cobrar: <strong>Q${ingP}</strong>`:''}</span></li>`);
-  pts.push(`<li><span class="dot"></span><span>Servicios completados: <strong>${comp.length}</strong>${sedan+suv>0?` (${sedan} Sedán, ${suv} SUV/Pickup)`:''}</span></li>`);
-  pts.push(`<li class="${cr>20?'warn':''}"><span class="dot"></span><span>Cancelaciones: <strong>${can.length}</strong> — tasa <strong>${cr}%</strong></span></li>`);
-  if(pend.length+conf.length>0) pts.push(`<li><span class="dot"></span><span>Reservas activas: <strong>${pend.length+conf.length}</strong></span></li>`);
-  if(ingP>0) pts.push(`<li class="warn"><span class="dot"></span><span>Pendiente de cobro: <strong>Q${ingP}</strong></span></li>`);
-  const maxB=Math.max(comp.length,can.length,pend.length+conf.length,1);
-  const bar=(label,val,max,cls,vl)=>`<div class="bar-row"><div class="bar-meta"><span class="bar-name">${label}</span><span class="bar-val">${vl!==undefined?vl:val}</span></div><div class="bar-track"><div class="bar-fill ${cls}" style="width:${max>0?Math.round(val/max*100):0}%"></div></div></div>`;
-  return`<div class="sum-wrap">
-    <div class="sum-period-label">${title}</div>
-    <div class="sum-card">
-      <div class="sum-left">
-        <div class="sum-headline">${hlMain}<span style="font-family:var(--ff);font-size:.82rem;color:var(--mid);font-weight:300;">${hlSub}</span></div>
-        <ul class="sum-points">${pts.join('')}</ul>
-        <div class="sum-dl"><button class="ab adl" onclick="dlCSV('${dlKey}')">CSV</button><button class="ab adl" onclick="dlXLSX('${dlKey}')">Excel</button></div>
-      </div>
-      <div class="sum-right">
-        <div class="chart-title">Distribución del período</div>
-        <div class="bars">${bar('Completados',comp.length,maxB,'bg')}${bar('Activos',pend.length+conf.length,maxB,'ba')}${bar('Cancelados',can.length,maxB,'br')}${bar('Ingresos',ingC,Math.max(ingC,ingP,1),'bb','Q'+ingC)}</div>
-        <div class="chart-legend"><span class="leg-item"><span class="leg-dot" style="background:var(--grn)"></span>Completados</span><span class="leg-item"><span class="leg-dot" style="background:var(--acc)"></span>Activos</span><span class="leg-item"><span class="leg-dot" style="background:var(--red)"></span>Cancelados</span><span class="leg-item"><span class="leg-dot" style="background:var(--blu)"></span>Ingresos</span></div>
-      </div>
-    </div>
-  </div>`;
+function disableAllSlots(){
+  document.querySelectorAll('#slotsContainer .radio-label').forEach(el=>{
+    el.classList.add('slot-unavailable');el.classList.remove('is-selected');
+    const inp=el.querySelector('input');inp.disabled=true;if(inp.checked)inp.checked=false;
+  });
 }
-function wkR(){const w=new Date(Date.now()-7*86400000).toISOString().split('T')[0];return allR.filter(x=>ds(x)>=w);}
-function moR(){const n=new Date();const s=`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-01`;return allR.filter(x=>ds(x)>=s);}
-function getSD(k){return k==='week'?wkR():moR();}
-function renderSummaries(){const el=document.getElementById('summarySection');if(!el)return;el.innerHTML=sumCard('Resumen — Esta semana',wkR(),'week')+sumCard('Resumen — Este mes',moR(),'month');}
-function renderHist(){
-  renderSummaries();
-  const co=allR.filter(r=>r.status==='completada').sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
-  const ca=allR.filter(r=>r.status==='cancelada').sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
-  const el=allR.filter(r=>r.status==='eliminada').sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
-  const ec=document.getElementById('hComp'),ca2=document.getElementById('hCan'),el2=document.getElementById('hEli');
-  if(ec)ec.innerHTML=co.length?co.map(r=>rcard(r,true)).join(''):'<div class="empty">Sin registros.</div>';
-  if(ca2)ca2.innerHTML=ca.length?ca.map(r=>rcard(r,true)).join(''):'<div class="empty">Sin registros.</div>';
-  if(el2)el2.innerHTML=el.length?el.map(r=>rcard(r,true)).join(''):'<div class="empty">Sin registros.</div>';
+function enableAllSlots(){
+  document.querySelectorAll('#slotsContainer .radio-label').forEach(el=>{
+    el.classList.remove('slot-unavailable');el.querySelector('input').disabled=false;
+  });
 }
 
-/* ── DB ACTIONS ── */
-async function upS(id,s){await sb.from('reservas').update({status:s}).eq('id',id);await loadAll();}
-async function upP(id,v){await sb.from('reservas').update({estado_pago:v}).eq('id',id);await loadAll();}
+/* ── FORM SUBMIT ── */
+async function enviarReserva(e){
+  e.preventDefault();
+  const nombre=document.getElementById('nombre').value.trim();
+  const telefono=document.getElementById('telefono').value.trim();
+  const manzana=document.getElementById('manzana').value.trim();
+  const lote=document.getElementById('lote').value.trim();
+  const vehiculo=document.getElementById('vehiculo').value;
+  const fecha=document.getElementById('fecha').value;
+  const hora=document.querySelector('input[name="hora"]:checked')?.value;
+  const metodoPago=document.getElementById('metodoPago').value;
+  const btn=document.getElementById('submitBtn'),msg=document.getElementById('formMsg');
+  const today=new Date().toISOString().split('T')[0];
 
-async function addManual(){
-  const n=document.getElementById('aN').value.trim(),t=document.getElementById('aT').value.trim();
-  const m=document.getElementById('aM').value.trim(),l=document.getElementById('aL').value.trim();
-  const v=document.getElementById('aV').value,f=document.getElementById('aF').value;
-  const h=document.getElementById('aH').value,p=document.getElementById('aP').value;
-  if(!n||!f){alert('Ingresa nombre y fecha.');return;}
-  const today=td();
-  if(f<today){alert('No puedes agregar una reserva en fecha pasada.');return;}
-  if(cfgData.dias_bloqueados&&cfgData.dias_bloqueados.includes(f)){alert('Esa fecha está bloqueada.');return;}
-  const{data:ex}=await sb.from('reservas').select('id').eq('fecha',f).eq('hora',h).eq('status','confirmada');
-  if(ex&&ex.length){alert('Ese horario ya está confirmado. Elige otro.');return;}
-  const precio=v==='Pickup / SUV'?cfgData.precios.suv:cfgData.precios.sedan;
-  await sb.from('reservas').insert({nombre:n,telefono:t,manzana:m,lote:l,tipo_vehiculo:v,precio,fecha:f,hora:h,estado_pago:p,status:'confirmada'});
-  ['aN','aT','aM','aL','aF'].forEach(i=>document.getElementById(i).value='');
-  await loadAll();toast('Reserva agregada ✓');
-}
+  if(fecha<today){alert('No puedes reservar en una fecha pasada.');return;}
+  if(cfg.dias_bloqueados&&cfg.dias_bloqueados.includes(fecha)){alert('Esa fecha no está disponible.');return;}
+  if(!hora){alert('Por favor selecciona una hora.');return;}
 
-/* ── MODALS ── */
-function openDel(id){_delId=id;document.getElementById('modalDel').classList.add('show');}
-function closeModals(){['modalRe','modalDel','modalCaption'].forEach(id=>document.getElementById(id).classList.remove('show'));_reId=null;_delId=null;_pendingFile=null;}
-async function confirmReschedule(){
-  if(!_reId)return;
-  const f=document.getElementById('newFecha').value,h=document.getElementById('newHora').value;
-  if(!f){alert('Selecciona fecha.');return;}
-  await sb.from('reservas').update({fecha:f,hora:h,status:'confirmada'}).eq('id',_reId);
-  closeModals();await loadAll();
-}
-async function confirmPermDelete(){
-  if(!_delId)return;
-  await sb.from('reservas').delete().eq('id',_delId);
-  closeModals();await loadAll();toast('Registro eliminado definitivamente.');
+  const precio=vehiculo==='Pickup / SUV'?cfg.precios.suv:cfg.precios.sedan;
+
+  await cargarConfirmadas();
+  if(confirmadasCache.some(r=>r.fecha===fecha&&r.hora===hora)){
+    alert('Ese horario ya fue reservado. Elige otra hora.');onDateChange();return;
+  }
+
+  btn.textContent='Guardando...';btn.disabled=true;
+  const{error}=await sb.from('reservas').insert({nombre,telefono,manzana,lote,tipo_vehiculo:vehiculo,precio,fecha,hora,status:'pendiente',estado_pago:'pendiente'});
+  if(error){
+    msg.style.cssText='display:block;border-color:#e05555;color:#e05555;background:rgba(224,85,85,.06);padding:.9rem 1rem;font-size:.85rem;border:1px solid;';
+    msg.textContent='Error al guardar. Escribe por WhatsApp.';btn.textContent='Enviar Reserva por WhatsApp →';btn.disabled=false;return;
+  }
+  let pd=metodoPago;
+  if(metodoPago==='Transferencia BAC') pd='Transferencia BAC · Cta. 976160655 · Kevin Antonio Reyes Urbina';
+  if(metodoPago==='Transferencia BI') pd='Transferencia BI · Cta. 0420105173 · Reyes Urbina Kevin Antonio (Monetaria)';
+  const mensaje=`🚗 *NUEVA RESERVA — ASD Auto Care*\n\n👤 *Nombre:* ${nombre}\n📞 *Teléfono:* ${telefono}\n📍 *Dirección:* Manzana ${manzana}, Lote ${lote}\n🚙 *Vehículo:* ${vehiculo} (Q${precio})\n📅 *Fecha:* ${fecha}\n⏰ *Hora:* ${hora}\n💳 *Pago:* ${pd}\n\n${metodoPago.includes('Transferencia')?'📎 _Recuerda enviar comprobante._':'✅ _Pago al finalizar._'}\n_Enviada desde la página web._`;
+  msg.style.cssText='display:block;border-color:var(--accent);color:var(--accent);background:rgba(200,185,138,.06);padding:.9rem 1rem;font-size:.85rem;border:1px solid;';
+  msg.textContent='✓ Reserva guardada. Abriendo WhatsApp...';btn.textContent='Reserva Enviada ✓';
+  setTimeout(()=>window.open(`https://wa.me/50231098720?text=${encodeURIComponent(mensaje)}`,'_blank'),800);
 }
 
 /* ── REVIEWS ── */
-function renderRevs(){
-  const pEl=document.getElementById('resPend'),pubEl=document.getElementById('resPub');if(!pEl)return;
-  const p=allRev.filter(r=>!r.visible),pub=allRev.filter(r=>r.visible);
-  const rc=r=>`<div class="revcard"><div><div class="revstars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div><div class="revtext">"${r.comentario}"</div><div class="revauthor">— ${r.nombre}</div></div>`;
-  pEl.innerHTML=p.length?p.map(r=>rc(r)+`<div class="revacts"><button class="ab ac" onclick="apRev('${r.id}')">Publicar</button><button class="ab apd" onclick="delRev('${r.id}')">Eliminar</button></div></div>`).join(''):'<div class="empty">Sin reseñas pendientes.</div>';
-  pubEl.innerHTML=pub.length?pub.map(r=>rc(r)+`<div class="revacts"><button class="ab ax" onclick="hiRev('${r.id}')">Ocultar</button><button class="ab apd" onclick="delRev('${r.id}')">Eliminar</button></div></div>`).join(''):'<div class="empty">Sin reseñas publicadas.</div>';
+async function renderReviews(){
+  const{data}=await sb.from('resenas').select('*').eq('visible',true).order('created_at',{ascending:false});
+  const grid=document.getElementById('reviewsGrid');
+  if(!data||!data.length){grid.innerHTML='<div style="padding:2rem;color:var(--gray-dark);font-size:.85rem;text-align:center;width:100%;">Aún no hay reseñas publicadas.</div>';return;}
+  grid.innerHTML=data.map(r=>`<div class="review-card"><div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div><p class="review-text">"${r.comentario}"</p><p class="review-author">— ${r.nombre}</p></div>`).join('');
 }
-async function apRev(id){await sb.from('resenas').update({visible:true}).eq('id',id);await loadAll();}
-async function hiRev(id){await sb.from('resenas').update({visible:false}).eq('id',id);await loadAll();}
-async function delRev(id){if(!confirm('¿Eliminar esta reseña?'))return;await sb.from('resenas').delete().eq('id',id);await loadAll();}
-
-/* ── CONFIG TAB ── */
-function renderConfigTab(){
-  // Precios
-  document.getElementById('cfgSedan').value=cfgData.precios.sedan;
-  document.getElementById('cfgSuv').value=cfgData.precios.suv;
-  // Promo
-  document.getElementById('cfgPromoActiva').checked=cfgData.promocion.activa||false;
-  document.getElementById('cfgPromoTexto').value=cfgData.promocion.texto||'';
-  // Blocked dates
-  renderBlockedDates();
-  // Servicios
-  renderSvcEditor();
-  // Gallery
-  renderGalGrid();
+function setStars(n){selectedStars=n;document.querySelectorAll('.star-btn').forEach((b,i)=>b.classList.toggle('active',i<n));}
+async function submitReview(){
+  const nombre=document.getElementById('reviewName').value.trim();
+  const comentario=document.getElementById('reviewText').value.trim();
+  if(!nombre||!comentario||!selectedStars){alert('Completa nombre, calificación y comentario.');return;}
+  await sb.from('resenas').insert({nombre,comentario,rating:selectedStars,visible:false});
+  document.getElementById('reviewName').value='';document.getElementById('reviewText').value='';setStars(0);
+  const m=document.getElementById('reviewSuccess');m.style.display='block';setTimeout(()=>m.style.display='none',4000);
 }
 
-async function saveCfg(id,valor,savedId){
-  await sb.from('configuracion').upsert({id,valor,updated_at:new Date().toISOString()},{onConflict:'id'});
-  const el=document.getElementById(savedId);if(el){el.style.display='inline';setTimeout(()=>el.style.display='none',2500);}
-  toast('Configuración guardada ✓');
-}
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-async function savePrecios(){
-  const sedan=parseInt(document.getElementById('cfgSedan').value)||80;
-  const suv=parseInt(document.getElementById('cfgSuv').value)||100;
-  cfgData.precios={sedan,suv};
-  await saveCfg('precios',{sedan,suv},'savedPrecios');
-  await loadAll();
-}
-
-async function savePromo(){
-  const activa=document.getElementById('cfgPromoActiva').checked;
-  const texto=document.getElementById('cfgPromoTexto').value.trim();
-  cfgData.promocion={activa,texto};
-  await saveCfg('promocion',{activa,texto},'savedPromo');
-}
-
-/* ── BLOCKED DATES ── */
-function renderBlockedDates(){
-  const el=document.getElementById('blockedList');if(!el)return;
-  const list=cfgData.dias_bloqueados||[];
-  el.innerHTML=list.length?list.map(d=>`<div class="blocked-chip">${fd(d)}<button onclick="removeBlockedDate('${d}')" title="Quitar">×</button></div>`).join(''):'<p style="font-size:.72rem;color:var(--dim);">Sin fechas bloqueadas.</p>';
-}
-async function addBlockedDate(){
-  const d=document.getElementById('newBlockDate').value;
-  if(!d){alert('Selecciona una fecha.');return;}
-  const list=[...(cfgData.dias_bloqueados||[])];
-  if(list.includes(d)){toast('Esa fecha ya está bloqueada.');return;}
-  list.push(d);list.sort();
-  cfgData.dias_bloqueados=list;
-  await saveCfg('dias_bloqueados',list,'');
-  document.getElementById('newBlockDate').value='';
-  renderBlockedDates();toast(`Fecha ${fd(d)} bloqueada ✓`);
-}
-async function removeBlockedDate(d){
-  const list=(cfgData.dias_bloqueados||[]).filter(x=>x!==d);
-  cfgData.dias_bloqueados=list;
-  await saveCfg('dias_bloqueados',list,'');
-  renderBlockedDates();toast(`Fecha ${fd(d)} desbloqueada.`);
-}
-
-/* ── SERVICES EDITOR ── */
-function renderSvcEditor(){
-  const el=document.getElementById('svcEditor');if(!el)return;
-  const list=cfgData.servicios||[];
-  el.innerHTML=list.map((s,i)=>`
-    <div class="svc-editor-row" id="srow-${i}">
-      <input type="text" value="${s.nombre||''}" placeholder="Nombre del servicio" oninput="updSvc(${i},'nombre',this.value)"/>
-      <input type="text" value="${s.descripcion||''}" placeholder="Descripción o texto de promo" oninput="updSvc(${i},'descripcion',this.value)"/>
-      <input type="text" value="${s.tag||'Incluido'}" placeholder="Etiqueta" oninput="updSvc(${i},'tag',this.value)"/>
-      <select onchange="updSvc(${i},'tag_type',this.value)">
-        <option value="normal" ${s.tag_type!=='free'?'selected':''}>Normal</option>
-        <option value="free" ${s.tag_type==='free'?'selected':''}>Gratis</option>
-        <option value="promo" ${s.tag_type==='promo'?'selected':''}>Promo</option>
-      </select>
-      <select onchange="updSvc(${i},'activo',this.value==='1')">
-        <option value="1" ${s.activo!==false?'selected':''}>Sí</option>
-        <option value="0" ${s.activo===false?'selected':''}>No</option>
-      </select>
-      <button class="ab apd" onclick="delSvcRow(${i})" style="padding:.3rem .6rem;">✕</button>
-    </div>`).join('');
-}
-function updSvc(i,key,val){if(cfgData.servicios[i])cfgData.servicios[i][key]=val;}
-function addSvcRow(){
-  cfgData.servicios.push({id:'s'+Date.now(),nombre:'',descripcion:'',tag:'Incluido',tag_type:'normal',activo:true});
-  renderSvcEditor();
-}
-function delSvcRow(i){cfgData.servicios.splice(i,1);renderSvcEditor();}
-async function saveServicios(){
-  // Collect current values from DOM before save
-  cfgData.servicios.forEach((s,i)=>{
-    const row=document.getElementById('srow-'+i);
-    if(!row)return;
-    const inputs=row.querySelectorAll('input');
-    const selects=row.querySelectorAll('select');
-    if(inputs[0])s.nombre=inputs[0].value;
-    if(inputs[1])s.descripcion=inputs[1].value;
-    if(inputs[2])s.tag=inputs[2].value;
-    if(selects[0])s.tag_type=selects[0].value;
-    if(selects[1])s.activo=selects[1].value==='1';
+/* ── REALTIME SYNC ── */
+async function reloadConfig(){
+  const[cfgRes,galRes]=await Promise.all([
+    sb.from('configuracion').select('id,valor'),
+    sb.from('galeria').select('*').eq('visible',true).order('orden',{ascending:true})
+  ]);
+  if(cfgRes.data) cfgRes.data.forEach(r=>{
+    if(r.id==='precios') cfg.precios=r.valor;
+    if(r.id==='servicios') cfg.servicios=r.valor;
+    if(r.id==='horarios') cfg.horarios=r.valor;
+    if(r.id==='dias_bloqueados') cfg.dias_bloqueados=r.valor;
+    if(r.id==='promocion') cfg.promocion=r.valor;
   });
-  await saveCfg('servicios',cfgData.servicios,'savedSvcs');
+  cfg.galeria=(galRes.data&&galRes.data.length)?galRes.data:[];
+  renderPromo(); renderServices(); renderPrices(); buildSlots(); buildCarousel();
+  // Re-run availability check if a date is selected
+  const f=document.getElementById('fecha').value;
+  if(f) onDateChange();
 }
 
-/* ── GALLERY ── */
-function renderGalGrid(){
-  const el=document.getElementById('galGrid');if(!el)return;
-  const imgs=cfgData.galeria||[];
-  if(!imgs.length){el.innerHTML='<div style="padding:2rem;color:var(--dim);font-size:.78rem;text-align:center;grid-column:1/-1;">Sin imágenes aún. Sube fotos de tu trabajo abajo.</div>';return;}
-  el.innerHTML=imgs.map(g=>`
-    <div class="gal-card${g.visible===false?' gal-hidden':''}">
-      <img src="${g.url}" alt="${g.caption||''}" loading="lazy" onerror="this.style.display='none'"/>
-      <span class="gal-card-order">#${g.orden||0}</span>
-      <span class="gal-card-caption">${g.caption||''}</span>
-      <div class="gal-card-overlay">
-        <button class="ab ${g.visible===false?'ac':'ax'}" onclick="toggleGalVis('${g.id}',${g.visible===false})">${g.visible===false?'Mostrar':'Ocultar'}</button>
-        <button class="ab apd" onclick="deleteGalImg('${g.id}')">Eliminar</button>
-      </div>
-    </div>`).join('');
+function subscribeRealtime(){
+  sb.channel('landing-sync')
+    .on('postgres_changes',{event:'*',schema:'public',table:'configuracion'},reloadConfig)
+    .on('postgres_changes',{event:'*',schema:'public',table:'galeria'},reloadConfig)
+    .on('postgres_changes',{event:'*',schema:'public',table:'resenas'},renderReviews)
+    .on('postgres_changes',{event:'*',schema:'public',table:'reservas'},cargarConfirmadas)
+    .subscribe();
 }
 
-function onFilePick(e){
-  const files=Array.from(e.target.files);
-  if(!files.length)return;
-  _pendingFile=files[0];
-  document.getElementById('captionInput').value='';
-  document.getElementById('modalCaption').classList.add('show');
-}
-function onDrop(e){
-  e.preventDefault();
-  document.getElementById('uploadBox').classList.remove('dragover');
-  const files=Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/'));
-  if(!files.length)return;
-  _pendingFile=files[0];
-  document.getElementById('captionInput').value='';
-  document.getElementById('modalCaption').classList.add('show');
-}
-
-async function confirmUpload(){
-  if(!_pendingFile){closeModals();return;}
-  const caption=document.getElementById('captionInput').value.trim();
-  const reader=new FileReader();
-  reader.onload=async(ev)=>{
-    const url=ev.target.result; // base64 data URL
-    const maxOrder=(cfgData.galeria||[]).reduce((m,g)=>Math.max(m,g.orden||0),0);
-    await sb.from('galeria').insert({url,caption,orden:maxOrder+1,visible:true});
-    closeModals();
-    document.getElementById('imgFile').value='';
-    await loadAll();
-    toast('Imagen subida ✓');
-  };
-  reader.readAsDataURL(_pendingFile);
-}
-
-async function addImageByUrl(){
-  const url=document.getElementById('imgUrlInput').value.trim();
-  const caption=document.getElementById('imgUrlCaption').value.trim();
-  if(!url){alert('Ingresa una URL.');return;}
-  const maxOrder=(cfgData.galeria||[]).reduce((m,g)=>Math.max(m,g.orden||0),0);
-  await sb.from('galeria').insert({url,caption,orden:maxOrder+1,visible:true});
-  document.getElementById('imgUrlInput').value='';
-  document.getElementById('imgUrlCaption').value='';
-  await loadAll();toast('Imagen agregada ✓');
-}
-
-async function toggleGalVis(id,makeVisible){
-  await sb.from('galeria').update({visible:makeVisible}).eq('id',id);
-  await loadAll();
-}
-async function deleteGalImg(id){
-  if(!confirm('¿Eliminar esta imagen de la galería?'))return;
-  await sb.from('galeria').delete().eq('id',id);
-  await loadAll();toast('Imagen eliminada.');
-}
-
-/* ── DOWNLOADS ── */
-function rows(recs){
-  const h=['Nombre','Teléfono','Manzana','Lote','Vehículo','Precio','Fecha','Hora','Estado','Estado Pago','Creada'];
-  return{h,r:recs.map(x=>[x.nombre,x.telefono,x.manzana,x.lote,x.tipo_vehiculo,x.precio,ds(x),x.hora,x.status,x.estado_pago,fdt(x.created_at)])};
-}
-function dlCSV(k){
-  const recs=getSD(k);if(!recs.length){alert('Sin datos.');return;}
-  const{h,r}=rows(recs);
-  const csv=[h,...r].map(row=>row.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));a.download=`asd-${k}-${td()}.csv`;a.click();
-}
-function dlXLSX(k){
-  const recs=getSD(k);if(!recs.length){alert('Sin datos.');return;}
-  const comp=recs.filter(x=>x.status==='completada');
-  const ing=comp.filter(x=>x.estado_pago==='pagado').reduce((s,x)=>s+(x.precio||0),0);
-  const lbl=k==='week'?'Esta semana':'Este mes';
-  const ss=XLSX.utils.aoa_to_sheet([['ASD Auto Care — '+lbl],['Generado',fdt(new Date().toISOString())],[],['Ingresos cobrados','Q'+ing],['Completados',comp.length],['Cancelados',recs.filter(x=>x.status==='cancelada').length],['Total',recs.filter(x=>x.status!=='eliminada').length]]);
-  const{h,r}=rows(recs);
-  const ds2=XLSX.utils.aoa_to_sheet([h,...r]);
-  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ss,'Resumen');XLSX.utils.book_append_sheet(wb,ds2,'Detalle');
-  XLSX.writeFile(wb,`asd-${k}-${td()}.xlsx`);
-}
-function exportCSV(){
-  if(!allR.length){alert('No hay datos.');return;}
-  const{h,r}=rows(allR);
-  const csv=[h,...r].map(row=>row.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));a.download=`asd-completo-${td()}.csv`;a.click();
-}
-
-/* ── RENDER ALL ── */
-function renderAll(){renderKPI();renderCal();renderActive();renderHist();renderRevs();}
+init().then(subscribeRealtime);
 </script>
 </body>
 </html>
