@@ -172,29 +172,34 @@
     .svc-editor-header span{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);}
 
     /* ══ GALLERY MANAGER ══ */
-    .gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:1rem;}
-    .gal-card{background:var(--sf);position:relative;border:1px solid var(--bd);cursor:grab;transition:border-color .2s,opacity .2s;}
+    .gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px;margin-bottom:1rem;}
+    .gal-card{background:var(--sf);position:relative;border:1px solid var(--bd);cursor:grab;transition:border-color .2s,opacity .2s;overflow:hidden;}
     .gal-card:active{cursor:grabbing;}
-    .gal-card.dragging{opacity:.4;border-color:var(--acc);}
+    .gal-card.dragging{opacity:.35;border-color:var(--acc);}
     .gal-card.drag-over{border-color:var(--acc);border-style:dashed;}
-    .gal-card-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
-    .gal-card.hidden-img .gal-card-img{filter:grayscale(1) brightness(.4);}
-    .gal-card-footer{padding:.5rem .6rem;display:flex;align-items:center;gap:.4rem;border-top:1px solid var(--bd);}
-    .gal-card-caption-text{font-size:.65rem;color:var(--mid);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    .gal-badge{font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .4rem;border:1px solid;}
-    .gal-badge-vis{color:var(--grn);border-color:rgba(82,196,129,.3);}
+    .gal-card-img{width:100%;height:110px;object-fit:cover;display:block;transition:transform .4s ease;}
+    .gal-card:hover .gal-card-img{transform:scale(1.04);}
+    .gal-card.hidden-img .gal-card-img{filter:grayscale(1) brightness(.35);}
+    .gal-card-footer{padding:.45rem .6rem;display:flex;align-items:center;gap:.4rem;border-top:1px solid var(--bd);}
+    .gal-card-caption-text{font-size:.62rem;color:var(--dim);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .gal-card-caption-text.has-text{color:var(--mid);}
+    .gal-badge{font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;padding:.12rem .38rem;border:1px solid;}
+    .gal-badge-vis{color:var(--grn);border-color:rgba(82,196,129,.25);}
     .gal-badge-hid{color:var(--dim);border-color:var(--bd);}
-    .gal-drag-handle{font-size:.9rem;color:var(--dim);cursor:grab;padding:0 .2rem;}
-    .gal-actions{display:flex;gap:.3rem;padding:.4rem .6rem;border-top:1px solid var(--bd);}
+    .gal-drag-handle{font-size:.85rem;color:var(--dim);cursor:grab;padding:0 .15rem;opacity:.5;}
+    .gal-actions{display:flex;gap:.25rem;padding:.35rem .5rem;border-top:1px solid var(--bd);}
+    /* Delete button only visible on hover */
+    .gal-del-btn{opacity:0;transition:opacity .2s;}
+    .gal-card:hover .gal-del-btn{opacity:1;}
 
     /* FOCAL POINT */
     .focal-wrap{position:relative;display:inline-block;cursor:crosshair;user-select:none;}
     .focal-wrap img{display:block;width:100%;max-height:220px;object-fit:cover;}
-    .focal-dot{position:absolute;width:20px;height:20px;background:var(--acc);border-radius:50%;border:2px solid #fff;transform:translate(-50%,-50%);pointer-events:none;box-shadow:0 0 0 3px rgba(0,0,0,.5);}
+    .focal-dot{position:absolute;width:18px;height:18px;background:var(--acc);border-radius:50%;border:2px solid #fff;transform:translate(-50%,-50%);pointer-events:none;box-shadow:0 0 0 3px rgba(0,0,0,.5);}
 
     /* UPLOAD */
-    .upload-box{border:1px dashed rgba(255,255,255,.15);padding:2rem;text-align:center;cursor:pointer;transition:border-color .3s;background:rgba(255,255,255,.02);}
-    .upload-box:hover,.upload-box.dragover{border-color:var(--acc);background:rgba(200,185,138,.04);}
+    .upload-box{border:1px dashed rgba(255,255,255,.1);padding:2.5rem 2rem;text-align:center;cursor:pointer;transition:all .3s;background:rgba(255,255,255,.015);border-radius:0;}
+    .upload-box:hover,.upload-box.dragover{border-color:var(--acc);background:rgba(200,185,138,.03);}
     .upload-box input{display:none;}
 
     /* BLOCKED DATES */
@@ -428,6 +433,30 @@
 
     <!-- GALERÍA -->
     <div id="tab-galeria" style="display:none;">
+
+      <!-- IMÁGENES -->
+      <div class="cfg-section">
+        <div class="cfg-head">
+          <span class="cfg-head-title">Imágenes de la galería</span>
+          <span style="font-size:.62rem;color:var(--dim);letter-spacing:.1em;">Arrastra para reordenar</span>
+        </div>
+        <div class="cfg-body">
+          <div class="gal-grid" id="galGrid"></div>
+          <!-- SUBIR ARCHIVO -->
+          <div class="upload-box" id="uploadBox" onclick="document.getElementById('imgFile').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="onDrop(event)">
+            <input type="file" id="imgFile" accept="image/*" multiple onchange="onFilePick(event)"/>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(200,185,138,.35)" stroke-width="1"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span style="display:block;font-size:.75rem;color:var(--mid);margin-top:.7rem;letter-spacing:.05em;">Haz clic o arrastra imágenes aquí</span>
+            <span style="display:block;font-size:.62rem;color:var(--dim);margin-top:.3rem;letter-spacing:.08em;">JPG · PNG · WEBP</span>
+          </div>
+          <!-- URL DIRECTA -->
+          <div style="display:flex;gap:.5rem;margin-top:.5rem;align-items:center;">
+            <input type="url" id="imgUrlInput" placeholder="O pega una URL de imagen: https://..." style="background:#111;border:1px solid var(--bd);color:var(--wh);padding:.5rem .8rem;font-family:var(--ff);font-size:.78rem;outline:none;flex:1;"/>
+            <button class="cfg-save-btn" onclick="addImageByUrl()">Agregar por URL</button>
+          </div>
+        </div>
+      </div>
+
       <!-- CONTROLES DE SLIDESHOW -->
       <div class="cfg-section">
         <div class="cfg-head">
@@ -440,7 +469,7 @@
         <div class="cfg-body">
           <div class="cfg-row">
             <span class="cfg-label">Duración por imagen</span>
-            <input type="range" id="cfgDuracion" min="3000" max="12000" step="500" value="5000" oninput="document.getElementById('durLabel').textContent=(this.value/1000).toFixed(1)+'s'" style="flex:1;max-width:200px;"/>
+            <input type="range" id="cfgDuracion" min="3000" max="12000" step="500" value="5000" oninput="document.getElementById('durLabel').textContent=(this.value/1000).toFixed(1)+'s'" style="flex:1;max-width:200px;accent-color:var(--acc);"/>
             <span id="durLabel" style="font-size:.8rem;color:var(--acc);min-width:32px;">5.0s</span>
           </div>
           <div class="cfg-row">
@@ -450,28 +479,6 @@
         </div>
       </div>
 
-      <!-- IMÁGENES -->
-      <div class="cfg-section">
-        <div class="cfg-head">
-          <span class="cfg-head-title">Imágenes de la galería</span>
-          <span style="font-size:.65rem;color:var(--dim);">Arrastra para reordenar</span>
-        </div>
-        <div class="cfg-body">
-          <div class="gal-grid" id="galGrid"></div>
-          <!-- SUBIR ARCHIVO -->
-          <div class="upload-box" id="uploadBox" onclick="document.getElementById('imgFile').click()" ondragover="ev=>{ev.preventDefault();this.classList.add('dragover')}" ondragleave="this.classList.remove('dragover')" ondrop="onDrop(event)">
-            <input type="file" id="imgFile" accept="image/*" multiple onchange="onFilePick(event)"/>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            <span style="display:block;font-size:.78rem;color:var(--mid);margin-top:.5rem;">Haz clic o arrastra imágenes aquí</span>
-            <span style="display:block;font-size:.65rem;color:var(--dim);margin-top:.2rem;">JPG, PNG, WEBP</span>
-          </div>
-          <!-- URL DIRECTA -->
-          <div style="display:flex;gap:.5rem;margin-top:.5rem;align-items:center;">
-            <input type="url" id="imgUrlInput" placeholder="O pega una URL de imagen: https://..." style="background:#111;border:1px solid var(--bd);color:var(--wh);padding:.5rem .8rem;font-family:var(--ff);font-size:.78rem;outline:none;flex:1;"/>
-            <button class="cfg-save-btn" onclick="addImageByUrl()">Agregar por URL</button>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- PROMOCIONES -->
@@ -801,20 +808,20 @@ async function saveGalCfg(){
 function renderGalGrid(){
   const el=document.getElementById('galGrid');if(!el)return;
   const imgs=cfgData.galeria||[];
-  if(!imgs.length){el.innerHTML='<div style="padding:2rem;color:var(--dim);font-size:.78rem;text-align:center;grid-column:1/-1;">Sin imágenes. Sube fotos de tu trabajo.</div>';return;}
+  if(!imgs.length){el.innerHTML='<div style="padding:2rem;color:var(--dim);font-size:.78rem;text-align:center;grid-column:1/-1;letter-spacing:.08em;">Sin imágenes. Sube fotos de tu trabajo.</div>';return;}
   el.innerHTML=imgs.map((g,i)=>`
     <div class="gal-card${g.visible===false?' hidden-img':''}" id="galcard-${g.id}" draggable="true"
       ondragstart="dragStart(event,'${g.id}')" ondragover="dragOver(event,'${g.id}')" ondrop="dropCard(event,'${g.id}')" ondragleave="dragLeave(event)">
       <img class="gal-card-img" src="${g.url}" alt="${g.caption||''}" loading="lazy" onerror="this.style.background='#1a1a1a'"/>
       <div class="gal-card-footer">
         <span class="gal-drag-handle" title="Arrastra para reordenar">⠿</span>
-        <span class="gal-card-caption-text">${g.caption||'Sin descripción'}</span>
-        <span class="gal-badge ${g.visible===false?'gal-badge-hid':'gal-badge-vis'}">${g.visible===false?'Oculta':'Visible'}</span>
+        <span class="gal-card-caption-text${g.caption?' has-text':''}">${g.caption||'—'}</span>
+        <span class="gal-badge ${g.visible===false?'gal-badge-hid':'gal-badge-vis'}">${g.visible===false?'Oculta':'Vis'}</span>
       </div>
       <div class="gal-actions">
-        <button class="ab ao" style="flex:1;padding:.3rem;" onclick="openEditGal('${g.id}')">Editar</button>
-        <button class="ab ${g.visible===false?'ac':'ax'}" style="flex:1;padding:.3rem;" onclick="toggleGalVis('${g.id}',${g.visible===false})">${g.visible===false?'Mostrar':'Ocultar'}</button>
-        <button class="ab apd" style="padding:.3rem .5rem;" onclick="deleteGalImg('${g.id}')">✕</button>
+        <button class="ab ao" style="flex:1;padding:.28rem;" onclick="openEditGal('${g.id}')">Editar</button>
+        <button class="ab ${g.visible===false?'ac':'ax'}" style="flex:1;padding:.28rem;" onclick="toggleGalVis('${g.id}',${g.visible===false})">${g.visible===false?'Mostrar':'Ocultar'}</button>
+        <button class="ab apd gal-del-btn" style="padding:.28rem .5rem;" onclick="deleteGalImg('${g.id}')">✕</button>
       </div>
     </div>`).join('');
 }
