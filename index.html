@@ -717,6 +717,11 @@ async function enviarReserva(e){
   _waMsg=`🚗 *NUEVA RESERVA — ASD Auto Care*\n\n👤 *Nombre:* ${nombre}\n📞 *Teléfono:* ${telefono}\n📍 *Dirección:* Manzana ${manzana}, Lote ${lote}\n🚙 *Vehículo:* ${vehiculo} (Q${precio})\n📅 *Fecha:* ${fecha}\n⏰ *Hora:* ${hora}\n💳 *Pago:* ${pd}\n\n${metodoPago.includes('Transferencia')?'📎 _Recuerda enviar comprobante._':'✅ _Pago al finalizar._'}\n_Enviada desde la página web._`;
 
   // Ocultar formulario, mostrar pantalla de confirmación
+  const waLink=`https://wa.me/50231098720?text=${encodeURIComponent(_waMsg)}`;
+  const waBtn=document.getElementById('waBtn');
+  waBtn.href=waLink;
+  waBtn.target='_blank';
+  waBtn.removeAttribute('onclick');
   btn.style.display='none';
   document.getElementById('reservaForm').style.pointerEvents='none';
   document.getElementById('reservaForm').style.opacity='.4';
@@ -732,12 +737,10 @@ async function enviarReserva(e){
 
 function abrirWhatsApp(){
   const btn=document.getElementById('waBtn');
-  btn.innerHTML='✓ Abriendo WhatsApp...';
-  btn.style.background='rgba(37,211,102,.25)';
-  btn.style.color='#25D366';
-  btn.style.border='1px solid rgba(37,211,102,.4)';
+  btn.href=`https://wa.me/50231098720?text=${encodeURIComponent(_waMsg)}`;
+  btn.target='_blank';
+  btn.removeAttribute('onclick');
   document.getElementById('waReminder').style.display='none';
-  setTimeout(()=>{ window.location.href=`https://wa.me/50231098720?text=${encodeURIComponent(_waMsg)}`; },300);
 }
 
 /* ── REVIEWS ── */
