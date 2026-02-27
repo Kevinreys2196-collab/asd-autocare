@@ -18,9 +18,6 @@
     body{background:var(--black);color:var(--white);font-family:var(--fb);font-weight:300;overflow-x:hidden;}
     body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:0.6;}
 
-    /* PROMO BANNER */
-    #promoBanner{display:none;background:linear-gradient(135deg,rgba(200,185,138,0.18),rgba(200,185,138,0.06));border-bottom:1px solid rgba(200,185,138,0.35);padding:0.6rem 2rem;text-align:center;font-size:0.82rem;color:var(--accent);letter-spacing:0.06em;position:relative;z-index:850;}
-
     nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;background:rgba(10,10,10,0.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
     .nav-logo{font-family:var(--fd);font-size:1.1rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;}
     .nav-logo span{color:var(--accent);}
@@ -32,7 +29,7 @@
     .hero-bg{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,.45) 0%,rgba(10,10,10,.72) 50%,rgba(10,10,10,.97) 100%),url('https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=1600&q=80&fit=crop') center/cover no-repeat;}
     .hero-line{position:absolute;top:0;left:50%;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.06),transparent);transform:translateX(-50%);}
     .hero-content{position:relative;max-width:700px;}
-    .hero-eyebrow{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .2s forwards;}
+    .hero-eyebrow{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .2s forwards;}
     .hero-title{font-family:var(--fd);font-size:clamp(2.4rem,7vw,5rem);font-weight:300;line-height:1.1;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .4s forwards;}
     .hero-title em{font-style:italic;font-weight:600;}
     .hero-sub{font-size:.95rem;color:var(--gray-mid);line-height:1.7;max-width:480px;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s .6s forwards;}
@@ -57,7 +54,7 @@
     #reviews.section-bg::after{background-image:url('https://images.unsplash.com/photo-1571607388263-1044f9ea01dd?w=1200&q=80&fit=crop');}
     #contact.section-bg::after{background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80&fit=crop');}
 
-    /* SERVICES */
+    /* ── SERVICES ── */
     #services{position:relative;padding:0;margin:0;width:100%;}
     #services::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=1600&q=85&fit=crop') center/cover no-repeat fixed;z-index:0;}
     #services::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,.88) 0%,rgba(10,10,10,.78) 30%,rgba(10,10,10,.82) 70%,rgba(10,10,10,.96) 100%);z-index:1;}
@@ -81,18 +78,76 @@
     .pricing-note{font-size:.78rem;color:rgba(176,176,168,.7);text-align:center;margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.06);}
     .pricing-note strong{color:var(--gray-mid);}
 
-    /* GALLERY */
-    #gallery{padding:5rem 0;overflow:hidden;}
+    /* ── PROMOCIONES ── */
+    #promos{padding:5rem 2rem;max-width:900px;margin:0 auto;}
+    #promos.hidden{display:none;}
+    .promos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);}
+    .promo-card{background:#0a0a0a;display:flex;flex-direction:column;overflow:hidden;transition:background .3s;}
+    .promo-card:hover{background:#0e0e0e;}
+    .promo-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;filter:brightness(.88);transition:filter .4s,transform .4s;}
+    .promo-card:hover .promo-img{filter:brightness(1);transform:scale(1.02);}
+    .promo-img-wrap{overflow:hidden;position:relative;}
+    .promo-badge{position:absolute;top:.75rem;left:.75rem;background:var(--accent);color:var(--black);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;padding:.25rem .7rem;font-weight:500;}
+    .promo-body{padding:1.5rem;display:flex;flex-direction:column;gap:.6rem;flex:1;}
+    .promo-titulo{font-family:var(--fd);font-size:1.3rem;font-weight:300;line-height:1.2;color:var(--white);}
+    .promo-desc{font-size:.82rem;color:var(--gray-mid);line-height:1.6;}
+    .promo-precio{font-family:var(--fd);font-size:1.6rem;color:var(--accent);font-weight:300;}
+    .promo-vigencia{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-dark);margin-top:auto;padding-top:.6rem;border-top:1px solid rgba(255,255,255,.05);}
+    .promo-btn{display:inline-block;margin-top:.8rem;background:var(--white);color:var(--black);border:none;padding:.7rem 1.5rem;font-family:var(--fb);font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .3s;align-self:flex-start;}
+    .promo-btn:hover{background:var(--accent);}
+
+    /* ── GALLERY PREMIUM ── */
+    #gallery{padding:5rem 0;overflow:hidden;background:var(--black);}
     .gallery-header{padding:0 2rem;max-width:900px;margin:0 auto 2.5rem;}
-    .carousel-track-wrap{overflow:hidden;}
-    .carousel-track{display:flex;gap:1px;transition:transform .6s cubic-bezier(.25,.46,.45,.94);will-change:transform;}
-    .carousel-slide{min-width:340px;height:260px;flex-shrink:0;overflow:hidden;position:relative;background:#111;}
-    .carousel-slide img{width:100%;height:100%;object-fit:cover;filter:grayscale(30%) brightness(.85);transition:filter .4s,transform .4s;display:block;}
-    .carousel-slide:hover img{filter:grayscale(0%) brightness(1);transform:scale(1.03);}
-    .carousel-slide .slide-label{position:absolute;bottom:0;left:0;right:0;padding:.8rem 1rem;background:linear-gradient(transparent,rgba(0,0,0,.75));font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-mid);}
-    .carousel-dots{display:flex;justify-content:center;gap:.5rem;margin-top:1.5rem;}
-    .carousel-dot{width:6px;height:6px;background:var(--gray-dark);border:none;cursor:pointer;transition:background .3s,width .3s;padding:0;}
-    .carousel-dot.active{background:var(--accent);width:20px;}
+
+    /* Fade slideshow */
+    .slideshow-wrap{position:relative;width:100%;height:520px;background:#0d0d0d;overflow:hidden;}
+    .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;cursor:pointer;}
+    .slide.active{opacity:1;z-index:2;}
+    .slide.prev{opacity:0;z-index:1;}
+    .slide img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 8s ease;}
+    .slide.active img{transform:scale(1.04);}
+    .slide img:not([src]){display:none;}
+
+    /* Nav arrows */
+    .slide-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);color:var(--white);width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;transition:background .25s,border-color .25s;backdrop-filter:blur(4px);}
+    .slide-arrow:hover{background:rgba(200,185,138,.2);border-color:var(--accent);}
+    .slide-arrow.prev-arrow{left:1.2rem;}
+    .slide-arrow.next-arrow{right:1.2rem;}
+
+    /* Dots */
+    .slide-dots{position:absolute;bottom:1.2rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem;z-index:10;}
+    .slide-dot{width:6px;height:6px;background:rgba(255,255,255,.3);border:none;cursor:pointer;transition:background .3s,width .3s;padding:0;}
+    .slide-dot.active{background:var(--accent);width:22px;}
+
+    /* Counter */
+    .slide-counter{position:absolute;top:1.2rem;right:1.5rem;font-size:.65rem;letter-spacing:.18em;color:rgba(255,255,255,.45);z-index:10;}
+
+    /* Autoplay toggle */
+    .slide-controls{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:1.2rem;padding:0 2rem;}
+    .slide-play-btn{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--gray-mid);padding:.4rem 1rem;font-family:var(--fb);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:.4rem;}
+    .slide-play-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+    /* Lightbox */
+    #lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:9500;align-items:center;justify-content:center;cursor:zoom-out;}
+    #lightbox.open{display:flex;}
+    #lightbox img{max-width:92vw;max-height:90vh;object-fit:contain;display:block;}
+    #lightbox .lb-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:1px solid rgba(255,255,255,.2);color:var(--white);width:38px;height:38px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s;}
+    #lightbox .lb-close:hover{border-color:var(--accent);color:var(--accent);}
+    #lightbox .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--white);width:44px;height:44px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+    #lightbox .lb-nav:hover{background:rgba(200,185,138,.15);border-color:var(--accent);}
+    #lightbox .lb-prev{left:1rem;}
+    #lightbox .lb-next{right:1rem;}
+    #lightbox .lb-caption{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);}
+
+    /* Thumbnail strip */
+    .thumb-strip{display:flex;gap:2px;overflow-x:auto;padding:2px 2rem;scrollbar-width:none;margin-top:2px;}
+    .thumb-strip::-webkit-scrollbar{display:none;}
+    .thumb{width:72px;height:52px;object-fit:cover;opacity:.4;cursor:pointer;transition:opacity .25s;flex-shrink:0;display:block;}
+    .thumb.active{opacity:1;outline:1px solid var(--accent);}
+
+    /* Empty gallery */
+    .gallery-empty{height:300px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.06);color:var(--gray-dark);font-size:.82rem;letter-spacing:.1em;}
 
     /* FORM */
     .form-group{display:flex;flex-direction:column;gap:.5rem;}
@@ -100,9 +155,7 @@
     .form-group input,.form-group select{background:#0d0d0d;border:1px solid rgba(255,255,255,.1);color:var(--white);padding:.85rem 1rem;font-family:var(--fb);font-size:.88rem;outline:none;width:100%;transition:border-color .3s;-webkit-appearance:none;}
     .form-group input:focus,.form-group select:focus{border-color:var(--accent);}
     .form-group select option{background:#0d0d0d;}
-
-    /* SLOTS */
-    .radio-label{display:flex;align-items:center;gap:.7rem;font-size:.88rem;color:var(--white);cursor:pointer;padding:.75rem 1rem;border:1px solid rgba(255,255,255,.08);transition:border-color .3s,background .3s;position:relative;user-select:none;}
+    .radio-label{display:flex;align-items:center;gap:.7rem;font-size:.88rem;color:var(--white);cursor:pointer;padding:.75rem 1rem;border:1px solid rgba(255,255,255,.08);transition:border-color .3s,background .3s;user-select:none;}
     .radio-label:hover{border-color:rgba(200,185,138,.4);background:rgba(200,185,138,.04);}
     .radio-label input[type="radio"]{accent-color:var(--accent);width:16px;height:16px;flex-shrink:0;}
     .radio-label.is-selected{border-color:var(--accent);background:rgba(200,185,138,.08);}
@@ -110,14 +163,12 @@
     .radio-label.is-selected .slot-check{display:flex;}
     .radio-label.slot-unavailable{opacity:.3;pointer-events:none;border-color:rgba(224,85,85,.2)!important;background:transparent!important;}
     .radio-label.slot-unavailable .slot-time::after{content:' — Reservado';font-size:.7rem;color:#e05555;}
-
     input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.5;cursor:pointer;}
     .alert-box{display:none;align-items:center;gap:.5rem;padding:.85rem 1rem;font-size:.82rem;margin-top:.5rem;border:1px solid;}
     .alert-box.show{display:flex;}
     .alert-warn{background:rgba(224,85,85,.07);border-color:rgba(224,85,85,.3);color:#e05555;}
     .alert-blocked{background:rgba(224,85,85,.12);border-color:rgba(224,85,85,.4);color:#e07070;font-weight:500;}
     .alert-past{background:rgba(150,120,50,.1);border-color:rgba(200,185,138,.3);color:var(--accent);}
-
     .payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.08);}
     .payment-card{background:#0d0d0d;padding:1.5rem;}
     .payment-card-title{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;}
@@ -126,7 +177,6 @@
     .payment-cash{background:#0d0d0d;padding:1rem 1.5rem;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:.8rem;}
     .payment-note{font-size:.78rem;color:var(--gray-mid);margin-top:1rem;padding:.9rem 1.2rem;border-left:2px solid var(--accent);background:rgba(200,185,138,.04);line-height:1.6;}
     .payment-note a{color:var(--accent);text-decoration:none;}
-
     .reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);margin-bottom:2.5rem;min-height:80px;}
     .review-card{background:#0a0a0a;padding:2rem 1.5rem;display:flex;flex-direction:column;gap:1rem;}
     .review-stars{color:var(--accent);font-size:1rem;}
@@ -137,7 +187,6 @@
     .star-select{display:flex;gap:.4rem;margin-bottom:1rem;}
     .star-btn{background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--gray-dark);transition:color .2s;line-height:1;}
     .star-btn.active{color:var(--accent);}
-
     .contact-inner{border:1px solid rgba(255,255,255,.08);padding:3rem 2rem;display:flex;flex-direction:column;gap:1.5rem;background:#0d0d0d;}
     .contact-label{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);}
     .contact-number{font-family:var(--fd);font-size:clamp(1.8rem,5vw,3rem);font-weight:300;color:var(--white);text-decoration:none;display:block;transition:color .3s;}
@@ -160,22 +209,21 @@
       nav{padding:1rem 1.2rem;}.nav-links{display:none;}
       section.std{padding:4rem 1.2rem;}#hero{padding:6rem 1.2rem 3.5rem;}
       .payment-grid{grid-template-columns:1fr;}.svc-pricing{grid-template-columns:1fr;}
-      .svc-row{grid-template-columns:22px 1fr auto;gap:.8rem;}
-      .carousel-slide{min-width:280px;height:200px;}
+      .slideshow-wrap{height:260px;}
+      .promos-grid{grid-template-columns:1fr;}
     }
   </style>
 </head>
 <body>
 
-<div id="promoBanner"></div>
-
 <nav>
   <div class="nav-logo">ASD <span>Auto</span> Care</div>
   <ul class="nav-links">
     <li><a href="#services">Servicios</a></li>
+    <li><a href="#promos">Promociones</a></li>
     <li><a href="#booking">Agendar</a></li>
-    <li><a href="#gallery">Galería</a></li>
     <li><a href="#reviews">Reseñas</a></li>
+    <li><a href="#gallery">Portafolio</a></li>
     <li><a href="#contact">Contacto</a></li>
   </ul>
 </nav>
@@ -196,23 +244,33 @@
 
 <div class="divider"></div>
 
+<!-- SERVICES -->
 <section id="services">
   <div class="services-inner">
-    <p class="section-label reveal">Servicios y Promociones</p>
+    <p class="section-label reveal">Servicios</p>
     <h2 class="section-title reveal">Lo que <em style="font-family:'Cormorant Garamond',serif;font-style:italic;">Incluye</em></h2>
-    <div class="svc-list reveal" id="svcList"><div style="padding:1.5rem;color:var(--gray-dark);font-size:.85rem;">Cargando servicios...</div></div>
+    <div class="svc-list reveal" id="svcList"><div style="padding:1.5rem;color:var(--gray-dark);font-size:.85rem;">Cargando...</div></div>
     <p class="section-label reveal" style="margin-top:3rem;">Precios</p>
     <div class="svc-pricing reveal">
       <div class="price-card"><p class="price-type">Sedán</p><p class="price-amount"><sup>Q</sup><span id="precioSedan">80</span></p><p class="price-vehicle">Vehículo sedan estándar</p></div>
       <div class="price-card featured"><p class="price-type">SUV / Pickup</p><p class="price-amount"><sup>Q</sup><span id="precioSuv">100</span></p><p class="price-vehicle">SUV, pickup y camionetas</p></div>
     </div>
     <p class="pricing-note reveal"><strong>Cupos limitados por semana.</strong> Reserva con anticipación.</p>
-    <p class="pricing-note reveal" style="margin-top:.6rem;border-top:none;font-size:.75rem;color:rgba(176,176,168,.55);">Solo necesitamos acceso a <strong style="color:rgba(176,176,168,.75);">energía eléctrica y agua</strong> — proporcionados por el residente. Todo lo demás lo traemos nosotros.</p>
+    <p class="pricing-note reveal" style="margin-top:.6rem;border-top:none;font-size:.75rem;color:rgba(176,176,168,.55);">Solo necesitamos acceso a <strong style="color:rgba(176,176,168,.75);">energía eléctrica y agua</strong> — proporcionados por el residente.</p>
   </div>
 </section>
 
 <div class="divider"></div>
 
+<!-- PROMOCIONES -->
+<section id="promos" class="std hidden">
+  <p class="section-label reveal">Ofertas especiales</p>
+  <h2 class="section-title reveal">Promociones <em style="font-family:'Cormorant Garamond',serif;font-style:italic;">Vigentes</em></h2>
+  <div class="promos-grid reveal" id="promosGrid"></div>
+</section>
+<div class="divider" id="promosDivider" style="display:none;"></div>
+
+<!-- BOOKING -->
 <section id="booking" class="std section-bg">
   <p class="section-label reveal">Reservas</p>
   <h2 class="section-title reveal">Reserva tu <em style="font-family:'Cormorant Garamond',serif;font-style:italic;">Servicio</em></h2>
@@ -241,8 +299,8 @@
     <div class="form-group">
       <label>Fecha de servicio *</label>
       <input type="date" id="fecha" required oninput="onDateChange()"/>
-      <div class="alert-box alert-past" id="alertPast">No puedes reservar en una fecha pasada. Por favor elige otra fecha.</div>
-      <div class="alert-box alert-blocked" id="alertBlocked">Esta fecha está bloqueada — no está disponible para reservas. Por favor elige otra fecha.</div>
+      <div class="alert-box alert-past" id="alertPast">No puedes reservar en una fecha pasada.</div>
+      <div class="alert-box alert-blocked" id="alertBlocked">Esta fecha está bloqueada — no está disponible para reservas.</div>
       <div class="alert-box alert-warn" id="alertWarn">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e05555" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         <span id="alertWarnText"></span>
@@ -280,6 +338,7 @@
 
 <div class="divider"></div>
 
+<!-- REVIEWS -->
 <section id="reviews" class="std section-bg">
   <p class="section-label reveal">Opiniones</p>
   <h2 class="section-title reveal">Lo que dicen<br><em style="font-family:'Cormorant Garamond',serif;font-style:italic;">nuestros clientes</em></h2>
@@ -298,17 +357,42 @@
 
 <div class="divider"></div>
 
-<section id="gallery" style="padding:5rem 0;overflow:hidden;">
+<!-- GALLERY PREMIUM -->
+<section id="gallery">
   <div class="gallery-header">
     <p class="section-label reveal">Portafolio</p>
     <h2 class="section-title reveal">Nuestro <em style="font-family:'Cormorant Garamond',serif;font-style:italic;">Trabajo</em></h2>
   </div>
-  <div class="carousel-track-wrap reveal"><div class="carousel-track" id="carouselTrack"></div></div>
-  <div class="carousel-dots" id="carouselDots"></div>
+  <div class="reveal" id="galleryWrap">
+    <div class="gallery-empty" id="galleryEmpty" style="display:none;">Próximamente — las fotos de nuestro trabajo aparecerán aquí.</div>
+    <div class="slideshow-wrap" id="slideshowWrap" style="display:none;">
+      <div id="slideshowInner"></div>
+      <button class="slide-arrow prev-arrow" onclick="slideGo(-1)">&#8592;</button>
+      <button class="slide-arrow next-arrow" onclick="slideGo(1)">&#8594;</button>
+      <div class="slide-dots" id="slideDots"></div>
+      <div class="slide-counter" id="slideCounter"></div>
+    </div>
+    <div class="thumb-strip" id="thumbStrip" style="display:none;"></div>
+    <div class="slide-controls" id="slideControls" style="display:none;">
+      <button class="slide-play-btn" id="playBtn" onclick="toggleAutoplay()">
+        <span id="playIcon">⏸</span> <span id="playTxt">Pausar</span>
+      </button>
+    </div>
+  </div>
 </section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8592;</button>
+  <img id="lbImg" src="" alt=""/>
+  <button class="lb-nav lb-next" onclick="lbNav(1)">&#8594;</button>
+  <div class="lb-caption" id="lbCaption"></div>
+</div>
 
 <div class="divider"></div>
 
+<!-- CONTACT -->
 <section id="contact" class="std section-bg">
   <p class="section-label reveal">Contacto directo</p>
   <h2 class="section-title reveal">Hablemos</h2>
@@ -334,55 +418,42 @@ const SB_URL='https://ywjmksluykdwdjhjtgeg.supabase.co';
 const SB_KEY='sb_publishable_W_8ew5JXHQOStCnKJ9I81Q_1ppabff1';
 const sb=supabase.createClient(SB_URL,SB_KEY);
 
-let cfg={precios:{sedan:80,suv:100},servicios:[],horarios:['8:00 AM','11:00 AM','2:00 PM'],dias_bloqueados:[],galeria:[],promocion:{activa:false,texto:''}};
-let confirmadasCache=[], selectedStars=0;
+let cfg={precios:{sedan:80,suv:100},servicios:[],horarios:['8:00 AM','11:00 AM','2:00 PM'],dias_bloqueados:[],galeria:[],galeria_cfg:{autoplay:true,duracion:5000,transicion:'fade'},promocion:{activa:false,texto:''}};
+let allPromos=[];
+let confirmadasCache=[],selectedStars=0;
 
-const FALLBACK=[
-  {url:'https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=700&q=80&fit=crop',caption:'Lavado exterior'},
-  {url:'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=700&q=80&fit=crop',caption:'Detalle carrocería'},
-  {url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80&fit=crop',caption:'Limpieza de rines'},
-  {url:'https://images.unsplash.com/photo-1571607388263-1044f9ea01dd?w=700&q=80&fit=crop',caption:'Aspirado interior'},
-  {url:'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80&fit=crop',caption:'Acabado final'},
-];
+/* ── SLIDESHOW STATE ── */
+let slideIdx=0,slideTotal=0,slideTimer=null,slideAutoplay=true,slideDuracion=5000;
+let lbIdx=0;
 
 async function init(){
-  // Load config & gallery in parallel
-  const [cfgData, galData] = await Promise.all([
+  const[cfgRes,galRes,promoRes]=await Promise.all([
     sb.from('configuracion').select('id,valor'),
-    sb.from('galeria').select('*').eq('visible',true).order('orden',{ascending:true})
+    sb.from('galeria').select('*').eq('visible',true).order('orden',{ascending:true}),
+    sb.from('promociones').select('*').eq('activa',true).order('orden',{ascending:true})
   ]);
-  if(cfgData.data) cfgData.data.forEach(r=>{
+  if(cfgRes.data) cfgRes.data.forEach(r=>{
     if(r.id==='precios') cfg.precios=r.valor;
     if(r.id==='servicios') cfg.servicios=r.valor;
     if(r.id==='horarios') cfg.horarios=r.valor;
     if(r.id==='dias_bloqueados') cfg.dias_bloqueados=r.valor;
-    if(r.id==='promocion') cfg.promocion=r.valor;
+    if(r.id==='galeria_cfg') cfg.galeria_cfg=r.valor;
   });
-  if(galData.data && galData.data.length) cfg.galeria=galData.data;
+  cfg.galeria=(galRes.data&&galRes.data.length)?galRes.data:[];
+  allPromos=promoRes.data||[];
 
-  renderPromo(); renderServices(); renderPrices(); buildSlots(); buildCarousel();
+  renderServices(); renderPrices(); buildSlots();
+  renderPromos(); buildGallery();
   await renderReviews();
   await cargarConfirmadas();
-  setTodayMin();
-}
-
-function setTodayMin(){
-  const f=document.getElementById('fecha');
-  if(f) f.min=new Date().toISOString().split('T')[0];
-}
-
-/* ── PROMO BANNER ── */
-function renderPromo(){
-  const b=document.getElementById('promoBanner');
-  if(cfg.promocion&&cfg.promocion.activa&&cfg.promocion.texto){b.textContent=cfg.promocion.texto;b.style.display='block';}
-  else b.style.display='none';
+  document.getElementById('fecha').min=new Date().toISOString().split('T')[0];
 }
 
 /* ── SERVICES ── */
 function renderServices(){
   const el=document.getElementById('svcList');
   const list=(cfg.servicios||[]).filter(s=>s.activo!==false);
-  if(!list.length){el.innerHTML='<div style="padding:1rem;color:var(--gray-dark);">Sin servicios configurados.</div>';return;}
+  if(!list.length){el.innerHTML='<div style="padding:1rem;color:var(--gray-dark);">Cargando servicios...</div>';return;}
   el.innerHTML=list.map(s=>`
     <div class="svc-row">
       <div class="svc-check">✓</div>
@@ -395,7 +466,6 @@ function renderServices(){
     </div>`).join('');
 }
 
-/* ── PRICES ── */
 function renderPrices(){
   document.getElementById('precioSedan').textContent=cfg.precios.sedan;
   document.getElementById('precioSuv').textContent=cfg.precios.suv;
@@ -403,7 +473,6 @@ function renderPrices(){
   document.getElementById('optSuv').textContent=`Pickup / SUV – Q${cfg.precios.suv}`;
 }
 
-/* ── SLOTS ── */
 function buildSlots(){
   const c=document.getElementById('slotsContainer');
   c.innerHTML=(cfg.horarios||['8:00 AM','11:00 AM','2:00 PM']).map(h=>`
@@ -420,34 +489,149 @@ function buildSlots(){
   });
 }
 
-/* ── CAROUSEL ── */
-function buildCarousel(){
-  const track=document.getElementById('carouselTrack');
-  const dots=document.getElementById('carouselDots');
-  // Clear both before rebuilding (realtime may call this multiple times)
-  track.innerHTML='';
-  dots.innerHTML='';
-  const slides=cfg.galeria.length?cfg.galeria.map(g=>({url:g.url,caption:g.caption})):FALLBACK;
-  track.innerHTML=slides.map(s=>`<div class="carousel-slide"><img src="${s.url}" alt="${s.caption}" loading="lazy"/><span class="slide-label">${s.caption||''}</span></div>`).join('');
-  initCarousel(track,dots);
+/* ── PROMOCIONES ── */
+function renderPromos(){
+  const today=new Date().toISOString().split('T')[0];
+  const vigentes=allPromos.filter(p=>{
+    if(!p.activa) return false;
+    if(p.fecha_fin && p.fecha_fin < today) return false;
+    if(p.fecha_inicio && p.fecha_inicio > today) return false;
+    return true;
+  });
+  const sec=document.getElementById('promos');
+  const div=document.getElementById('promosDivider');
+  if(!vigentes.length){sec.classList.add('hidden');div.style.display='none';return;}
+  sec.classList.remove('hidden');div.style.display='block';
+  document.getElementById('promosGrid').innerHTML=vigentes.map(p=>`
+    <div class="promo-card">
+      ${p.imagen_url?`<div class="promo-img-wrap"><img class="promo-img" src="${p.imagen_url}" alt="${p.titulo}" loading="lazy"/><span class="promo-badge">Promoción</span></div>`:''}
+      <div class="promo-body">
+        <div class="promo-titulo">${p.titulo}</div>
+        ${p.descripcion?`<div class="promo-desc">${p.descripcion}</div>`:''}
+        ${p.precio_promo?`<div class="promo-precio">Q${p.precio_promo}</div>`:''}
+        <a href="#booking" class="promo-btn">${p.boton_texto||'Agendar ahora'}</a>
+        ${p.fecha_fin?`<div class="promo-vigencia">Válido hasta: ${fmtDate(p.fecha_fin)}</div>`:''}
+      </div>
+    </div>`).join('');
 }
 
-function initCarousel(track,dotsWrap){
-  const orig=Array.from(track.querySelectorAll('.carousel-slide')),total=orig.length;
-  if(!total)return;
-  orig.forEach(s=>{track.appendChild(s.cloneNode(true));track.insertBefore(s.cloneNode(true),track.firstChild);});
-  const w=()=>track.querySelectorAll('.carousel-slide')[0].offsetWidth+1;
-  let cur=total,trans=false,timer;
-  track.style.transition='none';track.style.transform=`translateX(-${cur*w()}px)`;
-  orig.forEach((_,i)=>{const d=document.createElement('button');d.className='carousel-dot'+(i===0?' active':'');d.onclick=()=>go(total+i);dotsWrap.appendChild(d);});
-  function mkDots(){const ri=((cur-total)%total+total)%total;dotsWrap.querySelectorAll('.carousel-dot').forEach((d,i)=>d.classList.toggle('active',i===ri));}
-  function go(n){if(trans)return;trans=true;cur=n;track.style.transition='transform .6s cubic-bezier(.25,.46,.45,.94)';track.style.transform=`translateX(-${cur*w()}px)`;mkDots();reset();}
-  track.addEventListener('transitionend',()=>{trans=false;if(cur>=total*2){track.style.transition='none';cur=total;track.style.transform=`translateX(-${cur*w()}px)`;}else if(cur<total){track.style.transition='none';cur=total*2-1;track.style.transform=`translateX(-${cur*w()}px)`;}});
-  function reset(){clearInterval(timer);timer=setInterval(()=>go(cur+1),3500);}
-  let sx=0;track.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});track.addEventListener('touchend',e=>{const d=sx-e.changedTouches[0].clientX;if(Math.abs(d)>50)go(cur+(d>0?1:-1));});
-  window.addEventListener('resize',()=>{track.style.transition='none';track.style.transform=`translateX(-${cur*w()}px)`;});
-  reset();mkDots();
+function fmtDate(s){if(!s)return'';const[y,m,d]=s.split('-');return`${d}/${m}/${y}`;}
+
+/* ── GALLERY PREMIUM ── */
+function buildGallery(){
+  const slides=cfg.galeria;
+  const wrap=document.getElementById('slideshowWrap');
+  const empty=document.getElementById('galleryEmpty');
+  const thumbStrip=document.getElementById('thumbStrip');
+  const controls=document.getElementById('slideControls');
+
+  // Clear timer
+  if(slideTimer) clearInterval(slideTimer);
+
+  if(!slides||!slides.length){
+    wrap.style.display='none';empty.style.display='flex';
+    thumbStrip.style.display='none';controls.style.display='none';
+    return;
+  }
+
+  empty.style.display='none';
+  wrap.style.display='block';
+  thumbStrip.style.display='flex';
+  controls.style.display='flex';
+
+  slideTotal=slides.length;
+  slideIdx=0;
+  slideDuracion=(cfg.galeria_cfg&&cfg.galeria_cfg.duracion)||5000;
+  slideAutoplay=(cfg.galeria_cfg&&cfg.galeria_cfg.autoplay!==false);
+
+  // Build slides
+  const inner=document.getElementById('slideshowInner');
+  inner.innerHTML=slides.map((s,i)=>{
+    const fx=s.focal_x||50, fy=s.focal_y||50;
+    return`<div class="slide${i===0?' active':''}" id="slide-${i}" onclick="openLightbox(${i})">
+      <img src="${s.url}" alt="${s.caption||''}" loading="${i===0?'eager':'lazy'}" style="object-position:${fx}% ${fy}%;"/>
+    </div>`;
+  }).join('');
+
+  // Build dots
+  const dotsEl=document.getElementById('slideDots');
+  dotsEl.innerHTML=slides.map((_,i)=>`<button class="slide-dot${i===0?' active':''}" onclick="slideGoTo(${i})"></button>`).join('');
+
+  // Build thumbs
+  thumbStrip.innerHTML=slides.map((s,i)=>`<img class="thumb${i===0?' active':''}" src="${s.url}" alt="${s.caption||''}" onclick="slideGoTo(${i})" loading="lazy"/>`).join('');
+
+  updateCounter();
+  updatePlayBtn();
+  if(slideAutoplay) startSlideTimer();
 }
+
+function slideGoTo(n){
+  const slides=document.querySelectorAll('.slide');
+  if(!slides.length||n===slideIdx) return;
+  slides[slideIdx].classList.remove('active');
+  slideIdx=((n%slideTotal)+slideTotal)%slideTotal;
+  slides[slideIdx].classList.add('active');
+  updateDots(); updateThumbs(); updateCounter();
+  if(slideAutoplay){clearInterval(slideTimer);startSlideTimer();}
+}
+
+function slideGo(dir){slideGoTo(slideIdx+dir);}
+
+function startSlideTimer(){
+  clearInterval(slideTimer);
+  slideTimer=setInterval(()=>slideGoTo(slideIdx+1),slideDuracion);
+}
+
+function toggleAutoplay(){
+  slideAutoplay=!slideAutoplay;
+  if(slideAutoplay) startSlideTimer(); else clearInterval(slideTimer);
+  updatePlayBtn();
+}
+
+function updatePlayBtn(){
+  document.getElementById('playIcon').textContent=slideAutoplay?'⏸':'▶';
+  document.getElementById('playTxt').textContent=slideAutoplay?'Pausar':'Reproducir';
+}
+
+function updateDots(){
+  document.querySelectorAll('.slide-dot').forEach((d,i)=>d.classList.toggle('active',i===slideIdx));
+}
+function updateThumbs(){
+  document.querySelectorAll('.thumb').forEach((t,i)=>t.classList.toggle('active',i===slideIdx));
+}
+function updateCounter(){
+  const el=document.getElementById('slideCounter');
+  if(el&&slideTotal>0) el.textContent=`${slideIdx+1} / ${slideTotal}`;
+}
+
+/* ── LIGHTBOX ── */
+function openLightbox(idx){
+  lbIdx=idx;
+  const slides=cfg.galeria;
+  document.getElementById('lbImg').src=slides[lbIdx].url;
+  document.getElementById('lbCaption').textContent=slides[lbIdx].caption||'';
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+  if(slideAutoplay) clearInterval(slideTimer);
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lbImg').src='';
+  document.body.style.overflow='';
+  if(slideAutoplay) startSlideTimer();
+}
+function lbNav(dir){
+  lbIdx=((lbIdx+dir)%slideTotal+slideTotal)%slideTotal;
+  document.getElementById('lbImg').src=cfg.galeria[lbIdx].url;
+  document.getElementById('lbCaption').textContent=cfg.galeria[lbIdx].caption||'';
+}
+document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLightbox();});
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open'))return;
+  if(e.key==='Escape')closeLightbox();
+  if(e.key==='ArrowLeft')lbNav(-1);
+  if(e.key==='ArrowRight')lbNav(1);
+});
 
 /* ── AVAILABILITY ── */
 async function cargarConfirmadas(){
@@ -458,55 +642,24 @@ async function cargarConfirmadas(){
 async function onDateChange(){
   const fecha=document.getElementById('fecha').value;
   ['alertPast','alertBlocked','alertWarn'].forEach(id=>document.getElementById(id).classList.remove('show'));
-
   if(!fecha) return;
   const today=new Date().toISOString().split('T')[0];
-
-  if(fecha<today){
-    document.getElementById('alertPast').classList.add('show');
-    disableAllSlots(); return;
-  }
-  if(cfg.dias_bloqueados&&cfg.dias_bloqueados.includes(fecha)){
-    document.getElementById('alertBlocked').classList.add('show');
-    disableAllSlots(); return;
-  }
-
+  if(fecha<today){document.getElementById('alertPast').classList.add('show');disableAllSlots();return;}
+  if(cfg.dias_bloqueados&&cfg.dias_bloqueados.includes(fecha)){document.getElementById('alertBlocked').classList.add('show');disableAllSlots();return;}
   enableAllSlots();
   await cargarConfirmadas();
   const ocupadas=confirmadasCache.filter(r=>r.fecha===fecha).map(r=>r.hora);
-
   cfg.horarios.forEach(h=>{
-    const el=document.getElementById('slot-'+h.replace(/[\s:]/g,'_'));
-    if(!el)return;
+    const el=document.getElementById('slot-'+h.replace(/[\s:]/g,'_'));if(!el)return;
     const inp=el.querySelector('input');
-    if(ocupadas.includes(h)){
-      el.classList.add('slot-unavailable');el.classList.remove('is-selected');
-      inp.disabled=true;if(inp.checked)inp.checked=false;
-    } else {
-      el.classList.remove('slot-unavailable');inp.disabled=false;
-    }
+    if(ocupadas.includes(h)){el.classList.add('slot-unavailable');el.classList.remove('is-selected');inp.disabled=true;if(inp.checked)inp.checked=false;}
+    else{el.classList.remove('slot-unavailable');inp.disabled=false;}
   });
-
-  if(ocupadas.length>=cfg.horarios.length){
-    document.getElementById('alertWarnText').textContent='Esta fecha está completamente reservada. Elige otra.';
-    document.getElementById('alertWarn').classList.add('show');
-  } else if(ocupadas.length>0){
-    document.getElementById('alertWarnText').textContent=`Horario(s) ya reservado(s): ${ocupadas.join(', ')}.`;
-    document.getElementById('alertWarn').classList.add('show');
-  }
+  if(ocupadas.length>=cfg.horarios.length){document.getElementById('alertWarnText').textContent='Esta fecha está completamente reservada.';document.getElementById('alertWarn').classList.add('show');}
+  else if(ocupadas.length>0){document.getElementById('alertWarnText').textContent=`Horario(s) ya reservado(s): ${ocupadas.join(', ')}.`;document.getElementById('alertWarn').classList.add('show');}
 }
-
-function disableAllSlots(){
-  document.querySelectorAll('#slotsContainer .radio-label').forEach(el=>{
-    el.classList.add('slot-unavailable');el.classList.remove('is-selected');
-    const inp=el.querySelector('input');inp.disabled=true;if(inp.checked)inp.checked=false;
-  });
-}
-function enableAllSlots(){
-  document.querySelectorAll('#slotsContainer .radio-label').forEach(el=>{
-    el.classList.remove('slot-unavailable');el.querySelector('input').disabled=false;
-  });
-}
+function disableAllSlots(){document.querySelectorAll('#slotsContainer .radio-label').forEach(el=>{el.classList.add('slot-unavailable');el.classList.remove('is-selected');const inp=el.querySelector('input');inp.disabled=true;if(inp.checked)inp.checked=false;});}
+function enableAllSlots(){document.querySelectorAll('#slotsContainer .radio-label').forEach(el=>{el.classList.remove('slot-unavailable');el.querySelector('input').disabled=false;});}
 
 /* ── FORM SUBMIT ── */
 async function enviarReserva(e){
@@ -521,24 +674,15 @@ async function enviarReserva(e){
   const metodoPago=document.getElementById('metodoPago').value;
   const btn=document.getElementById('submitBtn'),msg=document.getElementById('formMsg');
   const today=new Date().toISOString().split('T')[0];
-
   if(fecha<today){alert('No puedes reservar en una fecha pasada.');return;}
   if(cfg.dias_bloqueados&&cfg.dias_bloqueados.includes(fecha)){alert('Esa fecha no está disponible.');return;}
   if(!hora){alert('Por favor selecciona una hora.');return;}
-
   const precio=vehiculo==='Pickup / SUV'?cfg.precios.suv:cfg.precios.sedan;
-
   await cargarConfirmadas();
-  if(confirmadasCache.some(r=>r.fecha===fecha&&r.hora===hora)){
-    alert('Ese horario ya fue reservado. Elige otra hora.');onDateChange();return;
-  }
-
+  if(confirmadasCache.some(r=>r.fecha===fecha&&r.hora===hora)){alert('Ese horario ya fue reservado. Elige otra hora.');onDateChange();return;}
   btn.textContent='Guardando...';btn.disabled=true;
   const{error}=await sb.from('reservas').insert({nombre,telefono,manzana,lote,tipo_vehiculo:vehiculo,precio,fecha,hora,status:'pendiente',estado_pago:'pendiente'});
-  if(error){
-    msg.style.cssText='display:block;border-color:#e05555;color:#e05555;background:rgba(224,85,85,.06);padding:.9rem 1rem;font-size:.85rem;border:1px solid;';
-    msg.textContent='Error al guardar. Escribe por WhatsApp.';btn.textContent='Enviar Reserva por WhatsApp →';btn.disabled=false;return;
-  }
+  if(error){msg.style.cssText='display:block;border-color:#e05555;color:#e05555;background:rgba(224,85,85,.06);padding:.9rem 1rem;font-size:.85rem;border:1px solid;';msg.textContent='Error al guardar. Escribe por WhatsApp.';btn.textContent='Enviar Reserva por WhatsApp →';btn.disabled=false;return;}
   let pd=metodoPago;
   if(metodoPago==='Transferencia BAC') pd='Transferencia BAC · Cta. 976160655 · Kevin Antonio Reyes Urbina';
   if(metodoPago==='Transferencia BI') pd='Transferencia BI · Cta. 0420105173 · Reyes Urbina Kevin Antonio (Monetaria)';
@@ -568,30 +712,31 @@ async function submitReview(){
 const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target);}});},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-/* ── REALTIME SYNC ── */
+/* ── REALTIME ── */
 async function reloadConfig(){
-  const[cfgRes,galRes]=await Promise.all([
+  const[cfgRes,galRes,promoRes]=await Promise.all([
     sb.from('configuracion').select('id,valor'),
-    sb.from('galeria').select('*').eq('visible',true).order('orden',{ascending:true})
+    sb.from('galeria').select('*').eq('visible',true).order('orden',{ascending:true}),
+    sb.from('promociones').select('*').eq('activa',true).order('orden',{ascending:true})
   ]);
   if(cfgRes.data) cfgRes.data.forEach(r=>{
     if(r.id==='precios') cfg.precios=r.valor;
     if(r.id==='servicios') cfg.servicios=r.valor;
     if(r.id==='horarios') cfg.horarios=r.valor;
     if(r.id==='dias_bloqueados') cfg.dias_bloqueados=r.valor;
-    if(r.id==='promocion') cfg.promocion=r.valor;
+    if(r.id==='galeria_cfg') cfg.galeria_cfg=r.valor;
   });
   cfg.galeria=(galRes.data&&galRes.data.length)?galRes.data:[];
-  renderPromo(); renderServices(); renderPrices(); buildSlots(); buildCarousel();
-  // Re-run availability check if a date is selected
-  const f=document.getElementById('fecha').value;
-  if(f) onDateChange();
+  allPromos=promoRes.data||[];
+  renderServices(); renderPrices(); buildSlots(); buildGallery(); renderPromos();
+  const f=document.getElementById('fecha').value;if(f) onDateChange();
 }
 
 function subscribeRealtime(){
-  sb.channel('landing-sync')
+  sb.channel('landing-v2')
     .on('postgres_changes',{event:'*',schema:'public',table:'configuracion'},reloadConfig)
     .on('postgres_changes',{event:'*',schema:'public',table:'galeria'},reloadConfig)
+    .on('postgres_changes',{event:'*',schema:'public',table:'promociones'},reloadConfig)
     .on('postgres_changes',{event:'*',schema:'public',table:'resenas'},renderReviews)
     .on('postgres_changes',{event:'*',schema:'public',table:'reservas'},cargarConfirmadas)
     .subscribe();
