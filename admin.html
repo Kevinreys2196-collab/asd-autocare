@@ -46,18 +46,14 @@
 
     main{max-width:1100px;margin:0 auto;padding:1.5rem;}
 
-    /* KPI STRIP */
+    /* KPI */
     .kpi-strip{display:flex;border:1px solid var(--bd);background:var(--sf);margin-bottom:1.5rem;overflow-x:auto;}
     .kpi{flex:1;min-width:120px;padding:1rem 1.1rem;border-right:1px solid var(--bd);}
     .kpi:last-child{border-right:none;}
     .kpi-lbl{font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:.35rem;}
     .kpi-val{font-family:var(--fd);font-size:1.75rem;font-weight:400;line-height:1;color:var(--wh);}
     .kpi-note{font-size:.65rem;color:var(--mid);margin-top:.2rem;}
-    .kpi.g .kpi-val{color:#6dd99a;}
-    .kpi.a .kpi-val{color:#d4c49a;}
-    .kpi.b .kpi-val{color:#7aabf0;}
-    .kpi.r .kpi-val{color:#e08080;}
-    .kpi.y .kpi-val{color:#e8c26a;}
+    .kpi.g .kpi-val{color:#6dd99a;}.kpi.a .kpi-val{color:#d4c49a;}.kpi.b .kpi-val{color:#7aabf0;}.kpi.r .kpi-val{color:#e08080;}.kpi.y .kpi-val{color:#e8c26a;}
 
     /* TABS */
     .tabs{display:flex;gap:1px;background:var(--bd);border:1px solid var(--bd);margin-bottom:1.5rem;overflow-x:auto;}
@@ -72,7 +68,7 @@
 
     /* CALENDAR */
     .calday{border:1px solid var(--bd);background:var(--sf);margin-bottom:1.2rem;}
-    .calhead{padding:.7rem 1.2rem;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;}
+    .calhead{padding:.7rem 1.2rem;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
     .caldate{font-family:var(--fd);font-size:1.05rem;}
     .caldate span{color:var(--acc);font-size:.8em;}
     .calslots{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.03);}
@@ -100,16 +96,11 @@
     .psel{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.32rem .5rem;font-family:var(--ff);font-size:.7rem;outline:none;cursor:pointer;width:100%;}
     .acts{display:flex;flex-direction:column;gap:.3rem;}
     .ab{border:none;padding:.32rem .75rem;font-family:var(--ff);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;white-space:nowrap;display:flex;align-items:center;gap:.25rem;justify-content:center;text-decoration:none;}
-    .ab:hover{opacity:.78;}
-    .ab:disabled{opacity:.2;cursor:not-allowed;}
-    .ac{background:var(--grn);color:#000;}
-    .ap{background:var(--blu);color:#fff;}
-    .ao{background:var(--acc);color:#000;}
-    .aw{background:#25D366;color:#fff;}
-    .ax{background:transparent;border:1px solid var(--red)!important;color:var(--red);}
+    .ab:hover{opacity:.78;}.ab:disabled{opacity:.2;cursor:not-allowed;}
+    .ac{background:var(--grn);color:#000;}.ap{background:var(--blu);color:#fff;}.ao{background:var(--acc);color:#000;}
+    .aw{background:#25D366;color:#fff;}.ax{background:transparent;border:1px solid var(--red)!important;color:var(--red);}
     .ad{background:transparent;border:1px solid rgba(217,96,96,.3)!important;color:rgba(217,96,96,.6);}
-    .apd{background:var(--red);color:#fff;}
-    .adl{background:transparent;border:1px solid rgba(200,185,138,.3)!important;color:var(--acc);font-size:.62rem;}
+    .apd{background:var(--red);color:#fff;}.adl{background:transparent;border:1px solid rgba(200,185,138,.3)!important;color:var(--acc);font-size:.62rem;}
 
     /* BADGES */
     .bdg{display:inline-flex;align-items:center;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .45rem;border:1px solid;}
@@ -126,23 +117,20 @@
     .sum-period-label{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);margin-bottom:.75rem;}
     .sum-card{border:1px solid var(--bd);background:var(--sf);display:grid;grid-template-columns:1fr 260px;}
     .sum-left{padding:1.4rem 1.5rem;border-right:1px solid var(--bd);display:flex;flex-direction:column;gap:1.1rem;}
-    .sum-headline{font-family:var(--fd);font-size:2rem;font-weight:300;line-height:1.1;color:var(--wh);}
-    .sum-headline .hl-g{color:#6dd99a;}
-    .sum-headline .hl-d{color:var(--mid);font-size:1.2rem;}
+    .sum-headline{font-family:var(--fd);font-size:2rem;font-weight:300;line-height:1.1;}
+    .sum-headline .hl-g{color:#6dd99a;}.sum-headline .hl-d{color:var(--mid);font-size:1.2rem;}
     .sum-points{list-style:none;display:flex;flex-direction:column;gap:.55rem;border-top:1px solid var(--bd);padding-top:1rem;}
     .sum-points li{display:grid;grid-template-columns:16px 1fr;gap:.5rem;font-size:.8rem;color:var(--mid);line-height:1.5;}
     .sum-points li .dot{width:4px;height:4px;background:var(--acc);border-radius:50%;margin-top:.45rem;justify-self:center;}
     .sum-points li strong{color:var(--wh);font-weight:500;}
-    .sum-points li.ok strong{color:#6dd99a;}
-    .sum-points li.warn strong{color:#e08080;}
+    .sum-points li.ok strong{color:#6dd99a;}.sum-points li.warn strong{color:#e08080;}
     .sum-dl{display:flex;gap:.5rem;padding-top:.5rem;border-top:1px solid var(--bd);}
     .sum-right{padding:1.4rem 1.3rem;display:flex;flex-direction:column;gap:1.1rem;}
     .chart-title{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);}
     .bars{display:flex;flex-direction:column;gap:.9rem;}
     .bar-row{display:flex;flex-direction:column;gap:.28rem;}
     .bar-meta{display:flex;justify-content:space-between;}
-    .bar-name{font-size:.68rem;color:var(--mid);}
-    .bar-val{font-size:.68rem;color:var(--wh);font-weight:500;}
+    .bar-name{font-size:.68rem;color:var(--mid);}.bar-val{font-size:.68rem;color:var(--wh);font-weight:500;}
     .bar-track{height:4px;background:rgba(255,255,255,.05);}
     .bar-fill{height:100%;transition:width .7s ease;}
     .bg{background:var(--grn);}.ba{background:var(--acc);}.br{background:var(--red);}.bb{background:var(--blu);}
@@ -151,27 +139,25 @@
     .leg-dot{width:8px;height:8px;}
     .sum-empty{border:1px solid var(--bd);background:var(--sf);padding:2rem;text-align:center;font-size:.8rem;color:var(--dim);}
 
-    /* HIST BLOCKS */
     .hblock{margin-bottom:2rem;}
     .hblock-title{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--bd);}
 
-    /* ADD FORM */
     .addform{border:1px solid var(--bd);padding:1.2rem;background:var(--sf);margin-bottom:1.5rem;}
     .addform-title{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:.8rem;}
     .frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.5rem;margin-bottom:.5rem;}
     .frow input,.frow select{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.55rem .8rem;font-family:var(--ff);font-size:.77rem;outline:none;width:100%;}
 
-    /* ══ CONFIG TAB ══ */
+    /* ══ CONFIG ══ */
     .cfg-section{border:1px solid var(--bd);background:var(--sf);margin-bottom:1.5rem;}
-    .cfg-head{padding:1rem 1.3rem;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;}
+    .cfg-head{padding:1rem 1.3rem;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
     .cfg-head-title{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);}
     .cfg-body{padding:1.2rem 1.3rem;display:flex;flex-direction:column;gap:.8rem;}
     .cfg-row{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;}
     .cfg-label{font-size:.72rem;color:var(--mid);min-width:120px;}
-    .cfg-input{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.5rem .8rem;font-family:var(--ff);font-size:.82rem;outline:none;flex:1;min-width:80px;max-width:160px;}
+    .cfg-input{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.5rem .8rem;font-family:var(--ff);font-size:.82rem;outline:none;flex:1;min-width:80px;max-width:180px;}
     .cfg-input:focus{border-color:var(--acc);}
-    .cfg-textarea{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.6rem .8rem;font-family:var(--ff);font-size:.82rem;outline:none;width:100%;resize:vertical;min-height:60px;}
-    .cfg-textarea:focus{border-color:var(--acc);}
+    .cfg-input-wide{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.5rem .8rem;font-family:var(--ff);font-size:.82rem;outline:none;flex:1;width:100%;}
+    .cfg-input-wide:focus{border-color:var(--acc);}
     .cfg-toggle{display:flex;align-items:center;gap:.6rem;cursor:pointer;font-size:.8rem;color:var(--mid);}
     .cfg-toggle input[type="checkbox"]{width:16px;height:16px;accent-color:var(--acc);}
     .cfg-save-btn{background:var(--acc);color:var(--bg);border:none;padding:.5rem 1.2rem;font-family:var(--ff);font-size:.65rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;}
@@ -182,37 +168,60 @@
     .svc-editor-row{display:grid;grid-template-columns:1fr 1fr 100px 90px 60px auto;gap:.5rem;align-items:center;padding:.7rem .5rem;border-bottom:1px solid var(--bd);}
     .svc-editor-row:last-child{border-bottom:none;}
     .svc-editor-row input,.svc-editor-row select{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.4rem .6rem;font-family:var(--ff);font-size:.75rem;outline:none;width:100%;}
-    .svc-editor-row select option{background:#111;}
-    .svc-editor-header{display:grid;grid-template-columns:1fr 1fr 100px 90px 60px auto;gap:.5rem;padding:.5rem;background:var(--sf2);margin-bottom:1px;}
+    .svc-editor-header{display:grid;grid-template-columns:1fr 1fr 100px 90px 60px auto;gap:.5rem;padding:.5rem;background:var(--sf2);}
     .svc-editor-header span{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);}
 
-    /* GALLERY MANAGER */
-    .gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1px;background:var(--bd);border:1px solid var(--bd);margin-bottom:1rem;}
-    .gal-card{background:var(--sf);position:relative;aspect-ratio:4/3;overflow:hidden;}
-    .gal-card img{width:100%;height:100%;object-fit:cover;display:block;}
-    .gal-card-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;opacity:0;transition:opacity .25s;}
-    .gal-card:hover .gal-card-overlay{opacity:1;}
-    .gal-card-caption{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);padding:.4rem .6rem;font-size:.65rem;color:var(--mid);}
-    .gal-card-order{position:absolute;top:.4rem;left:.5rem;font-size:.62rem;color:var(--acc);background:rgba(0,0,0,.7);padding:.15rem .4rem;}
-    .gal-hidden{opacity:.35;}
+    /* ══ GALLERY MANAGER ══ */
+    .gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:1rem;}
+    .gal-card{background:var(--sf);position:relative;border:1px solid var(--bd);cursor:grab;transition:border-color .2s,opacity .2s;}
+    .gal-card:active{cursor:grabbing;}
+    .gal-card.dragging{opacity:.4;border-color:var(--acc);}
+    .gal-card.drag-over{border-color:var(--acc);border-style:dashed;}
+    .gal-card-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
+    .gal-card.hidden-img .gal-card-img{filter:grayscale(1) brightness(.4);}
+    .gal-card-footer{padding:.5rem .6rem;display:flex;align-items:center;gap:.4rem;border-top:1px solid var(--bd);}
+    .gal-card-caption-text{font-size:.65rem;color:var(--mid);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .gal-badge{font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .4rem;border:1px solid;}
+    .gal-badge-vis{color:var(--grn);border-color:rgba(82,196,129,.3);}
+    .gal-badge-hid{color:var(--dim);border-color:var(--bd);}
+    .gal-drag-handle{font-size:.9rem;color:var(--dim);cursor:grab;padding:0 .2rem;}
+    .gal-actions{display:flex;gap:.3rem;padding:.4rem .6rem;border-top:1px solid var(--bd);}
+
+    /* FOCAL POINT */
+    .focal-wrap{position:relative;display:inline-block;cursor:crosshair;user-select:none;}
+    .focal-wrap img{display:block;width:100%;max-height:220px;object-fit:cover;}
+    .focal-dot{position:absolute;width:20px;height:20px;background:var(--acc);border-radius:50%;border:2px solid #fff;transform:translate(-50%,-50%);pointer-events:none;box-shadow:0 0 0 3px rgba(0,0,0,.5);}
+
+    /* UPLOAD */
     .upload-box{border:1px dashed rgba(255,255,255,.15);padding:2rem;text-align:center;cursor:pointer;transition:border-color .3s;background:rgba(255,255,255,.02);}
     .upload-box:hover,.upload-box.dragover{border-color:var(--acc);background:rgba(200,185,138,.04);}
     .upload-box input{display:none;}
-    .upload-label{font-size:.78rem;color:var(--mid);display:block;margin-top:.5rem;}
-    .upload-sub{font-size:.68rem;color:var(--dim);margin-top:.3rem;}
 
     /* BLOCKED DATES */
     .blocked-list{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem;}
     .blocked-chip{display:flex;align-items:center;gap:.4rem;background:rgba(217,96,96,.12);border:1px solid rgba(217,96,96,.3);padding:.3rem .7rem;font-size:.72rem;color:var(--red);}
     .blocked-chip button{background:none;border:none;color:var(--red);cursor:pointer;font-size:.85rem;padding:0;line-height:1;}
 
+    /* ══ PROMOCIONES ══ */
+    .promo-list{display:flex;flex-direction:column;gap:1px;}
+    .promo-row{background:var(--sf);border:1px solid var(--bd);display:grid;grid-template-columns:80px 1fr auto;gap:.8rem;align-items:start;padding:.8rem 1rem;}
+    .promo-thumb{width:80px;height:56px;object-fit:cover;display:block;background:var(--sf2);}
+    .promo-thumb-empty{width:80px;height:56px;background:var(--sf2);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--dim);border:1px solid var(--bd);}
+    .promo-info{display:flex;flex-direction:column;gap:.25rem;}
+    .promo-titulo-admin{font-size:.9rem;color:var(--wh);font-weight:400;}
+    .promo-meta{font-size:.68rem;color:var(--mid);}
+    .promo-acts{display:flex;gap:.3rem;flex-wrap:wrap;align-items:flex-start;}
+
     /* MODALS */
-    .mover{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:800;align-items:center;justify-content:center;}
+    .mover{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:800;align-items:center;justify-content:center;padding:1rem;}
     .mover.show{display:flex;}
-    .mbox{background:var(--sf);border:1px solid rgba(255,255,255,.1);padding:1.8rem;width:100%;max-width:420px;display:flex;flex-direction:column;gap:.9rem;}
+    .mbox{background:var(--sf);border:1px solid rgba(255,255,255,.1);padding:1.8rem;width:100%;max-width:480px;display:flex;flex-direction:column;gap:.9rem;max-height:90vh;overflow-y:auto;}
     .mtitle{font-family:var(--fd);font-size:1.25rem;font-weight:300;}
     .mbox input,.mbox select,.mbox textarea{background:#111;border:1px solid var(--bd);color:var(--wh);padding:.65rem .85rem;font-family:var(--ff);font-size:.82rem;outline:none;width:100%;}
+    .mbox textarea{resize:vertical;min-height:70px;}
+    .mbox label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);}
     .macts{display:flex;gap:.5rem;}
+    .mfield{display:flex;flex-direction:column;gap:.3rem;}
 
     /* REVIEWS */
     .revcard{background:var(--sf);border:1px solid var(--bd);padding:1rem 1.2rem;display:grid;grid-template-columns:1fr auto;gap:.8rem;margin-bottom:1px;}
@@ -225,14 +234,15 @@
     .empty{padding:2.5rem;text-align:center;color:var(--dim);font-size:.78rem;border:1px solid var(--bd);}
     .toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--sf);border:1px solid var(--acc);color:var(--acc);padding:.7rem 1.4rem;font-size:.78rem;z-index:9000;display:none;letter-spacing:.08em;}
     input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.4;cursor:pointer;}
+    input[type="range"]{accent-color:var(--acc);width:100%;}
 
     @media(max-width:760px){
       .rcard{grid-template-columns:1fr;}
       .calslots{grid-template-columns:1fr;}
       .sum-card{grid-template-columns:1fr;}
-      .sum-right{border-top:1px solid var(--bd);}
       .svc-editor-row,.svc-editor-header{grid-template-columns:1fr 1fr;}
       main{padding:1rem;}
+      .gal-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
     }
   </style>
 </head>
@@ -249,12 +259,12 @@
   </div>
 </div>
 
-<!-- RESCHEDULE MODAL -->
+<!-- MODAL REPROGRAMAR -->
 <div class="mover" id="modalRe">
   <div class="mbox">
     <p class="mtitle">Reprogramar cita</p>
     <input type="date" id="newFecha"/>
-    <select id="newHora" id="newHoraSelect"></select>
+    <select id="newHora"></select>
     <div class="macts">
       <button class="ab ac" style="flex:1;padding:.65rem;" onclick="confirmReschedule()">Confirmar</button>
       <button class="ab ax" style="flex:1;padding:.65rem;" onclick="closeModals()">Cancelar</button>
@@ -262,11 +272,11 @@
   </div>
 </div>
 
-<!-- DELETE MODAL -->
+<!-- MODAL ELIMINAR -->
 <div class="mover" id="modalDel">
   <div class="mbox">
     <p class="mtitle">¿Eliminar definitivamente?</p>
-    <p style="font-size:.78rem;color:var(--mid);line-height:1.6;">Esta acción no se puede deshacer.</p>
+    <p style="font-size:.78rem;color:var(--mid);">Esta acción no se puede deshacer.</p>
     <div class="macts">
       <button class="ab apd" style="flex:1;padding:.65rem;" onclick="confirmPermDelete()">Eliminar</button>
       <button class="ab ax" style="flex:1;padding:.65rem;" onclick="closeModals()">Cancelar</button>
@@ -274,13 +284,67 @@
   </div>
 </div>
 
-<!-- IMAGE CAPTION MODAL -->
-<div class="mover" id="modalCaption">
+<!-- MODAL IMAGEN GALERÍA (caption + focal) -->
+<div class="mover" id="modalGal">
   <div class="mbox">
-    <p class="mtitle">Agregar descripción</p>
-    <input type="text" id="captionInput" placeholder="Ej: Limpieza exterior — Sedán" maxlength="60"/>
+    <p class="mtitle">Configurar imagen</p>
+    <div class="mfield">
+      <label>Descripción (opcional)</label>
+      <input type="text" id="galCaption" placeholder="Ej: Limpieza exterior — Sedán" maxlength="60"/>
+    </div>
+    <div class="mfield">
+      <label>Punto focal — haz clic donde quieres enfocar</label>
+      <div class="focal-wrap" id="focalWrap" onclick="setFocal(event)">
+        <img id="focalImg" src="" alt=""/>
+        <div class="focal-dot" id="focalDot" style="left:50%;top:50%;"></div>
+      </div>
+      <p style="font-size:.65rem;color:var(--dim);margin-top:.3rem;">Esto define el centro de la imagen en la galería.</p>
+    </div>
     <div class="macts">
-      <button class="ab ac" style="flex:1;padding:.65rem;" onclick="confirmUpload()">Subir imagen</button>
+      <button class="ab ac" style="flex:1;padding:.65rem;" onclick="confirmGalSave()">Guardar</button>
+      <button class="ab ax" style="flex:1;padding:.65rem;" onclick="closeModals()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EDITAR IMAGEN EXISTENTE -->
+<div class="mover" id="modalEditGal">
+  <div class="mbox">
+    <p class="mtitle">Editar imagen</p>
+    <div class="mfield">
+      <label>Descripción</label>
+      <input type="text" id="editGalCaption" maxlength="60"/>
+    </div>
+    <div class="mfield">
+      <label>Punto focal — haz clic para reposicionar</label>
+      <div class="focal-wrap" id="editFocalWrap" onclick="setEditFocal(event)">
+        <img id="editFocalImg" src="" alt=""/>
+        <div class="focal-dot" id="editFocalDot" style="left:50%;top:50%;"></div>
+      </div>
+    </div>
+    <div class="macts">
+      <button class="ab ac" style="flex:1;padding:.65rem;" onclick="confirmEditGal()">Guardar cambios</button>
+      <button class="ab ax" style="flex:1;padding:.65rem;" onclick="closeModals()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NUEVA PROMOCIÓN -->
+<div class="mover" id="modalPromo">
+  <div class="mbox">
+    <p class="mtitle" id="promoModalTitle">Nueva promoción</p>
+    <div class="mfield"><label>Título *</label><input type="text" id="pTitulo" placeholder="Ej: Lavado Express"/></div>
+    <div class="mfield"><label>Descripción</label><textarea id="pDesc" placeholder="Breve descripción de la promoción..."></textarea></div>
+    <div class="mfield"><label>Precio promocional (opcional)</label><input type="text" id="pPrecio" placeholder="Ej: 65"/></div>
+    <div class="mfield"><label>URL de imagen (opcional)</label><input type="url" id="pImagen" placeholder="https://..."/></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
+      <div class="mfield"><label>Fecha inicio</label><input type="date" id="pFechaInicio"/></div>
+      <div class="mfield"><label>Fecha fin</label><input type="date" id="pFechaFin"/></div>
+    </div>
+    <div class="mfield"><label>Texto del botón</label><input type="text" id="pBoton" placeholder="Agendar ahora"/></div>
+    <label class="cfg-toggle"><input type="checkbox" id="pActiva" checked/> Visible en la página web</label>
+    <div class="macts">
+      <button class="ab ac" style="flex:1;padding:.65rem;" onclick="savePromoModal()">Guardar promoción</button>
       <button class="ab ax" style="flex:1;padding:.65rem;" onclick="closeModals()">Cancelar</button>
     </div>
   </div>
@@ -296,6 +360,7 @@
     <div class="hright">
       <span class="stimer" id="stimer"></span>
       <button class="hbtn" onclick="exportCSV()">CSV</button>
+      <a href="https://kevinreys2196-collab.github.io/asd-autocare/" target="_blank" class="hbtn">Ver página</a>
       <button class="hbtn out" onclick="logout()">Salir</button>
     </div>
   </header>
@@ -308,7 +373,8 @@
       <button class="tbtn" onclick="showTab('activas')">Activas</button>
       <button class="tbtn" onclick="showTab('historial')">Historial</button>
       <button class="tbtn" onclick="showTab('resenas')">Reseñas</button>
-      <button class="tbtn" onclick="showTab('config')">⚙ Configuración</button>
+      <button class="tbtn" onclick="showTab('galeria')">🖼 Galería</button>
+      <button class="tbtn" onclick="showTab('config')">⚙ Config</button>
     </div>
 
     <!-- HOY -->
@@ -329,14 +395,14 @@
         <div class="frow">
           <input type="text" id="aN" placeholder="Nombre completo"/>
           <input type="tel" id="aT" placeholder="Teléfono"/>
-          <input type="text" id="aM" placeholder="Manzana (Ej. 3)"/>
-          <input type="text" id="aL" placeholder="Lote (Ej. 12)"/>
+          <input type="text" id="aM" placeholder="Manzana"/>
+          <input type="text" id="aL" placeholder="Lote"/>
         </div>
         <div class="frow">
-          <select id="aV"><option value="Sedán" id="addOptSedan">Sedán – Q80</option><option value="Pickup / SUV" id="addOptSuv">Pickup / SUV – Q100</option></select>
+          <select id="aV"><option value="Sedán" id="addOptSedan">Sedán</option><option value="Pickup / SUV" id="addOptSuv">Pickup / SUV</option></select>
           <input type="date" id="aF"/>
           <select id="aH"></select>
-          <select id="aP"><option value="pendiente">Pago pendiente</option><option value="pagado">Pagado</option></select>
+          <select id="aP"><option value="pendiente">Sin cobrar</option><option value="pagado">Pagado</option></select>
         </div>
         <button class="ab ac" style="padding:.55rem 1.2rem;" onclick="addManual()">+ Agregar</button>
       </div>
@@ -360,7 +426,56 @@
       <div id="resPub"></div>
     </div>
 
-    <!-- CONFIGURACIÓN -->
+    <!-- GALERÍA -->
+    <div id="tab-galeria" style="display:none;">
+      <!-- CONTROLES DE SLIDESHOW -->
+      <div class="cfg-section">
+        <div class="cfg-head">
+          <span class="cfg-head-title">Configuración del slideshow</span>
+          <div style="display:flex;align-items:center;gap:.8rem;">
+            <span class="cfg-saved" id="savedGalCfg">✓ Guardado</span>
+            <button class="cfg-save-btn" onclick="saveGalCfg()">Guardar</button>
+          </div>
+        </div>
+        <div class="cfg-body">
+          <div class="cfg-row">
+            <span class="cfg-label">Duración por imagen</span>
+            <input type="range" id="cfgDuracion" min="3000" max="12000" step="500" value="5000" oninput="document.getElementById('durLabel').textContent=(this.value/1000).toFixed(1)+'s'" style="flex:1;max-width:200px;"/>
+            <span id="durLabel" style="font-size:.8rem;color:var(--acc);min-width:32px;">5.0s</span>
+          </div>
+          <div class="cfg-row">
+            <span class="cfg-label">Autoplay</span>
+            <label class="cfg-toggle"><input type="checkbox" id="cfgAutoplay" checked/> Reproducción automática</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMÁGENES -->
+      <div class="cfg-section">
+        <div class="cfg-head">
+          <span class="cfg-head-title">Imágenes de la galería</span>
+          <span style="font-size:.65rem;color:var(--dim);">Arrastra para reordenar</span>
+        </div>
+        <div class="cfg-body">
+          <div class="gal-grid" id="galGrid"></div>
+          <!-- SUBIR ARCHIVO -->
+          <div class="upload-box" id="uploadBox" onclick="document.getElementById('imgFile').click()" ondragover="ev=>{ev.preventDefault();this.classList.add('dragover')}" ondragleave="this.classList.remove('dragover')" ondrop="onDrop(event)">
+            <input type="file" id="imgFile" accept="image/*" multiple onchange="onFilePick(event)"/>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span style="display:block;font-size:.78rem;color:var(--mid);margin-top:.5rem;">Haz clic o arrastra imágenes aquí</span>
+            <span style="display:block;font-size:.65rem;color:var(--dim);margin-top:.2rem;">JPG, PNG, WEBP</span>
+          </div>
+          <!-- URL DIRECTA -->
+          <div style="display:flex;gap:.5rem;margin-top:.5rem;align-items:center;">
+            <input type="url" id="imgUrlInput" placeholder="O pega una URL de imagen: https://..." style="background:#111;border:1px solid var(--bd);color:var(--wh);padding:.5rem .8rem;font-family:var(--ff);font-size:.78rem;outline:none;flex:1;"/>
+            <button class="cfg-save-btn" onclick="addImageByUrl()">Agregar por URL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROMOCIONES -->
+    <!-- CONFIG -->
     <div id="tab-config" style="display:none;">
 
       <!-- PRECIOS -->
@@ -369,47 +484,20 @@
           <span class="cfg-head-title">Precios del servicio</span>
           <div style="display:flex;align-items:center;gap:.8rem;">
             <span class="cfg-saved" id="savedPrecios">✓ Guardado</span>
-            <button class="cfg-save-btn" onclick="savePrecios()">Guardar precios</button>
+            <button class="cfg-save-btn" onclick="savePrecios()">Guardar</button>
           </div>
         </div>
         <div class="cfg-body">
-          <div class="cfg-row">
-            <span class="cfg-label">Sedán (Q)</span>
-            <input type="number" class="cfg-input" id="cfgSedan" min="1" max="9999"/>
-          </div>
-          <div class="cfg-row">
-            <span class="cfg-label">SUV / Pickup (Q)</span>
-            <input type="number" class="cfg-input" id="cfgSuv" min="1" max="9999"/>
-          </div>
-        </div>
-      </div>
-
-      <!-- PROMOCIÓN -->
-      <div class="cfg-section">
-        <div class="cfg-head">
-          <span class="cfg-head-title">Banner de promoción</span>
-          <div style="display:flex;align-items:center;gap:.8rem;">
-            <span class="cfg-saved" id="savedPromo">✓ Guardado</span>
-            <button class="cfg-save-btn" onclick="savePromo()">Guardar</button>
-          </div>
-        </div>
-        <div class="cfg-body">
-          <label class="cfg-toggle"><input type="checkbox" id="cfgPromoActiva"/> Mostrar banner en la página web</label>
-          <div class="cfg-row">
-            <span class="cfg-label">Texto del banner</span>
-            <input type="text" class="cfg-input" id="cfgPromoTexto" placeholder="Ej: 🎉 Lavado gratis en tu primera reserva del mes" style="max-width:100%;flex:1;"/>
-          </div>
-          <p style="font-size:.68rem;color:var(--dim);">El banner aparece en la parte superior de la página, visible para todos los visitantes.</p>
+          <div class="cfg-row"><span class="cfg-label">Sedán (Q)</span><input type="number" class="cfg-input" id="cfgSedan" min="1" max="9999"/></div>
+          <div class="cfg-row"><span class="cfg-label">SUV / Pickup (Q)</span><input type="number" class="cfg-input" id="cfgSuv" min="1" max="9999"/></div>
         </div>
       </div>
 
       <!-- DÍAS BLOQUEADOS -->
       <div class="cfg-section">
-        <div class="cfg-head">
-          <span class="cfg-head-title">Días no disponibles</span>
-        </div>
+        <div class="cfg-head"><span class="cfg-head-title">Días no disponibles</span></div>
         <div class="cfg-body">
-          <p style="font-size:.75rem;color:var(--mid);">Bloquea fechas específicas. Los clientes no podrán reservar en esos días (vacaciones, feriados, días de descanso).</p>
+          <p style="font-size:.75rem;color:var(--mid);">Bloquea fechas específicas. Los clientes no podrán reservar esos días.</p>
           <div class="cfg-row">
             <input type="date" class="fdate" id="newBlockDate"/>
             <button class="cfg-save-btn" onclick="addBlockedDate()">Bloquear fecha</button>
@@ -429,8 +517,7 @@
         </div>
         <div class="cfg-body" style="padding:0;">
           <div class="svc-editor-header">
-            <span>Nombre del servicio</span><span>Descripción / Promo</span>
-            <span>Etiqueta</span><span>Tipo</span><span>Visible</span><span></span>
+            <span>Nombre</span><span>Descripción</span><span>Etiqueta</span><span>Tipo</span><span>Visible</span><span></span>
           </div>
           <div id="svcEditor"></div>
           <div style="padding:.8rem 1.3rem;border-top:1px solid var(--bd);">
@@ -439,33 +526,17 @@
         </div>
       </div>
 
-      <!-- GALERÍA -->
+      <!-- PROMOCIONES -->
       <div class="cfg-section">
         <div class="cfg-head">
-          <span class="cfg-head-title">Galería de trabajos</span>
-        </div>
-        <div class="cfg-body">
-          <p style="font-size:.75rem;color:var(--mid);margin-bottom:.5rem;">Las imágenes aparecen en el carrusel de la página web. Puedes subir fotos de tu trabajo, reordenarlas y ocultarlas.</p>
-          <div class="gal-grid" id="galGrid"></div>
-          <div class="upload-box" id="uploadBox" onclick="document.getElementById('imgFile').click()" ondragover="e=>{e.preventDefault();this.classList.add('dragover')}" ondragleave="this.classList.remove('dragover')" ondrop="onDrop(event)">
-            <input type="file" id="imgFile" accept="image/*" multiple onchange="onFilePick(event)"/>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            <span class="upload-label">Haz clic o arrastra imágenes aquí</span>
-            <span class="upload-sub">JPG, PNG, WEBP · máx. 5 MB por imagen</span>
+          <span class="cfg-head-title">Promociones vigentes</span>
+          <div style="display:flex;align-items:center;gap:.8rem;">
+            <button class="cfg-save-btn" onclick="openPromoModal()">+ Nueva promoción</button>
           </div>
-          <p style="font-size:.68rem;color:var(--dim);margin-top:.5rem;">Las imágenes se guardan como URL. Puedes usar enlaces de Imgur, Google Drive (público) o cualquier servicio de hosting de imágenes.</p>
         </div>
-      </div>
-
-      <!-- URL DIRECTA -->
-      <div class="cfg-section">
-        <div class="cfg-head"><span class="cfg-head-title">Agregar imagen por URL</span></div>
-        <div class="cfg-body">
-          <div class="cfg-row">
-            <input type="url" class="cfg-input" id="imgUrlInput" placeholder="https://..." style="max-width:100%;flex:1;"/>
-            <input type="text" class="cfg-input" id="imgUrlCaption" placeholder="Descripción opcional" style="max-width:200px;"/>
-            <button class="cfg-save-btn" onclick="addImageByUrl()">Agregar</button>
-          </div>
+        <div class="cfg-body" style="padding:.8rem 1.3rem;">
+          <p style="font-size:.75rem;color:var(--mid);margin-bottom:.8rem;">Las promociones activas aparecen automáticamente en la sección <strong style="color:var(--wh);">Promociones</strong> de la página web. Si no hay ninguna activa, esa sección se oculta sola.</p>
+          <div id="promoList"></div>
         </div>
       </div>
 
@@ -482,9 +553,10 @@ const sb=supabase.createClient(SB_URL,SB_KEY);
 
 const PH=btoa('AsdAutoCare2196');
 const SEXP=25*60*1000,MAX_A=5,LOCK=10*60*1000;
-let sInt,_reId=null,_delId=null,_pendingFile=null;
-let allR=[],allRev=[],cFilt='today';
-let cfgData={precios:{sedan:80,suv:100},servicios:[],horarios:['8:00 AM','11:00 AM','2:00 PM'],dias_bloqueados:[],galeria:[],promocion:{activa:false,texto:''}};
+let sInt,_delId=null,_reId=null,_pendingFile=null,_editGalId=null,_editFx=50,_editFy=50,_pendingFx=50,_pendingFy=50;
+let allR=[],allRev=[],allPromos=[],cFilt='today';
+let cfgData={precios:{sedan:80,suv:100},servicios:[],horarios:['8:00 AM','11:00 AM','2:00 PM'],dias_bloqueados:[],galeria:[],galeria_cfg:{autoplay:true,duracion:5000}};
+let _promoEditId=null;
 
 /* ── AUTH ── */
 function ga(){try{return JSON.parse(sessionStorage.getItem('_a')||'{"c":0,"l":0}');}catch{return{c:0,l:0};}}
@@ -492,54 +564,45 @@ function sa(a){sessionStorage.setItem('_a',JSON.stringify(a));}
 function login(){
   const a=ga();
   if(a.l>Date.now()){lerr(`Bloqueado ${Math.ceil((a.l-Date.now())/60000)} min.`);return;}
-  const v=document.getElementById('pwInput').value;
-  if(btoa(v)===PH){sa({c:0,l:0});sessionStorage.setItem('_exp',Date.now()+SEXP);boot();}
+  if(btoa(document.getElementById('pwInput').value)===PH){sa({c:0,l:0});sessionStorage.setItem('_exp',Date.now()+SEXP);boot();}
   else{a.c++;if(a.c>=MAX_A){a.l=Date.now()+LOCK;a.c=0;lerr('Bloqueado 10 min.');}else lerr(`Contraseña incorrecta (${MAX_A-a.c} intentos)`);sa(a);document.getElementById('pwInput').value='';}
 }
 function lerr(m){const e=document.getElementById('loginErr');e.textContent=m;e.style.display='block';}
 function logout(){sessionStorage.removeItem('_exp');clearInterval(sInt);location.reload();}
-function boot(){
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('adminUI').style.display='block';
-  startTimer();loadAll();subRT();
-}
+function boot(){document.getElementById('loginScreen').style.display='none';document.getElementById('adminUI').style.display='block';startTimer();loadAll();subRT();}
 function startTimer(){
-  sInt=setInterval(()=>{
-    const r=parseInt(sessionStorage.getItem('_exp')||0)-Date.now();
-    if(r<=0){logout();return;}
-    const el=document.getElementById('stimer');
-    el.textContent=`Sesión ${Math.floor(r/60000)}:${String(Math.floor((r%60000)/1000)).padStart(2,'0')}`;
-    el.className='stimer'+(r<180000?' warn':'');
-  },1000);
+  sInt=setInterval(()=>{const r=parseInt(sessionStorage.getItem('_exp')||0)-Date.now();if(r<=0){logout();return;}const el=document.getElementById('stimer');el.textContent=`Sesión ${Math.floor(r/60000)}:${String(Math.floor((r%60000)/1000)).padStart(2,'0')}`;el.className='stimer'+(r<180000?' warn':'');},1000);
   ['click','keydown'].forEach(e=>document.addEventListener(e,()=>{if(sessionStorage.getItem('_exp'))sessionStorage.setItem('_exp',Date.now()+SEXP);},{passive:true}));
 }
 if(sessionStorage.getItem('_exp')&&+sessionStorage.getItem('_exp')>Date.now())boot();
 
-/* ── DATA LOAD ── */
+/* ── LOAD ── */
 async function loadAll(){
-  const[r1,r2,r3,r4]=await Promise.all([
+  const[r1,r2,r3,r4,r5]=await Promise.all([
     sb.from('reservas').select('*').order('created_at',{ascending:false}),
     sb.from('resenas').select('*').order('created_at',{ascending:false}),
     sb.from('configuracion').select('id,valor'),
-    sb.from('galeria').select('*').order('orden',{ascending:true})
+    sb.from('galeria').select('*').order('orden',{ascending:true}),
+    sb.from('promociones').select('*').order('orden',{ascending:true})
   ]);
-  allR=r1.data||[]; allRev=r2.data||[];
+  allR=r1.data||[]; allRev=r2.data||[]; allPromos=r5.data||[];
   if(r3.data) r3.data.forEach(row=>{
     if(row.id==='precios') cfgData.precios=row.valor;
     if(row.id==='servicios') cfgData.servicios=row.valor||[];
     if(row.id==='horarios') cfgData.horarios=row.valor||['8:00 AM','11:00 AM','2:00 PM'];
     if(row.id==='dias_bloqueados') cfgData.dias_bloqueados=row.valor||[];
-    if(row.id==='promocion') cfgData.promocion=row.valor||{activa:false,texto:''};
+    if(row.id==='galeria_cfg') cfgData.galeria_cfg=row.valor||{autoplay:true,duracion:5000};
   });
   cfgData.galeria=r4.data||[];
   renderAll();
 }
 function subRT(){
-  sb.channel('adm4')
+  sb.channel('adm5')
     .on('postgres_changes',{event:'*',schema:'public',table:'reservas'},()=>loadAll())
     .on('postgres_changes',{event:'*',schema:'public',table:'resenas'},()=>loadAll())
     .on('postgres_changes',{event:'*',schema:'public',table:'configuracion'},()=>loadAll())
     .on('postgres_changes',{event:'*',schema:'public',table:'galeria'},()=>loadAll())
+    .on('postgres_changes',{event:'*',schema:'public',table:'promociones'},()=>loadAll())
     .subscribe();
 }
 
@@ -567,33 +630,27 @@ function renderKPI(){
   const nAll=r.filter(x=>x.status!=='eliminada').length;
   const cr=nAll?Math.round(nCan/nAll*100):0;
   const nPend=r.filter(x=>x.status==='pendiente').length;
-  const nConf=r.filter(x=>x.status==='confirmada').length;
   document.getElementById('kpiStrip').innerHTML=`
     <div class="kpi g"><div class="kpi-lbl">Ingresos totales</div><div class="kpi-val">Q${ingT}</div><div class="kpi-note">completadas · pagadas</div></div>
-    <div class="kpi a"><div class="kpi-lbl">Esta semana</div><div class="kpi-val">Q${ingW}</div><div class="kpi-note">últimos 7 días</div></div>
+    <div class="kpi a"><div class="kpi-lbl">Esta semana</div><div class="kpi-val">Q${ingW}</div></div>
     <div class="kpi b"><div class="kpi-lbl">Completados</div><div class="kpi-val">${nComp}</div></div>
     <div class="kpi r"><div class="kpi-lbl">Cancelaciones</div><div class="kpi-val">${cr}%</div><div class="kpi-note">${nCan} de ${nAll}</div></div>
     <div class="kpi y"><div class="kpi-lbl">Pendientes</div><div class="kpi-val">${nPend}</div></div>
-    <div class="kpi"><div class="kpi-lbl">Confirmadas</div><div class="kpi-val">${nConf}</div></div>`;
+    <div class="kpi"><div class="kpi-lbl">Imágenes galería</div><div class="kpi-val">${cfgData.galeria.length}</div></div>`;
 }
 
 /* ── TABS ── */
-const TABS=['hoy','activas','historial','resenas','config'];
+const TABS=['hoy','activas','historial','resenas','galeria','config'];
 function showTab(t){
-  TABS.forEach((tab,i)=>{
-    document.getElementById('tab-'+tab).style.display=tab===t?'block':'none';
-    document.querySelectorAll('.tbtn')[i].classList.toggle('active',tab===t);
-  });
-  if(t==='config') renderConfigTab();
+  TABS.forEach((tab,i)=>{document.getElementById('tab-'+tab).style.display=tab===t?'block':'none';document.querySelectorAll('.tbtn')[i].classList.toggle('active',tab===t);});
+  if(t==='config'){renderConfigTab();renderPromoList();}
+  if(t==='galeria') renderGalTab();
   renderAll();
 }
 
-/* ── FILTER / CALENDAR ── */
+/* ── CALENDAR ── */
 function setF(f,btn){cFilt=f;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderCal();}
-function getFD(){
-  if(cFilt==='today')return[td()];if(cFilt==='tomorrow')return[tmo()];if(cFilt==='week')return wk();
-  const v=document.getElementById('customDate')?.value;return v?[v]:[td()];
-}
+function getFD(){if(cFilt==='today')return[td()];if(cFilt==='tomorrow')return[tmo()];if(cFilt==='week')return wk();const v=document.getElementById('customDate')?.value;return v?[v]:[td()];}
 function renderCal(){
   const el=document.getElementById('calView');if(!el)return;
   const dates=getFD(),slots=cfgData.horarios,days=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
@@ -606,11 +663,11 @@ function renderCal(){
     slots.forEach(s=>{
       const b=dr.find(r=>r.hora===s),urg=b&&isUrg(date,s);
       if(b)html+=`<div class="calslot taken"><div class="cstime">${s}</div><div class="csname">${b.nombre}</div><div class="csveh">${b.tipo_vehiculo||''} ${b.precio?'· Q'+b.precio:''}</div>${bdg(b.status)}${urg?'<div class="upill">Próxima</div>':''}</div>`;
-      else html+=`<div class="calslot"><div class="cstime">${s}</div><div class="csfree">${bloq?'Día bloqueado':'Disponible'}</div></div>`;
+      else html+=`<div class="calslot"><div class="cstime">${s}</div><div class="csfree">${bloq?'Bloqueado':'Disponible'}</div></div>`;
     });
     html+=`</div></div>`;
   });
-  el.innerHTML=html||'<div class="empty">Sin reservas para este período.</div>';
+  el.innerHTML=html||'<div class="empty">Sin reservas.</div>';
 }
 
 /* ── RES CARD ── */
@@ -619,96 +676,55 @@ function rcard(r,hist=false){
   const urg=act&&isUrg(ds(r),r.hora);
   const tel=(r.telefono||'').replace(/\D/g,'');
   const waM=encodeURIComponent(`Hola ${r.nombre}, confirmamos tu cita el ${fd(r.fecha)} a las ${r.hora}. — ASD Auto Care`);
-  const canC=r.estado_pago==='pagado';
   let ac='';
   if(act){
     ac+=`<a href="https://wa.me/502${tel}?text=${waM}" target="_blank" class="ab aw">WhatsApp</a>`;
     if(r.status==='pendiente')ac+=`<button class="ab ac" onclick="upS('${r.id}','confirmada')">Confirmar</button>`;
     if(r.estado_pago!=='pagado')ac+=`<button class="ab ap" onclick="upP('${r.id}','pagado')">Marcar pagado</button>`;
-    if(r.status==='confirmada')ac+=`<button class="ab ao" ${canC?`onclick="upS('${r.id}','completada')"`:' disabled title="Debe pagarse primero"'}>Completar</button>`;
+    if(r.status==='confirmada')ac+=`<button class="ab ao" ${r.estado_pago==='pagado'?`onclick="upS('${r.id}','completada')"`:' disabled'}>Completar</button>`;
     ac+=`<button class="ab ax" onclick="upS('${r.id}','cancelada')">Cancelar</button>`;
     ac+=`<button class="ab ad" onclick="upS('${r.id}','eliminada')">Eliminar</button>`;
   }
   if(hist)ac+=`<button class="ab apd" onclick="openDel('${r.id}')">Borrar definitivo</button>`;
   return`<div class="rcard${urg?' urg':''}">
-    <div>
-      <div class="rname">${r.nombre} ${bdg(r.status)} ${urg?'<span class="upill">Próxima</span>':''}</div>
-      <div class="rdet">${r.telefono||'—'} · Mz. ${r.manzana||'—'}, Lote ${r.lote||'—'}<br>${r.tipo_vehiculo||'—'} · Q${r.precio||'—'}</div>
-    </div>
-    <div class="rdcol">
-      <div class="rdate">${fd(ds(r))}</div>
-      <div class="rhora">${r.hora}</div>
-      <div class="rcreated">Creada: ${fdt(r.created_at)}</div>
-    </div>
-    <div class="pcol">
-      <div class="plbl">Estado de pago</div>
-      <select class="psel" onchange="upP('${r.id}',this.value)">
-        <option value="pendiente" ${r.estado_pago!=='pagado'?'selected':''}>Sin cobrar</option>
-        <option value="pagado" ${r.estado_pago==='pagado'?'selected':''}>Pagado</option>
-      </select>
-      ${pbdg(r.estado_pago)}
-    </div>
-    <div class="acts">${ac}</div>
-  </div>`;
+    <div><div class="rname">${r.nombre} ${bdg(r.status)} ${urg?'<span class="upill">Próxima</span>':''}</div><div class="rdet">${r.telefono||'—'} · Mz. ${r.manzana||'—'}, Lote ${r.lote||'—'}<br>${r.tipo_vehiculo||'—'} · Q${r.precio||'—'}</div></div>
+    <div class="rdcol"><div class="rdate">${fd(ds(r))}</div><div class="rhora">${r.hora}</div><div class="rcreated">Creada: ${fdt(r.created_at)}</div></div>
+    <div class="pcol"><div class="plbl">Pago</div><select class="psel" onchange="upP('${r.id}',this.value)"><option value="pendiente" ${r.estado_pago!=='pagado'?'selected':''}>Sin cobrar</option><option value="pagado" ${r.estado_pago==='pagado'?'selected':''}>Pagado</option></select>${pbdg(r.estado_pago)}</div>
+    <div class="acts">${ac}</div></div>`;
 }
 
 function renderActive(){
   const a=allR.filter(r=>r.status==='pendiente'||r.status==='confirmada');
-  const el=document.getElementById('activeList');
-  if(el)el.innerHTML=a.length?a.map(r=>rcard(r)).join(''):'<div class="empty">No hay reservas activas.</div>';
-  // Sync manual form selects
-  const aH=document.getElementById('aH');
-  if(aH){aH.innerHTML=cfgData.horarios.map(h=>`<option value="${h}">${h}</option>`).join('');}
-  const aV=document.getElementById('aV');
-  if(aV){
-    document.getElementById('addOptSedan').textContent=`Sedán – Q${cfgData.precios.sedan}`;
-    document.getElementById('addOptSuv').textContent=`Pickup / SUV – Q${cfgData.precios.suv}`;
-  }
+  const el=document.getElementById('activeList');if(el)el.innerHTML=a.length?a.map(r=>rcard(r)).join(''):'<div class="empty">No hay reservas activas.</div>';
+  const aH=document.getElementById('aH');if(aH)aH.innerHTML=cfgData.horarios.map(h=>`<option value="${h}">${h}</option>`).join('');
+  if(document.getElementById('addOptSedan'))document.getElementById('addOptSedan').textContent=`Sedán – Q${cfgData.precios.sedan}`;
+  if(document.getElementById('addOptSuv'))document.getElementById('addOptSuv').textContent=`Pickup / SUV – Q${cfgData.precios.suv}`;
 }
 
 /* ── SUMMARIES ── */
 function sumCard(title,recs,dlKey){
-  if(!recs.length) return`<div class="sum-empty">Sin actividad en este período.</div>`;
-  const comp=recs.filter(x=>x.status==='completada');
-  const can=recs.filter(x=>x.status==='cancelada');
-  const pend=recs.filter(x=>x.status==='pendiente');
-  const conf=recs.filter(x=>x.status==='confirmada');
+  if(!recs.length)return`<div class="sum-empty">Sin actividad en este período.</div>`;
+  const comp=recs.filter(x=>x.status==='completada'),can=recs.filter(x=>x.status==='cancelada');
+  const pend=recs.filter(x=>x.status==='pendiente'),conf=recs.filter(x=>x.status==='confirmada');
   const ingC=comp.filter(x=>x.estado_pago==='pagado').reduce((s,x)=>s+(x.precio||0),0);
   const ingP=comp.filter(x=>x.estado_pago!=='pagado').reduce((s,x)=>s+(x.precio||0),0);
   const total=recs.filter(x=>x.status!=='eliminada').length;
   const cr=total?Math.round(can.length/total*100):0;
   const sedan=comp.filter(x=>(x.tipo_vehiculo||'').includes('edán')).length;
   const suv=comp.filter(x=>(x.tipo_vehiculo||'').includes('SUV')||(x.tipo_vehiculo||'').includes('ickup')).length;
-  const hlMain=ingC>0?`<span class="hl-g">Q${ingC}</span>`:`<span class="hl-d">Q0</span>`;
-  const hlSub=ingC>0?` cobrados`:`  sin ingresos cobrados`;
   const pts=[];
-  pts.push(`<li class="${ingC>0?'ok':''}"><span class="dot"></span><span>Ingresos cobrados: <strong>Q${ingC}</strong>${ingP>0?` · Por cobrar: <strong>Q${ingP}</strong>`:''}</span></li>`);
-  pts.push(`<li><span class="dot"></span><span>Servicios completados: <strong>${comp.length}</strong>${sedan+suv>0?` (${sedan} Sedán, ${suv} SUV/Pickup)`:''}</span></li>`);
-  pts.push(`<li class="${cr>20?'warn':''}"><span class="dot"></span><span>Cancelaciones: <strong>${can.length}</strong> — tasa <strong>${cr}%</strong></span></li>`);
-  if(pend.length+conf.length>0) pts.push(`<li><span class="dot"></span><span>Reservas activas: <strong>${pend.length+conf.length}</strong></span></li>`);
-  if(ingP>0) pts.push(`<li class="warn"><span class="dot"></span><span>Pendiente de cobro: <strong>Q${ingP}</strong></span></li>`);
+  pts.push(`<li class="${ingC>0?'ok':''}"><span class="dot"></span><span>Cobrados: <strong>Q${ingC}</strong>${ingP>0?` · Por cobrar: <strong>Q${ingP}</strong>`:''}</span></li>`);
+  pts.push(`<li><span class="dot"></span><span>Completados: <strong>${comp.length}</strong>${sedan+suv>0?` (${sedan} Sedán, ${suv} SUV)`:''}</span></li>`);
+  pts.push(`<li class="${cr>20?'warn':''}"><span class="dot"></span><span>Cancelaciones: <strong>${can.length}</strong> — ${cr}%</span></li>`);
+  if(pend.length+conf.length>0)pts.push(`<li><span class="dot"></span><span>Activas: <strong>${pend.length+conf.length}</strong></span></li>`);
   const maxB=Math.max(comp.length,can.length,pend.length+conf.length,1);
   const bar=(label,val,max,cls,vl)=>`<div class="bar-row"><div class="bar-meta"><span class="bar-name">${label}</span><span class="bar-val">${vl!==undefined?vl:val}</span></div><div class="bar-track"><div class="bar-fill ${cls}" style="width:${max>0?Math.round(val/max*100):0}%"></div></div></div>`;
-  return`<div class="sum-wrap">
-    <div class="sum-period-label">${title}</div>
-    <div class="sum-card">
-      <div class="sum-left">
-        <div class="sum-headline">${hlMain}<span style="font-family:var(--ff);font-size:.82rem;color:var(--mid);font-weight:300;">${hlSub}</span></div>
-        <ul class="sum-points">${pts.join('')}</ul>
-        <div class="sum-dl"><button class="ab adl" onclick="dlCSV('${dlKey}')">CSV</button><button class="ab adl" onclick="dlXLSX('${dlKey}')">Excel</button></div>
-      </div>
-      <div class="sum-right">
-        <div class="chart-title">Distribución del período</div>
-        <div class="bars">${bar('Completados',comp.length,maxB,'bg')}${bar('Activos',pend.length+conf.length,maxB,'ba')}${bar('Cancelados',can.length,maxB,'br')}${bar('Ingresos',ingC,Math.max(ingC,ingP,1),'bb','Q'+ingC)}</div>
-        <div class="chart-legend"><span class="leg-item"><span class="leg-dot" style="background:var(--grn)"></span>Completados</span><span class="leg-item"><span class="leg-dot" style="background:var(--acc)"></span>Activos</span><span class="leg-item"><span class="leg-dot" style="background:var(--red)"></span>Cancelados</span><span class="leg-item"><span class="leg-dot" style="background:var(--blu)"></span>Ingresos</span></div>
-      </div>
-    </div>
-  </div>`;
+  return`<div class="sum-wrap"><div class="sum-period-label">${title}</div><div class="sum-card"><div class="sum-left"><div class="sum-headline">${ingC>0?`<span class="hl-g">Q${ingC}</span>`:`<span class="hl-d">Q0</span>`}<span style="font-family:var(--ff);font-size:.82rem;color:var(--mid);font-weight:300;"> cobrados</span></div><ul class="sum-points">${pts.join('')}</ul><div class="sum-dl"><button class="ab adl" onclick="dlCSV('${dlKey}')">CSV</button><button class="ab adl" onclick="dlXLSX('${dlKey}')">Excel</button></div></div><div class="sum-right"><div class="chart-title">Distribución</div><div class="bars">${bar('Completados',comp.length,maxB,'bg')}${bar('Activos',pend.length+conf.length,maxB,'ba')}${bar('Cancelados',can.length,maxB,'br')}${bar('Ingresos',ingC,Math.max(ingC,ingP,1),'bb','Q'+ingC)}</div><div class="chart-legend"><span class="leg-item"><span class="leg-dot" style="background:var(--grn)"></span>Completados</span><span class="leg-item"><span class="leg-dot" style="background:var(--acc)"></span>Activos</span><span class="leg-item"><span class="leg-dot" style="background:var(--red)"></span>Cancelados</span></div></div></div></div>`;
 }
 function wkR(){const w=new Date(Date.now()-7*86400000).toISOString().split('T')[0];return allR.filter(x=>ds(x)>=w);}
 function moR(){const n=new Date();const s=`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-01`;return allR.filter(x=>ds(x)>=s);}
 function getSD(k){return k==='week'?wkR():moR();}
-function renderSummaries(){const el=document.getElementById('summarySection');if(!el)return;el.innerHTML=sumCard('Resumen — Esta semana',wkR(),'week')+sumCard('Resumen — Este mes',moR(),'month');}
+function renderSummaries(){const el=document.getElementById('summarySection');if(!el)return;el.innerHTML=sumCard('Esta semana',wkR(),'week')+sumCard('Este mes',moR(),'month');}
 function renderHist(){
   renderSummaries();
   const co=allR.filter(r=>r.status==='completada').sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
@@ -720,21 +736,17 @@ function renderHist(){
   if(el2)el2.innerHTML=el.length?el.map(r=>rcard(r,true)).join(''):'<div class="empty">Sin registros.</div>';
 }
 
-/* ── DB ACTIONS ── */
+/* ── DB ── */
 async function upS(id,s){await sb.from('reservas').update({status:s}).eq('id',id);await loadAll();}
 async function upP(id,v){await sb.from('reservas').update({estado_pago:v}).eq('id',id);await loadAll();}
-
 async function addManual(){
   const n=document.getElementById('aN').value.trim(),t=document.getElementById('aT').value.trim();
   const m=document.getElementById('aM').value.trim(),l=document.getElementById('aL').value.trim();
   const v=document.getElementById('aV').value,f=document.getElementById('aF').value;
   const h=document.getElementById('aH').value,p=document.getElementById('aP').value;
   if(!n||!f){alert('Ingresa nombre y fecha.');return;}
-  const today=td();
-  if(f<today){alert('No puedes agregar una reserva en fecha pasada.');return;}
+  if(f<td()){alert('No puedes agregar reserva en fecha pasada.');return;}
   if(cfgData.dias_bloqueados&&cfgData.dias_bloqueados.includes(f)){alert('Esa fecha está bloqueada.');return;}
-  const{data:ex}=await sb.from('reservas').select('id').eq('fecha',f).eq('hora',h).eq('status','confirmada');
-  if(ex&&ex.length){alert('Ese horario ya está confirmado. Elige otro.');return;}
   const precio=v==='Pickup / SUV'?cfgData.precios.suv:cfgData.precios.sedan;
   await sb.from('reservas').insert({nombre:n,telefono:t,manzana:m,lote:l,tipo_vehiculo:v,precio,fecha:f,hora:h,estado_pago:p,status:'confirmada'});
   ['aN','aT','aM','aL','aF'].forEach(i=>document.getElementById(i).value='');
@@ -743,18 +755,15 @@ async function addManual(){
 
 /* ── MODALS ── */
 function openDel(id){_delId=id;document.getElementById('modalDel').classList.add('show');}
-function closeModals(){['modalRe','modalDel','modalCaption'].forEach(id=>document.getElementById(id).classList.remove('show'));_reId=null;_delId=null;_pendingFile=null;}
+function closeModals(){['modalRe','modalDel','modalGal','modalEditGal','modalPromo'].forEach(id=>document.getElementById(id).classList.remove('show'));_reId=null;_delId=null;_pendingFile=null;_editGalId=null;_promoEditId=null;}
 async function confirmReschedule(){
-  if(!_reId)return;
-  const f=document.getElementById('newFecha').value,h=document.getElementById('newHora').value;
+  if(!_reId)return;const f=document.getElementById('newFecha').value,h=document.getElementById('newHora').value;
   if(!f){alert('Selecciona fecha.');return;}
   await sb.from('reservas').update({fecha:f,hora:h,status:'confirmada'}).eq('id',_reId);
   closeModals();await loadAll();
 }
 async function confirmPermDelete(){
-  if(!_delId)return;
-  await sb.from('reservas').delete().eq('id',_delId);
-  closeModals();await loadAll();toast('Registro eliminado definitivamente.');
+  if(!_delId)return;await sb.from('reservas').delete().eq('id',_delId);closeModals();await loadAll();toast('Eliminado definitivamente.');
 }
 
 /* ── REVIEWS ── */
@@ -767,181 +776,277 @@ function renderRevs(){
 }
 async function apRev(id){await sb.from('resenas').update({visible:true}).eq('id',id);await loadAll();}
 async function hiRev(id){await sb.from('resenas').update({visible:false}).eq('id',id);await loadAll();}
-async function delRev(id){if(!confirm('¿Eliminar esta reseña?'))return;await sb.from('resenas').delete().eq('id',id);await loadAll();}
+async function delRev(id){if(!confirm('¿Eliminar?'))return;await sb.from('resenas').delete().eq('id',id);await loadAll();}
 
-/* ── CONFIG TAB ── */
-function renderConfigTab(){
-  // Precios
-  document.getElementById('cfgSedan').value=cfgData.precios.sedan;
-  document.getElementById('cfgSuv').value=cfgData.precios.suv;
-  // Promo
-  document.getElementById('cfgPromoActiva').checked=cfgData.promocion.activa||false;
-  document.getElementById('cfgPromoTexto').value=cfgData.promocion.texto||'';
-  // Blocked dates
-  renderBlockedDates();
-  // Servicios
-  renderSvcEditor();
-  // Gallery
+/* ══ GALERÍA TAB ══ */
+function renderGalTab(){
+  // Sync controls with saved config
+  const dur=cfgData.galeria_cfg?.duracion||5000;
+  const auto=cfgData.galeria_cfg?.autoplay!==false;
+  document.getElementById('cfgDuracion').value=dur;
+  document.getElementById('durLabel').textContent=(dur/1000).toFixed(1)+'s';
+  document.getElementById('cfgAutoplay').checked=auto;
   renderGalGrid();
 }
 
-async function saveCfg(id,valor,savedId){
-  await sb.from('configuracion').upsert({id,valor,updated_at:new Date().toISOString()},{onConflict:'id'});
-  const el=document.getElementById(savedId);if(el){el.style.display='inline';setTimeout(()=>el.style.display='none',2500);}
-  toast('Configuración guardada ✓');
+async function saveGalCfg(){
+  const dur=parseInt(document.getElementById('cfgDuracion').value)||5000;
+  const auto=document.getElementById('cfgAutoplay').checked;
+  cfgData.galeria_cfg={autoplay:auto,duracion:dur};
+  await sb.from('configuracion').upsert({id:'galeria_cfg',valor:{autoplay:auto,duracion:dur},updated_at:new Date().toISOString()},{onConflict:'id'});
+  const el=document.getElementById('savedGalCfg');el.style.display='inline';setTimeout(()=>el.style.display='none',2500);
+  toast('Configuración de galería guardada ✓');
 }
 
-async function savePrecios(){
-  const sedan=parseInt(document.getElementById('cfgSedan').value)||80;
-  const suv=parseInt(document.getElementById('cfgSuv').value)||100;
-  cfgData.precios={sedan,suv};
-  await saveCfg('precios',{sedan,suv},'savedPrecios');
-  await loadAll();
-}
-
-async function savePromo(){
-  const activa=document.getElementById('cfgPromoActiva').checked;
-  const texto=document.getElementById('cfgPromoTexto').value.trim();
-  cfgData.promocion={activa,texto};
-  await saveCfg('promocion',{activa,texto},'savedPromo');
-}
-
-/* ── BLOCKED DATES ── */
-function renderBlockedDates(){
-  const el=document.getElementById('blockedList');if(!el)return;
-  const list=cfgData.dias_bloqueados||[];
-  el.innerHTML=list.length?list.map(d=>`<div class="blocked-chip">${fd(d)}<button onclick="removeBlockedDate('${d}')" title="Quitar">×</button></div>`).join(''):'<p style="font-size:.72rem;color:var(--dim);">Sin fechas bloqueadas.</p>';
-}
-async function addBlockedDate(){
-  const d=document.getElementById('newBlockDate').value;
-  if(!d){alert('Selecciona una fecha.');return;}
-  const list=[...(cfgData.dias_bloqueados||[])];
-  if(list.includes(d)){toast('Esa fecha ya está bloqueada.');return;}
-  list.push(d);list.sort();
-  cfgData.dias_bloqueados=list;
-  await saveCfg('dias_bloqueados',list,'');
-  document.getElementById('newBlockDate').value='';
-  renderBlockedDates();toast(`Fecha ${fd(d)} bloqueada ✓`);
-}
-async function removeBlockedDate(d){
-  const list=(cfgData.dias_bloqueados||[]).filter(x=>x!==d);
-  cfgData.dias_bloqueados=list;
-  await saveCfg('dias_bloqueados',list,'');
-  renderBlockedDates();toast(`Fecha ${fd(d)} desbloqueada.`);
-}
-
-/* ── SERVICES EDITOR ── */
-function renderSvcEditor(){
-  const el=document.getElementById('svcEditor');if(!el)return;
-  const list=cfgData.servicios||[];
-  el.innerHTML=list.map((s,i)=>`
-    <div class="svc-editor-row" id="srow-${i}">
-      <input type="text" value="${s.nombre||''}" placeholder="Nombre del servicio" oninput="updSvc(${i},'nombre',this.value)"/>
-      <input type="text" value="${s.descripcion||''}" placeholder="Descripción o texto de promo" oninput="updSvc(${i},'descripcion',this.value)"/>
-      <input type="text" value="${s.tag||'Incluido'}" placeholder="Etiqueta" oninput="updSvc(${i},'tag',this.value)"/>
-      <select onchange="updSvc(${i},'tag_type',this.value)">
-        <option value="normal" ${s.tag_type!=='free'?'selected':''}>Normal</option>
-        <option value="free" ${s.tag_type==='free'?'selected':''}>Gratis</option>
-        <option value="promo" ${s.tag_type==='promo'?'selected':''}>Promo</option>
-      </select>
-      <select onchange="updSvc(${i},'activo',this.value==='1')">
-        <option value="1" ${s.activo!==false?'selected':''}>Sí</option>
-        <option value="0" ${s.activo===false?'selected':''}>No</option>
-      </select>
-      <button class="ab apd" onclick="delSvcRow(${i})" style="padding:.3rem .6rem;">✕</button>
-    </div>`).join('');
-}
-function updSvc(i,key,val){if(cfgData.servicios[i])cfgData.servicios[i][key]=val;}
-function addSvcRow(){
-  cfgData.servicios.push({id:'s'+Date.now(),nombre:'',descripcion:'',tag:'Incluido',tag_type:'normal',activo:true});
-  renderSvcEditor();
-}
-function delSvcRow(i){cfgData.servicios.splice(i,1);renderSvcEditor();}
-async function saveServicios(){
-  // Collect current values from DOM before save
-  cfgData.servicios.forEach((s,i)=>{
-    const row=document.getElementById('srow-'+i);
-    if(!row)return;
-    const inputs=row.querySelectorAll('input');
-    const selects=row.querySelectorAll('select');
-    if(inputs[0])s.nombre=inputs[0].value;
-    if(inputs[1])s.descripcion=inputs[1].value;
-    if(inputs[2])s.tag=inputs[2].value;
-    if(selects[0])s.tag_type=selects[0].value;
-    if(selects[1])s.activo=selects[1].value==='1';
-  });
-  await saveCfg('servicios',cfgData.servicios,'savedSvcs');
-}
-
-/* ── GALLERY ── */
 function renderGalGrid(){
   const el=document.getElementById('galGrid');if(!el)return;
   const imgs=cfgData.galeria||[];
-  if(!imgs.length){el.innerHTML='<div style="padding:2rem;color:var(--dim);font-size:.78rem;text-align:center;grid-column:1/-1;">Sin imágenes aún. Sube fotos de tu trabajo abajo.</div>';return;}
-  el.innerHTML=imgs.map(g=>`
-    <div class="gal-card${g.visible===false?' gal-hidden':''}">
-      <img src="${g.url}" alt="${g.caption||''}" loading="lazy" onerror="this.style.display='none'"/>
-      <span class="gal-card-order">#${g.orden||0}</span>
-      <span class="gal-card-caption">${g.caption||''}</span>
-      <div class="gal-card-overlay">
-        <button class="ab ${g.visible===false?'ac':'ax'}" onclick="toggleGalVis('${g.id}',${g.visible===false})">${g.visible===false?'Mostrar':'Ocultar'}</button>
-        <button class="ab apd" onclick="deleteGalImg('${g.id}')">Eliminar</button>
+  if(!imgs.length){el.innerHTML='<div style="padding:2rem;color:var(--dim);font-size:.78rem;text-align:center;grid-column:1/-1;">Sin imágenes. Sube fotos de tu trabajo.</div>';return;}
+  el.innerHTML=imgs.map((g,i)=>`
+    <div class="gal-card${g.visible===false?' hidden-img':''}" id="galcard-${g.id}" draggable="true"
+      ondragstart="dragStart(event,'${g.id}')" ondragover="dragOver(event,'${g.id}')" ondrop="dropCard(event,'${g.id}')" ondragleave="dragLeave(event)">
+      <img class="gal-card-img" src="${g.url}" alt="${g.caption||''}" loading="lazy" onerror="this.style.background='#1a1a1a'"/>
+      <div class="gal-card-footer">
+        <span class="gal-drag-handle" title="Arrastra para reordenar">⠿</span>
+        <span class="gal-card-caption-text">${g.caption||'Sin descripción'}</span>
+        <span class="gal-badge ${g.visible===false?'gal-badge-hid':'gal-badge-vis'}">${g.visible===false?'Oculta':'Visible'}</span>
+      </div>
+      <div class="gal-actions">
+        <button class="ab ao" style="flex:1;padding:.3rem;" onclick="openEditGal('${g.id}')">Editar</button>
+        <button class="ab ${g.visible===false?'ac':'ax'}" style="flex:1;padding:.3rem;" onclick="toggleGalVis('${g.id}',${g.visible===false})">${g.visible===false?'Mostrar':'Ocultar'}</button>
+        <button class="ab apd" style="padding:.3rem .5rem;" onclick="deleteGalImg('${g.id}')">✕</button>
       </div>
     </div>`).join('');
 }
 
-function onFilePick(e){
-  const files=Array.from(e.target.files);
-  if(!files.length)return;
-  _pendingFile=files[0];
-  document.getElementById('captionInput').value='';
-  document.getElementById('modalCaption').classList.add('show');
-}
-function onDrop(e){
+/* DRAG & DROP */
+let dragId=null;
+function dragStart(e,id){dragId=id;document.getElementById('galcard-'+id).classList.add('dragging');}
+function dragOver(e,id){e.preventDefault();if(id!==dragId){document.getElementById('galcard-'+id).classList.add('drag-over');}}
+function dragLeave(e){e.currentTarget.classList.remove('drag-over');}
+async function dropCard(e,targetId){
   e.preventDefault();
-  document.getElementById('uploadBox').classList.remove('dragover');
-  const files=Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/'));
-  if(!files.length)return;
-  _pendingFile=files[0];
-  document.getElementById('captionInput').value='';
-  document.getElementById('modalCaption').classList.add('show');
+  document.getElementById('galcard-'+targetId)?.classList.remove('drag-over');
+  document.getElementById('galcard-'+dragId)?.classList.remove('dragging');
+  if(!dragId||dragId===targetId){dragId=null;return;}
+  const imgs=[...cfgData.galeria];
+  const fromIdx=imgs.findIndex(g=>g.id===dragId);
+  const toIdx=imgs.findIndex(g=>g.id===targetId);
+  if(fromIdx<0||toIdx<0){dragId=null;return;}
+  const [moved]=imgs.splice(fromIdx,1);imgs.splice(toIdx,0,moved);
+  // Save new order
+  const updates=imgs.map((g,i)=>sb.from('galeria').update({orden:i+1}).eq('id',g.id));
+  await Promise.all(updates);
+  dragId=null;await loadAll();toast('Orden guardado ✓');
 }
 
-async function confirmUpload(){
-  if(!_pendingFile){closeModals();return;}
-  const caption=document.getElementById('captionInput').value.trim();
+/* FOCAL POINT */
+function setFocal(e){
+  const wrap=document.getElementById('focalWrap');
+  const rect=wrap.getBoundingClientRect();
+  _pendingFx=Math.round((e.clientX-rect.left)/rect.width*100);
+  _pendingFy=Math.round((e.clientY-rect.top)/rect.height*100);
+  document.getElementById('focalDot').style.left=_pendingFx+'%';
+  document.getElementById('focalDot').style.top=_pendingFy+'%';
+}
+function setEditFocal(e){
+  const wrap=document.getElementById('editFocalWrap');
+  const rect=wrap.getBoundingClientRect();
+  _editFx=Math.round((e.clientX-rect.left)/rect.width*100);
+  _editFy=Math.round((e.clientY-rect.top)/rect.height*100);
+  document.getElementById('editFocalDot').style.left=_editFx+'%';
+  document.getElementById('editFocalDot').style.top=_editFy+'%';
+}
+
+/* UPLOAD */
+function onFilePick(e){const f=Array.from(e.target.files);if(!f.length)return;_pendingFile=f[0];openGalModal();}
+function onDrop(e){e.preventDefault();document.getElementById('uploadBox').classList.remove('dragover');const f=Array.from(e.dataTransfer.files).filter(x=>x.type.startsWith('image/'));if(!f.length)return;_pendingFile=f[0];openGalModal();}
+function openGalModal(){
+  _pendingFx=50;_pendingFy=50;
+  document.getElementById('galCaption').value='';
   const reader=new FileReader();
-  reader.onload=async(ev)=>{
-    const url=ev.target.result; // base64 data URL
+  reader.onload=ev=>{
+    document.getElementById('focalImg').src=ev.target.result;
+    document.getElementById('focalDot').style.left='50%';
+    document.getElementById('focalDot').style.top='50%';
+  };
+  reader.readAsDataURL(_pendingFile);
+  document.getElementById('modalGal').classList.add('show');
+}
+async function confirmGalSave(){
+  if(!_pendingFile){closeModals();return;}
+  const caption=document.getElementById('galCaption').value.trim();
+  const reader=new FileReader();
+  reader.onload=async ev=>{
+    const url=ev.target.result;
     const maxOrder=(cfgData.galeria||[]).reduce((m,g)=>Math.max(m,g.orden||0),0);
-    await sb.from('galeria').insert({url,caption,orden:maxOrder+1,visible:true});
-    closeModals();
-    document.getElementById('imgFile').value='';
-    await loadAll();
-    toast('Imagen subida ✓');
+    await sb.from('galeria').insert({url,caption,orden:maxOrder+1,visible:true,focal_x:_pendingFx,focal_y:_pendingFy});
+    closeModals();document.getElementById('imgFile').value='';
+    await loadAll();toast('Imagen agregada ✓');
   };
   reader.readAsDataURL(_pendingFile);
 }
 
 async function addImageByUrl(){
   const url=document.getElementById('imgUrlInput').value.trim();
-  const caption=document.getElementById('imgUrlCaption').value.trim();
   if(!url){alert('Ingresa una URL.');return;}
   const maxOrder=(cfgData.galeria||[]).reduce((m,g)=>Math.max(m,g.orden||0),0);
-  await sb.from('galeria').insert({url,caption,orden:maxOrder+1,visible:true});
+  await sb.from('galeria').insert({url,caption:'',orden:maxOrder+1,visible:true,focal_x:50,focal_y:50});
   document.getElementById('imgUrlInput').value='';
-  document.getElementById('imgUrlCaption').value='';
   await loadAll();toast('Imagen agregada ✓');
 }
 
-async function toggleGalVis(id,makeVisible){
-  await sb.from('galeria').update({visible:makeVisible}).eq('id',id);
-  await loadAll();
+function openEditGal(id){
+  const g=cfgData.galeria.find(x=>x.id===id);if(!g)return;
+  _editGalId=id;_editFx=g.focal_x||50;_editFy=g.focal_y||50;
+  document.getElementById('editGalCaption').value=g.caption||'';
+  document.getElementById('editFocalImg').src=g.url;
+  document.getElementById('editFocalDot').style.left=_editFx+'%';
+  document.getElementById('editFocalDot').style.top=_editFy+'%';
+  document.getElementById('modalEditGal').classList.add('show');
 }
-async function deleteGalImg(id){
-  if(!confirm('¿Eliminar esta imagen de la galería?'))return;
-  await sb.from('galeria').delete().eq('id',id);
-  await loadAll();toast('Imagen eliminada.');
+async function confirmEditGal(){
+  if(!_editGalId)return;
+  const caption=document.getElementById('editGalCaption').value.trim();
+  await sb.from('galeria').update({caption,focal_x:_editFx,focal_y:_editFy}).eq('id',_editGalId);
+  closeModals();await loadAll();toast('Imagen actualizada ✓');
+}
+async function toggleGalVis(id,makeVisible){await sb.from('galeria').update({visible:makeVisible}).eq('id',id);await loadAll();}
+async function deleteGalImg(id){if(!confirm('¿Eliminar esta imagen?'))return;await sb.from('galeria').delete().eq('id',id);await loadAll();toast('Imagen eliminada.');}
+
+/* ══ PROMOCIONES ══ */
+function renderPromoList(){
+  const el=document.getElementById('promoList');if(!el)return;
+  if(!allPromos.length){el.innerHTML='<div class="empty">Sin promociones. Crea la primera con el botón de arriba.</div>';return;}
+  el.innerHTML=allPromos.map(p=>`
+    <div class="promo-row">
+      ${p.imagen_url?`<img class="promo-thumb" src="${p.imagen_url}" alt="${p.titulo}" onerror="this.style.display='none'"/>`:`<div class="promo-thumb-empty">Sin imagen</div>`}
+      <div class="promo-info">
+        <div class="promo-titulo-admin">${p.titulo}</div>
+        <div class="promo-meta">${p.descripcion||''}</div>
+        <div class="promo-meta" style="margin-top:.2rem;">
+          ${p.precio_promo?`<strong style="color:var(--acc);">Q${p.precio_promo}</strong> · `:''} 
+          ${p.fecha_fin?`Vigente hasta ${p.fecha_fin}`:''} 
+          <span class="bdg ${p.activa?'bc':'be'}" style="margin-left:.3rem;">${p.activa?'Activa':'Inactiva'}</span>
+        </div>
+      </div>
+      <div class="promo-acts">
+        <button class="ab ao" onclick="openPromoModal('${p.id}')">Editar</button>
+        <button class="ab ${p.activa?'ax':'ac'}" onclick="togglePromo('${p.id}',${!p.activa})">${p.activa?'Desactivar':'Activar'}</button>
+        <button class="ab apd" onclick="deletePromo('${p.id}')">Eliminar</button>
+      </div>
+    </div>`).join('');
+}
+
+function openPromoModal(id=null){
+  _promoEditId=id;
+  document.getElementById('promoModalTitle').textContent=id?'Editar promoción':'Nueva promoción';
+  if(id){
+    const p=allPromos.find(x=>x.id===id);if(!p)return;
+    document.getElementById('pTitulo').value=p.titulo||'';
+    document.getElementById('pDesc').value=p.descripcion||'';
+    document.getElementById('pPrecio').value=p.precio_promo||'';
+    document.getElementById('pImagen').value=p.imagen_url||'';
+    document.getElementById('pFechaInicio').value=p.fecha_inicio||'';
+    document.getElementById('pFechaFin').value=p.fecha_fin||'';
+    document.getElementById('pBoton').value=p.boton_texto||'Agendar ahora';
+    document.getElementById('pActiva').checked=p.activa!==false;
+  } else {
+    ['pTitulo','pDesc','pPrecio','pImagen','pFechaInicio','pFechaFin'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('pBoton').value='Agendar ahora';
+    document.getElementById('pActiva').checked=true;
+  }
+  document.getElementById('modalPromo').classList.add('show');
+}
+
+async function savePromoModal(){
+  const titulo=document.getElementById('pTitulo').value.trim();
+  if(!titulo){alert('El título es obligatorio.');return;}
+  const data={
+    titulo,
+    descripcion:document.getElementById('pDesc').value.trim(),
+    precio_promo:document.getElementById('pPrecio').value.trim(),
+    imagen_url:document.getElementById('pImagen').value.trim(),
+    fecha_inicio:document.getElementById('pFechaInicio').value||null,
+    fecha_fin:document.getElementById('pFechaFin').value||null,
+    boton_texto:document.getElementById('pBoton').value.trim()||'Agendar ahora',
+    activa:document.getElementById('pActiva').checked,
+  };
+  if(_promoEditId){await sb.from('promociones').update(data).eq('id',_promoEditId);}
+  else{data.orden=(allPromos.length+1);await sb.from('promociones').insert(data);}
+  closeModals();await loadAll();renderPromoList();toast(_promoEditId?'Promoción actualizada ✓':'Promoción creada ✓');
+}
+
+async function togglePromo(id,activa){await sb.from('promociones').update({activa}).eq('id',id);await loadAll();renderPromoList();}
+async function deletePromo(id){if(!confirm('¿Eliminar esta promoción?'))return;await sb.from('promociones').delete().eq('id',id);await loadAll();renderPromoList();toast('Promoción eliminada.');}
+
+/* ══ CONFIG TAB ══ */
+function renderConfigTab(){
+  document.getElementById('cfgSedan').value=cfgData.precios.sedan;
+  document.getElementById('cfgSuv').value=cfgData.precios.suv;
+  renderBlockedDates();renderSvcEditor();
+}
+
+async function saveCfg(id,valor,savedId){
+  await sb.from('configuracion').upsert({id,valor,updated_at:new Date().toISOString()},{onConflict:'id'});
+  const el=document.getElementById(savedId);if(el){el.style.display='inline';setTimeout(()=>el.style.display='none',2500);}
+  toast('Guardado ✓');
+}
+
+async function savePrecios(){
+  const sedan=parseInt(document.getElementById('cfgSedan').value)||80;
+  const suv=parseInt(document.getElementById('cfgSuv').value)||100;
+  cfgData.precios={sedan,suv};
+  await saveCfg('precios',{sedan,suv},'savedPrecios');await loadAll();
+}
+
+function renderBlockedDates(){
+  const el=document.getElementById('blockedList');if(!el)return;
+  const list=cfgData.dias_bloqueados||[];
+  el.innerHTML=list.length?list.map(d=>`<div class="blocked-chip">${fd(d)}<button onclick="removeBlockedDate('${d}')" title="Quitar">×</button></div>`).join(''):'<p style="font-size:.72rem;color:var(--dim);">Sin fechas bloqueadas.</p>';
+}
+async function addBlockedDate(){
+  const d=document.getElementById('newBlockDate').value;if(!d){alert('Selecciona fecha.');return;}
+  const list=[...(cfgData.dias_bloqueados||[])];if(list.includes(d)){toast('Ya bloqueada.');return;}
+  list.push(d);list.sort();cfgData.dias_bloqueados=list;
+  await saveCfg('dias_bloqueados',list,'');document.getElementById('newBlockDate').value='';
+  renderBlockedDates();toast(`${fd(d)} bloqueada ✓`);
+}
+async function removeBlockedDate(d){
+  const list=(cfgData.dias_bloqueados||[]).filter(x=>x!==d);cfgData.dias_bloqueados=list;
+  await saveCfg('dias_bloqueados',list,'');renderBlockedDates();toast(`${fd(d)} desbloqueada.`);
+}
+
+function renderSvcEditor(){
+  const el=document.getElementById('svcEditor');if(!el)return;
+  const list=cfgData.servicios||[];
+  el.innerHTML=list.map((s,i)=>`
+    <div class="svc-editor-row" id="srow-${i}">
+      <input type="text" value="${s.nombre||''}" placeholder="Nombre" oninput="updSvc(${i},'nombre',this.value)"/>
+      <input type="text" value="${s.descripcion||''}" placeholder="Descripción" oninput="updSvc(${i},'descripcion',this.value)"/>
+      <input type="text" value="${s.tag||'Incluido'}" placeholder="Etiqueta" oninput="updSvc(${i},'tag',this.value)"/>
+      <select onchange="updSvc(${i},'tag_type',this.value)">
+        <option value="normal" ${s.tag_type!=='free'?'selected':''}>Normal</option>
+        <option value="free" ${s.tag_type==='free'?'selected':''}>Gratis</option>
+      </select>
+      <select onchange="updSvc(${i},'activo',this.value==='1')">
+        <option value="1" ${s.activo!==false?'selected':''}>Visible</option>
+        <option value="0" ${s.activo===false?'selected':''}>Oculto</option>
+      </select>
+      <button class="ab apd" onclick="delSvcRow(${i})" style="padding:.3rem .6rem;">✕</button>
+    </div>`).join('');
+}
+function updSvc(i,key,val){if(cfgData.servicios[i])cfgData.servicios[i][key]=val;}
+function addSvcRow(){cfgData.servicios.push({id:'s'+Date.now(),nombre:'',descripcion:'',tag:'Incluido',tag_type:'normal',activo:true});renderSvcEditor();}
+function delSvcRow(i){cfgData.servicios.splice(i,1);renderSvcEditor();}
+async function saveServicios(){
+  cfgData.servicios.forEach((s,i)=>{
+    const row=document.getElementById('srow-'+i);if(!row)return;
+    const inp=row.querySelectorAll('input'),sel=row.querySelectorAll('select');
+    if(inp[0])s.nombre=inp[0].value;if(inp[1])s.descripcion=inp[1].value;if(inp[2])s.tag=inp[2].value;
+    if(sel[0])s.tag_type=sel[0].value;if(sel[1])s.activo=sel[1].value==='1';
+  });
+  await saveCfg('servicios',cfgData.servicios,'savedSvcs');
 }
 
 /* ── DOWNLOADS ── */
@@ -949,29 +1054,16 @@ function rows(recs){
   const h=['Nombre','Teléfono','Manzana','Lote','Vehículo','Precio','Fecha','Hora','Estado','Estado Pago','Creada'];
   return{h,r:recs.map(x=>[x.nombre,x.telefono,x.manzana,x.lote,x.tipo_vehiculo,x.precio,ds(x),x.hora,x.status,x.estado_pago,fdt(x.created_at)])};
 }
-function dlCSV(k){
-  const recs=getSD(k);if(!recs.length){alert('Sin datos.');return;}
-  const{h,r}=rows(recs);
-  const csv=[h,...r].map(row=>row.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));a.download=`asd-${k}-${td()}.csv`;a.click();
-}
+function dlCSV(k){const recs=getSD(k);if(!recs.length){alert('Sin datos.');return;}const{h,r}=rows(recs);const csv=[h,...r].map(row=>row.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));a.download=`asd-${k}-${td()}.csv`;a.click();}
 function dlXLSX(k){
   const recs=getSD(k);if(!recs.length){alert('Sin datos.');return;}
-  const comp=recs.filter(x=>x.status==='completada');
-  const ing=comp.filter(x=>x.estado_pago==='pagado').reduce((s,x)=>s+(x.precio||0),0);
-  const lbl=k==='week'?'Esta semana':'Este mes';
-  const ss=XLSX.utils.aoa_to_sheet([['ASD Auto Care — '+lbl],['Generado',fdt(new Date().toISOString())],[],['Ingresos cobrados','Q'+ing],['Completados',comp.length],['Cancelados',recs.filter(x=>x.status==='cancelada').length],['Total',recs.filter(x=>x.status!=='eliminada').length]]);
-  const{h,r}=rows(recs);
-  const ds2=XLSX.utils.aoa_to_sheet([h,...r]);
+  const comp=recs.filter(x=>x.status==='completada');const ing=comp.filter(x=>x.estado_pago==='pagado').reduce((s,x)=>s+(x.precio||0),0);
+  const ss=XLSX.utils.aoa_to_sheet([['ASD Auto Care — '+(k==='week'?'Esta semana':'Este mes')],['Generado',fdt(new Date().toISOString())],[],['Ingresos cobrados','Q'+ing],['Completados',comp.length],['Cancelados',recs.filter(x=>x.status==='cancelada').length]]);
+  const{h,r}=rows(recs);const ds2=XLSX.utils.aoa_to_sheet([h,...r]);
   const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ss,'Resumen');XLSX.utils.book_append_sheet(wb,ds2,'Detalle');
   XLSX.writeFile(wb,`asd-${k}-${td()}.xlsx`);
 }
-function exportCSV(){
-  if(!allR.length){alert('No hay datos.');return;}
-  const{h,r}=rows(allR);
-  const csv=[h,...r].map(row=>row.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));a.download=`asd-completo-${td()}.csv`;a.click();
-}
+function exportCSV(){if(!allR.length){alert('No hay datos.');return;}const{h,r}=rows(allR);const csv=[h,...r].map(row=>row.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));a.download=`asd-completo-${td()}.csv`;a.click();}
 
 /* ── RENDER ALL ── */
 function renderAll(){renderKPI();renderCal();renderActive();renderHist();renderRevs();}
