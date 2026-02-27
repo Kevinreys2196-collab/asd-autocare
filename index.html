@@ -424,6 +424,9 @@ function buildSlots(){
 function buildCarousel(){
   const track=document.getElementById('carouselTrack');
   const dots=document.getElementById('carouselDots');
+  // Clear both before rebuilding (realtime may call this multiple times)
+  track.innerHTML='';
+  dots.innerHTML='';
   const slides=cfg.galeria.length?cfg.galeria.map(g=>({url:g.url,caption:g.caption})):FALLBACK;
   track.innerHTML=slides.map(s=>`<div class="carousel-slide"><img src="${s.url}" alt="${s.caption}" loading="lazy"/><span class="slide-label">${s.caption||''}</span></div>`).join('');
   initCarousel(track,dots);
@@ -565,7 +568,36 @@ async function submitReview(){
 const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target);}});},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-init();
+/* ── REALTIME SYNC ── */
+async function reloadConfig(){
+  const[cfgRes,galRes]=await Promise.all([
+    sb.from('configuracion').select('id,valor'),
+    sb.from('galeria').select('*').eq('visible',true).order('orden',{ascending:true})
+  ]);
+  if(cfgRes.data) cfgRes.data.forEach(r=>{
+    if(r.id==='precios') cfg.precios=r.valor;
+    if(r.id==='servicios') cfg.servicios=r.valor;
+    if(r.id==='horarios') cfg.horarios=r.valor;
+    if(r.id==='dias_bloqueados') cfg.dias_bloqueados=r.valor;
+    if(r.id==='promocion') cfg.promocion=r.valor;
+  });
+  cfg.galeria=(galRes.data&&galRes.data.length)?galRes.data:[];
+  renderPromo(); renderServices(); renderPrices(); buildSlots(); buildCarousel();
+  // Re-run availability check if a date is selected
+  const f=document.getElementById('fecha').value;
+  if(f) onDateChange();
+}
+
+function subscribeRealtime(){
+  sb.channel('landing-sync')
+    .on('postgres_changes',{event:'*',schema:'public',table:'configuracion'},reloadConfig)
+    .on('postgres_changes',{event:'*',schema:'public',table:'galeria'},reloadConfig)
+    .on('postgres_changes',{event:'*',schema:'public',table:'resenas'},renderReviews)
+    .on('postgres_changes',{event:'*',schema:'public',table:'reservas'},cargarConfirmadas)
+    .subscribe();
+}
+
+init().then(subscribeRealtime);
 </script>
 </body>
 </html>
