@@ -57,8 +57,25 @@
 
     /* TABS */
     .tabs{display:flex;gap:1px;background:var(--bd);border:1px solid var(--bd);margin-bottom:1.5rem;overflow-x:auto;}
-    .tbtn{background:var(--sf);border:none;color:var(--mid);padding:.75rem 1.1rem;font-family:var(--ff);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s;white-space:nowrap;flex:1;}
+    .tbtn{background:var(--sf);border:none;color:var(--mid);padding:.75rem 1.1rem;font-family:var(--ff);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s;white-space:nowrap;flex:1;position:relative;}
     .tbtn.active{background:var(--wh);color:var(--bg);font-weight:500;}
+    /* iPhone-style badge */
+    .tab-badge{position:absolute;top:6px;right:6px;background:#e05555;color:#fff;font-size:.52rem;font-weight:600;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px;line-height:1;animation:badgePop .3s ease;}
+    .tab-badge.gold{background:var(--acc);color:var(--bg);}
+    @keyframes badgePop{from{transform:scale(0)}to{transform:scale(1)}}
+
+    /* NOTIFICATION BELL */
+    .notif-btn{position:relative;background:transparent;border:1px solid var(--bd);color:var(--mid);width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;font-size:.9rem;flex-shrink:0;}
+    .notif-btn:hover{border-color:var(--acc);color:var(--acc);}
+    .notif-btn.has-notif{border-color:rgba(224,85,85,.5);color:#e05555;animation:bellShake .5s ease;}
+    .notif-dot{position:absolute;top:4px;right:4px;width:7px;height:7px;background:#e05555;border-radius:50%;display:none;}
+    .notif-dot.show{display:block;}
+    @keyframes bellShake{0%,100%{transform:rotate(0)}20%{transform:rotate(-15deg)}40%{transform:rotate(15deg)}60%{transform:rotate(-10deg)}80%{transform:rotate(10deg)}}
+
+    /* NEW RESERVATION ALERT BANNER */
+    .nueva-reserva-banner{display:none;position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:500;background:#0a0a0a;border:1px solid rgba(224,85,85,.5);padding:.75rem 1.4rem;display:none;align-items:center;gap:.8rem;box-shadow:0 4px 24px rgba(0,0,0,.6);animation:slideDown .4s ease;}
+    .nueva-reserva-banner.show{display:flex;}
+    @keyframes slideDown{from{opacity:0;transform:translateX(-50%) translateY(-12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
     /* FILTER */
     .fbar{display:flex;gap:.4rem;margin-bottom:1.2rem;flex-wrap:wrap;align-items:center;}
@@ -355,6 +372,17 @@
   </div>
 </div>
 
+<!-- NUEVA RESERVA BANNER -->
+<div class="nueva-reserva-banner" id="nuevaBanner">
+  <span style="font-size:1rem;">🔔</span>
+  <div>
+    <div style="font-size:.8rem;color:#fff;font-weight:500;" id="bannerTxt">Nueva reserva recibida</div>
+    <div style="font-size:.65rem;color:var(--mid);" id="bannerSub"></div>
+  </div>
+  <button onclick="document.getElementById('nuevaBanner').classList.remove('show');showTab('hoy');" style="background:var(--acc);color:var(--bg);border:none;padding:.35rem .8rem;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;font-family:var(--ff);white-space:nowrap;">Ver ahora</button>
+  <button onclick="document.getElementById('nuevaBanner').classList.remove('show');" style="background:transparent;border:none;color:var(--mid);cursor:pointer;font-size:.9rem;padding:0 .2rem;">✕</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -364,6 +392,9 @@
     <div class="hlogo">ASD <b>Auto</b> Care <span class="hlogo-tag">Admin</span><span class="live"></span></div>
     <div class="hright">
       <span class="stimer" id="stimer"></span>
+      <button class="notif-btn" id="notifBtn" onclick="toggleNotifs()" title="Activar notificaciones">
+        🔔<div class="notif-dot" id="notifDot"></div>
+      </button>
       <button class="hbtn" onclick="exportCSV()">CSV</button>
       <a href="https://kevinreys2196-collab.github.io/asd-autocare/" target="_blank" class="hbtn">Ver página</a>
       <button class="hbtn out" onclick="logout()">Salir</button>
@@ -374,10 +405,10 @@
     <div class="kpi-strip" id="kpiStrip"></div>
 
     <div class="tabs">
-      <button class="tbtn active" onclick="showTab('hoy')">Hoy</button>
-      <button class="tbtn" onclick="showTab('activas')">Activas</button>
+      <button class="tbtn active" onclick="showTab('hoy')">Hoy<span class="tab-badge gold" id="badgeHoy" style="display:none;"></span></button>
+      <button class="tbtn" onclick="showTab('activas')">Activas<span class="tab-badge" id="badgeActivas" style="display:none;"></span></button>
       <button class="tbtn" onclick="showTab('historial')">Historial</button>
-      <button class="tbtn" onclick="showTab('resenas')">Reseñas</button>
+      <button class="tbtn" onclick="showTab('resenas')">Reseñas<span class="tab-badge" id="badgeResenas" style="display:none;"></span></button>
       <button class="tbtn" onclick="showTab('galeria')">🖼 Galería</button>
       <button class="tbtn" onclick="showTab('config')">⚙ Config</button>
     </div>
@@ -646,7 +677,102 @@ function renderKPI(){
     <div class="kpi"><div class="kpi-lbl">Imágenes galería</div><div class="kpi-val">${cfgData.galeria.length}</div></div>`;
 }
 
-/* ── TABS ── */
+/* ── BADGES ── */
+let _prevPendCount=null;
+function updateBadges(){
+  const today=td();
+  const hoy=allR.filter(r=>ds(r)===today&&r.status==='pendiente');
+  const activas=allR.filter(r=>r.status==='pendiente'||r.status==='confirmada');
+  const pendResenas=allRev.filter(r=>r.visible===false);
+
+  const bHoy=document.getElementById('badgeHoy');
+  const bAct=document.getElementById('badgeActivas');
+  const bRes=document.getElementById('badgeResenas');
+
+  if(hoy.length>0){bHoy.textContent=hoy.length;bHoy.style.display='flex';}
+  else{bHoy.style.display='none';}
+  if(activas.length>0){bAct.textContent=activas.length;bAct.style.display='flex';}
+  else{bAct.style.display='none';}
+  if(pendResenas.length>0){bRes.textContent=pendResenas.length;bRes.style.display='flex';}
+  else{bRes.style.display='none';}
+
+  // Detectar nueva reserva pendiente
+  const pendCount=allR.filter(r=>r.status==='pendiente').length;
+  if(_prevPendCount!==null && pendCount>_prevPendCount){
+    const nueva=allR.filter(r=>r.status==='pendiente').sort((a,b)=>new Date(b.created_at)-new Date(a.created_at))[0];
+    dispararAlertas(nueva);
+  }
+  _prevPendCount=pendCount;
+}
+
+/* ── SISTEMA DE NOTIFICACIONES ── */
+let notifsActivas=false;
+
+function toggleNotifs(){
+  if(!('Notification' in window)){toast('Tu navegador no soporta notificaciones.');return;}
+  if(Notification.permission==='granted'){
+    notifsActivas=!notifsActivas;
+    actualizarBtnNotif();
+    toast(notifsActivas?'🔔 Notificaciones activadas':'🔕 Notificaciones desactivadas');
+  } else {
+    Notification.requestPermission().then(p=>{
+      if(p==='granted'){notifsActivas=true;actualizarBtnNotif();toast('🔔 Notificaciones activadas');}
+      else{toast('Permiso denegado. Actívalas en la configuración del navegador.');}
+    });
+  }
+}
+
+function actualizarBtnNotif(){
+  const btn=document.getElementById('notifBtn');
+  if(notifsActivas){btn.style.borderColor='var(--grn)';btn.style.color='var(--grn)';btn.title='Notificaciones activas';}
+  else{btn.style.borderColor='';btn.style.color='';btn.title='Activar notificaciones';}
+}
+
+function dispararAlertas(reserva){
+  // 1. Sonido de alerta
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    [0,150,300].forEach((delay,i)=>{
+      setTimeout(()=>{
+        const o=ctx.createOscillator(),g=ctx.createGain();
+        o.connect(g);g.connect(ctx.destination);
+        o.frequency.value=i===2?880:660;
+        g.gain.setValueAtTime(.3,ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.18);
+        o.start(ctx.currentTime);o.stop(ctx.currentTime+.18);
+      },delay);
+    });
+  }catch(e){}
+
+  // 2. Banner visual en pantalla
+  const banner=document.getElementById('nuevaBanner');
+  document.getElementById('bannerTxt').textContent=`Nueva reserva — ${reserva?.nombre||'Cliente'}`;
+  document.getElementById('bannerSub').textContent=reserva?`${reserva.fecha} · ${reserva.hora} · ${reserva.tipo_vehiculo}`:'';
+  banner.classList.add('show');
+  setTimeout(()=>banner.classList.remove('show'),12000);
+
+  // 3. Notificación del sistema (móvil/desktop)
+  if(notifsActivas&&Notification.permission==='granted'){
+    new Notification('🚗 Nueva reserva — ASD Auto Care',{
+      body:reserva?`${reserva.nombre} · ${reserva.fecha} · ${reserva.hora}`:'Nueva reserva recibida',
+      icon:'https://kevinreys2196-collab.github.io/asd-autocare/favicon.ico',
+      badge:'https://kevinreys2196-collab.github.io/asd-autocare/favicon.ico',
+      tag:'nueva-reserva',
+      requireInteraction:true
+    });
+  }
+
+  // 4. Punto rojo en el botón de campanita
+  document.getElementById('notifDot').classList.add('show');
+  document.getElementById('notifBtn').classList.add('has-notif');
+  setTimeout(()=>{
+    document.getElementById('notifDot').classList.remove('show');
+    document.getElementById('notifBtn').classList.remove('has-notif');
+  },10000);
+
+  // 5. Vibración en móvil si está soportada
+  if('vibrate' in navigator) navigator.vibrate([200,100,200,100,400]);
+}
 const TABS=['hoy','activas','historial','resenas','galeria','config'];
 function showTab(t){
   TABS.forEach((tab,i)=>{document.getElementById('tab-'+tab).style.display=tab===t?'block':'none';document.querySelectorAll('.tbtn')[i].classList.toggle('active',tab===t);});
@@ -1073,7 +1199,7 @@ function dlXLSX(k){
 function exportCSV(){if(!allR.length){alert('No hay datos.');return;}const{h,r}=rows(allR);const csv=[h,...r].map(row=>row.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));a.download=`asd-completo-${td()}.csv`;a.click();}
 
 /* ── RENDER ALL ── */
-function renderAll(){renderKPI();renderCal();renderActive();renderHist();renderRevs();}
+function renderAll(){renderKPI();renderCal();renderActive();renderHist();renderRevs();updateBadges();}
 </script>
 </body>
 </html>
