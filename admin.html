@@ -77,6 +77,30 @@
     .nueva-reserva-banner.show{display:flex;}
     @keyframes slideDown{from{opacity:0;transform:translateX(-50%) translateY(-12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
+    /* CLIENTES */
+    .cli-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--bd);}
+    .cli-card{background:var(--sf);padding:1.1rem;position:relative;}
+    .cli-name{font-size:.92rem;color:var(--wh);font-weight:400;margin-bottom:.25rem;}
+    .cli-info{font-size:.72rem;color:var(--mid);margin-bottom:.8rem;line-height:1.7;}
+    .cli-pts{display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;}
+    .pts-bar{flex:1;height:5px;background:var(--dim);border-radius:2px;overflow:hidden;}
+    .pts-fill{height:100%;background:var(--acc);border-radius:2px;transition:width .4s;}
+    .pts-num{font-size:.75rem;color:var(--acc);font-weight:500;white-space:nowrap;}
+    .pts-label{font-size:.6rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;}
+    .cli-reward{background:rgba(200,185,138,.08);border:1px solid rgba(200,185,138,.3);padding:.5rem .8rem;font-size:.72rem;color:var(--acc);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;}
+    .cli-acts{display:flex;gap:.4rem;flex-wrap:wrap;}
+    .cli-svc-count{font-size:.65rem;color:var(--dim);margin-top:.5rem;}
+    .cli-search{background:var(--sf);border:1px solid var(--bd);color:var(--wh);padding:.6rem 1rem;font-family:var(--ff);font-size:.82rem;outline:none;width:100%;max-width:340px;}
+    .cli-search:focus{border-color:var(--acc);}
+    .cli-empty{padding:2rem;text-align:center;color:var(--dim);font-size:.8rem;}
+
+    /* HORARIOS CHIPS */
+    .hora-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem;}
+    .hora-chip{background:var(--sf2);border:1px solid var(--bd);padding:.3rem .8rem;font-size:.72rem;color:var(--mid);display:flex;align-items:center;gap:.4rem;}
+    .hora-chip.blocked{border-color:rgba(224,85,85,.3);color:var(--red);background:rgba(224,85,85,.04);}
+    .hora-chip button{background:none;border:none;color:inherit;cursor:pointer;font-size:.7rem;padding:0;opacity:.6;transition:opacity .2s;}
+    .hora-chip button:hover{opacity:1;}
+
     /* FILTER */
     .fbar{display:flex;gap:.4rem;margin-bottom:1.2rem;flex-wrap:wrap;align-items:center;}
     .fbtn{background:var(--sf);border:1px solid var(--bd);color:var(--mid);padding:.38rem .85rem;font-family:var(--ff);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .25s;}
@@ -409,6 +433,7 @@
       <button class="tbtn" onclick="showTab('activas')">Activas<span class="tab-badge" id="badgeActivas" style="display:none;"></span></button>
       <button class="tbtn" onclick="showTab('historial')">Historial</button>
       <button class="tbtn" onclick="showTab('resenas')">Reseñas<span class="tab-badge" id="badgeResenas" style="display:none;"></span></button>
+      <button class="tbtn" onclick="showTab('clientes')">👤 Clientes<span class="tab-badge gold" id="badgeClientes" style="display:none;"></span></button>
       <button class="tbtn" onclick="showTab('galeria')">🖼 Galería</button>
       <button class="tbtn" onclick="showTab('config')">⚙ Config</button>
     </div>
@@ -460,6 +485,32 @@
       <div id="resPend"></div>
       <p class="stitle" style="margin-top:1.5rem;">Publicadas</p>
       <div id="resPub"></div>
+    </div>
+
+    <!-- CLIENTES -->
+    <div id="tab-clientes" style="display:none;">
+      <!-- Agregar cliente -->
+      <div class="cfg-section" style="margin-bottom:1.2rem;">
+        <div class="cfg-head">
+          <span class="cfg-head-title">Agregar cliente</span>
+        </div>
+        <div class="cfg-body">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.6rem;margin-bottom:.7rem;">
+            <input id="cliNombre" placeholder="Nombre completo *" style="background:#111;border:1px solid var(--bd);color:var(--wh);padding:.55rem .8rem;font-family:var(--ff);font-size:.8rem;outline:none;" oninput="this.style.borderColor=this.value?'var(--acc)':'var(--bd)'"/>
+            <input id="cliTel" placeholder="Teléfono" style="background:#111;border:1px solid var(--bd);color:var(--wh);padding:.55rem .8rem;font-family:var(--ff);font-size:.8rem;outline:none;"/>
+            <input id="cliMz" placeholder="Manzana" style="background:#111;border:1px solid var(--bd);color:var(--wh);padding:.55rem .8rem;font-family:var(--ff);font-size:.8rem;outline:none;"/>
+            <input id="cliLote" placeholder="Lote" style="background:#111;border:1px solid var(--bd);color:var(--wh);padding:.55rem .8rem;font-family:var(--ff);font-size:.8rem;outline:none;"/>
+          </div>
+          <button class="cfg-save-btn" onclick="addCliente()">+ Agregar cliente</button>
+        </div>
+      </div>
+
+      <!-- Búsqueda y lista -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.6rem;">
+        <input class="cli-search" id="cliSearch" placeholder="Buscar cliente..." oninput="renderClientes()"/>
+        <span id="cliCount" style="font-size:.65rem;color:var(--dim);letter-spacing:.1em;"></span>
+      </div>
+      <div class="cli-grid" id="cliGrid"></div>
     </div>
 
     <!-- GALERÍA -->
@@ -544,6 +595,22 @@
         </div>
       </div>
 
+      <!-- HORARIOS -->
+      <div class="cfg-section">
+        <div class="cfg-head">
+          <span class="cfg-head-title">Horarios disponibles</span>
+          <span class="cfg-saved" id="savedHorarios">✓ Guardado</span>
+        </div>
+        <div class="cfg-body">
+          <p style="font-size:.75rem;color:var(--mid);margin-bottom:.8rem;">Estos son los horarios que los clientes pueden seleccionar al reservar.</p>
+          <div class="hora-chips" id="horaChips"></div>
+          <div class="cfg-row" style="flex-wrap:wrap;gap:.5rem;">
+            <input id="newHoraInput" placeholder="Ej: 7:00 AM o 15:30" style="background:#111;border:1px solid var(--bd);color:var(--wh);padding:.5rem .8rem;font-family:var(--ff);font-size:.8rem;outline:none;width:160px;" onkeydown="if(event.key==='Enter')addHorario()"/>
+            <button class="cfg-save-btn" onclick="addHorario()">+ Agregar horario</button>
+          </div>
+        </div>
+      </div>
+
       <!-- SERVICIOS -->
       <div class="cfg-section">
         <div class="cfg-head">
@@ -592,7 +659,7 @@ const sb=supabase.createClient(SB_URL,SB_KEY);
 const PH=btoa('AsdAutoCare2196');
 const SEXP=25*60*1000,MAX_A=5,LOCK=10*60*1000;
 let sInt,_delId=null,_reId=null,_pendingFile=null,_editGalId=null,_editFx=50,_editFy=50,_pendingFx=50,_pendingFy=50;
-let allR=[],allRev=[],allPromos=[],cFilt='today';
+let allR=[],allRev=[],allPromos=[],allClientes=[],cFilt='today';
 let cfgData={precios:{sedan:80,suv:100},servicios:[],horarios:['8:00 AM','11:00 AM','2:00 PM'],dias_bloqueados:[],galeria:[],galeria_cfg:{autoplay:true,duracion:5000}};
 let _promoEditId=null;
 
@@ -616,14 +683,15 @@ if(sessionStorage.getItem('_exp')&&+sessionStorage.getItem('_exp')>Date.now())bo
 
 /* ── LOAD ── */
 async function loadAll(){
-  const[r1,r2,r3,r4,r5]=await Promise.all([
+  const[r1,r2,r3,r4,r5,r6]=await Promise.all([
     sb.from('reservas').select('*').order('created_at',{ascending:false}),
     sb.from('resenas').select('*').order('created_at',{ascending:false}),
     sb.from('configuracion').select('id,valor'),
     sb.from('galeria').select('*').order('orden',{ascending:true}),
-    sb.from('promociones').select('*').order('orden',{ascending:true})
+    sb.from('promociones').select('*').order('orden',{ascending:true}),
+    sb.from('clientes').select('*').order('nombre',{ascending:true})
   ]);
-  allR=r1.data||[]; allRev=r2.data||[]; allPromos=r5.data||[];
+  allR=r1.data||[]; allRev=r2.data||[]; allPromos=r5.data||[]; allClientes=r6.data||[];
   if(r3.data) r3.data.forEach(row=>{
     if(row.id==='precios') cfgData.precios=row.valor;
     if(row.id==='servicios') cfgData.servicios=row.valor||[];
@@ -635,12 +703,17 @@ async function loadAll(){
   renderAll();
 }
 function subRT(){
-  sb.channel('adm5')
-    .on('postgres_changes',{event:'*',schema:'public',table:'reservas'},()=>loadAll())
+  sb.channel('adm6')
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'reservas'},async(payload)=>{
+      await loadAll();
+      notificarTelegram(payload.new);
+    })
+    .on('postgres_changes',{event:'UPDATE',schema:'public',table:'reservas'},()=>loadAll())
     .on('postgres_changes',{event:'*',schema:'public',table:'resenas'},()=>loadAll())
     .on('postgres_changes',{event:'*',schema:'public',table:'configuracion'},()=>loadAll())
     .on('postgres_changes',{event:'*',schema:'public',table:'galeria'},()=>loadAll())
     .on('postgres_changes',{event:'*',schema:'public',table:'promociones'},()=>loadAll())
+    .on('postgres_changes',{event:'*',schema:'public',table:'clientes'},()=>loadAll())
     .subscribe();
 }
 
@@ -705,7 +778,21 @@ function updateBadges(){
   _prevPendCount=pendCount;
 }
 
-/* ── SISTEMA DE NOTIFICACIONES ── */
+/* ── TELEGRAM NOTIFICACIONES ── */
+const TG_TOKEN='8249939484:AAEYRQ2Dx_PXJwFFRY1g0FwE7yUa7-zgEaA';
+const TG_CHAT='5942402409';
+
+async function notificarTelegram(reserva){
+  if(!reserva) return;
+  const texto=`🚗 *NUEVA RESERVA — ASD Auto Care*\n\n👤 *Cliente:* ${reserva.nombre}\n📞 *Teléfono:* ${reserva.telefono}\n📍 *Dirección:* Manzana ${reserva.manzana}, Lote ${reserva.lote}\n🚙 *Vehículo:* ${reserva.tipo_vehiculo} (Q${reserva.precio})\n📅 *Fecha:* ${reserva.fecha}\n⏰ *Hora:* ${reserva.hora}\n💳 *Pago:* ${reserva.estado_pago||'pendiente'}\n\n✅ _Reserva registrada desde la página web._`;
+  try{
+    await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:TG_CHAT,text:texto,parse_mode:'Markdown'})
+    });
+  }catch(e){console.warn('Telegram error:',e);}
+}
 let notifsActivas=false;
 
 function toggleNotifs(){
@@ -773,11 +860,12 @@ function dispararAlertas(reserva){
   // 5. Vibración en móvil si está soportada
   if('vibrate' in navigator) navigator.vibrate([200,100,200,100,400]);
 }
-const TABS=['hoy','activas','historial','resenas','galeria','config'];
+const TABS=['hoy','activas','historial','resenas','clientes','galeria','config'];
 function showTab(t){
   TABS.forEach((tab,i)=>{document.getElementById('tab-'+tab).style.display=tab===t?'block':'none';document.querySelectorAll('.tbtn')[i].classList.toggle('active',tab===t);});
   if(t==='config'){renderConfigTab();renderPromoList();}
   if(t==='galeria') renderGalTab();
+  if(t==='clientes') renderClientes();
   renderAll();
 }
 
@@ -1117,7 +1205,7 @@ async function deletePromo(id){if(!confirm('¿Eliminar esta promoción?'))return
 function renderConfigTab(){
   document.getElementById('cfgSedan').value=cfgData.precios.sedan;
   document.getElementById('cfgSuv').value=cfgData.precios.suv;
-  renderBlockedDates();renderSvcEditor();
+  renderBlockedDates();renderSvcEditor();renderHoraChips();
 }
 
 async function saveCfg(id,valor,savedId){
@@ -1198,8 +1286,116 @@ function dlXLSX(k){
 }
 function exportCSV(){if(!allR.length){alert('No hay datos.');return;}const{h,r}=rows(allR);const csv=[h,...r].map(row=>row.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));a.download=`asd-completo-${td()}.csv`;a.click();}
 
+/* ── CLIENTES ── */
+function renderClientes(){
+  const q=(document.getElementById('cliSearch')?.value||'').toLowerCase();
+  const filtered=allClientes.filter(c=>
+    c.nombre.toLowerCase().includes(q)||
+    (c.telefono||'').includes(q)||
+    (c.manzana||'').toLowerCase().includes(q)||
+    (c.lote||'').toLowerCase().includes(q)
+  );
+  const el=document.getElementById('cliGrid');
+  const cnt=document.getElementById('cliCount');
+  if(cnt) cnt.textContent=`${filtered.length} cliente${filtered.length!==1?'s':''}`;
+  if(!el) return;
+  if(!filtered.length){el.innerHTML=`<div class="cli-empty" style="grid-column:1/-1;">${allClientes.length?'Sin resultados.':'Aún no hay clientes registrados.'}</div>`;return;}
+  el.innerHTML=filtered.map(c=>{
+    const pts=c.puntos||0;
+    const svcs=c.servicios_total||0;
+    const pct=Math.min(pts/5*100,100);
+    const premio=pts>=5;
+    return`<div class="cli-card">
+      <div class="cli-name">${c.nombre}</div>
+      <div class="cli-info">
+        ${c.telefono?`📞 ${c.telefono}<br>`:''}
+        ${(c.manzana||c.lote)?`📍 Mz. ${c.manzana||'—'}, Lote ${c.lote||'—'}`:''}
+      </div>
+      ${premio?`<div class="cli-reward">🎁 ¡Premio disponible! ${pts} puntos acumulados — listo para canjear</div>`:''}
+      <div class="pts-label">Puntos de fidelidad</div>
+      <div class="cli-pts">
+        <div class="pts-bar"><div class="pts-fill" style="width:${pct}%"></div></div>
+        <span class="pts-num">${pts}/5</span>
+      </div>
+      <div class="cli-svc-count">🚗 ${svcs} servicio${svcs!==1?'s':''} realizado${svcs!==1?'s':''}</div>
+      <div class="cli-acts" style="margin-top:.8rem;">
+        <button class="ab ac" onclick="registrarServicio('${c.id}')">+ Registrar servicio</button>
+        ${premio?`<button class="ab ao" onclick="canjearPuntos('${c.id}')">🎁 Canjear</button>`:''}
+        <button class="ab apd" style="padding:.3rem .6rem;" onclick="deleteCliente('${c.id}','${c.nombre}')">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+  // Badge
+  const conPremio=allClientes.filter(c=>(c.puntos||0)>=5).length;
+  const bCli=document.getElementById('badgeClientes');
+  if(bCli){if(conPremio>0){bCli.textContent=conPremio;bCli.style.display='flex';}else{bCli.style.display='none';}}
+}
+
+async function addCliente(){
+  const nombre=document.getElementById('cliNombre').value.trim();
+  if(!nombre){alert('El nombre es obligatorio.');return;}
+  const tel=document.getElementById('cliTel').value.trim();
+  const mz=document.getElementById('cliMz').value.trim();
+  const lote=document.getElementById('cliLote').value.trim();
+  const{error}=await sb.from('clientes').insert({nombre,telefono:tel,manzana:mz,lote,servicios_total:0,puntos:0});
+  if(error){toast('Error al guardar.');return;}
+  ['cliNombre','cliTel','cliMz','cliLote'].forEach(id=>document.getElementById(id).value='');
+  await loadAll();toast(`${nombre} agregado ✓`);
+}
+
+async function registrarServicio(id){
+  const cli=allClientes.find(c=>c.id===id);if(!cli)return;
+  const nuevoPts=Math.min((cli.puntos||0)+1,99);
+  const nuevoSvcs=(cli.servicios_total||0)+1;
+  await sb.from('clientes').update({puntos:nuevoPts,servicios_total:nuevoSvcs,updated_at:new Date().toISOString()}).eq('id',id);
+  await loadAll();
+  toast(nuevoPts>=5?`✓ Servicio registrado — ¡${cli.nombre} tiene premio disponible!`:`✓ Servicio registrado — ${cli.nombre} tiene ${nuevoPts}/5 puntos`);
+}
+
+async function canjearPuntos(id){
+  const cli=allClientes.find(c=>c.id===id);if(!cli)return;
+  if(!confirm(`¿Canjear los puntos de ${cli.nombre}? Se reiniciarán a 0.`))return;
+  await sb.from('clientes').update({puntos:0,updated_at:new Date().toISOString()}).eq('id',id);
+  await loadAll();toast(`🎁 Puntos canjeados — ${cli.nombre} reiniciado a 0`);
+}
+
+async function deleteCliente(id,nombre){
+  if(!confirm(`¿Eliminar a ${nombre} del registro?`))return;
+  await sb.from('clientes').delete().eq('id',id);
+  await loadAll();toast(`${nombre} eliminado.`);
+}
+
+/* ── HORARIOS ── */
+function renderHoraChips(){
+  const el=document.getElementById('horaChips');if(!el)return;
+  const list=cfgData.horarios||[];
+  el.innerHTML=list.length?list.map(h=>`
+    <div class="hora-chip">
+      <span>${h}</span>
+      <button onclick="removeHorario('${h}')" title="Eliminar">✕</button>
+    </div>`).join(''):'<span style="font-size:.72rem;color:var(--dim);">Sin horarios definidos.</span>';
+}
+
+async function addHorario(){
+  const input=document.getElementById('newHoraInput');
+  const val=input.value.trim();if(!val){alert('Ingresa un horario.');return;}
+  const list=[...(cfgData.horarios||[])];
+  if(list.includes(val)){toast('Ese horario ya existe.');return;}
+  list.push(val);cfgData.horarios=list;
+  await saveCfg('horarios',list,'savedHorarios');
+  input.value='';renderHoraChips();
+}
+
+async function removeHorario(h){
+  if(!confirm(`¿Eliminar el horario "${h}"?`))return;
+  const list=(cfgData.horarios||[]).filter(x=>x!==h);
+  cfgData.horarios=list;
+  await saveCfg('horarios',list,'savedHorarios');
+  renderHoraChips();toast(`Horario ${h} eliminado.`);
+}
+
 /* ── RENDER ALL ── */
-function renderAll(){renderKPI();renderCal();renderActive();renderHist();renderRevs();updateBadges();}
+function renderAll(){renderKPI();renderCal();renderActive();renderHist();renderRevs();updateBadges();renderClientes();}
 </script>
 </body>
 </html>
